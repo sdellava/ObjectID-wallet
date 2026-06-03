@@ -78,8 +78,8 @@
         <li>All keys are generated once on profile creation.</li>
         <li>Only one key per type is currently supported.</li>
         <li>
-          OIDwallet will automatically select the key type based on the server capabilities, but respect your preference if
-          there's multiple matches.
+          OIDwallet will automatically select the key type based on the server capabilities, but respect your preference
+          if there's multiple matches.
         </li>
       </ul>
     </div>

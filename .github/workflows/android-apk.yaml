@@ -1,0 +1,91 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+env:
+  PUBLIC_DEV_MODE_MENU_EXPANDED: false
+  PUBLIC_STYLE_SAFE_AREA_INSETS: false
+  PUBLIC_DEV_SHOW_CURRENT_ROUTE: false
+
+jobs:
+  android_apk:
+    name: Debug APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install Rust 1.90.0
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: 1.90.0
+          targets: aarch64-linux-android
+          cache: true
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Android NDK
+        uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r26d
+          link-to-sdk: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Android project
+        run: |
+          pnpm --filter=oidwallet tauri android init
+          cp -r unime/src-tauri/gen-static/android/. unime/src-tauri/gen/android/
+
+      - name: Create debug keystore
+        working-directory: ./unime/src-tauri/gen/android
+        run: |
+          keytool -genkeypair \
+            -v \
+            -keystore oidwallet-debug.jks \
+            -storepass android \
+            -keypass android \
+            -alias oidwallet-debug \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=OIDwallet Debug,O=ObjectID,C=IT"
+          {
+            echo "keyAlias=oidwallet-debug"
+            echo "keyPassword=android"
+            echo "storePassword=android"
+            echo "storeFile=oidwallet-debug.jks"
+          } > keystore.properties
+
+      - name: Build debug APK
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          ANDROID_NDK_ROOT: ${{ steps.setup-ndk.outputs.ndk-path }}
+        run: pnpm --filter=oidwallet tauri android build --debug --target aarch64 --apk true --aab false
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OIDwallet-debug-apk
+          path: unime/src-tauri/gen/android/app/build/outputs/apk/**/*.apk
+          if-no-files-found: error
