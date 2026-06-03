@@ -1,6 +1,4 @@
 #[cfg(target_os = "android")]
-use iota_sdk::IotaClientBuilder;
-#[cfg(target_os = "android")]
 use jni::{
     objects::{JClass, JObject},
     JNIEnv,
@@ -16,16 +14,9 @@ pub fn run() {
     use log::{info, LevelFilter};
     use tauri_plugin_log::{fern::colors::Color, fern::colors::ColoredLevelConfig, Target, TargetKind};
 
-    let mut builder = tauri::Builder::default();
+    let builder = tauri::Builder::default();
 
-    #[cfg(desktop)]
-    {
-        builder = builder.plugin(tauri_plugin_single_instance::init(|_app, argv, _cwd| {
-            info!("New app instance opened via deep link: {argv:?}");
-        }));
-    }
-
-    builder
+    setup_desktop_plugins(builder)
         .invoke_handler(tauri::generate_handler![tauri_command::handle_action])
         .setup(move |app| {
             info!("setting up tauri app");
@@ -64,6 +55,22 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+#[cfg(desktop)]
+fn setup_desktop_plugins(
+    builder: tauri::Builder<identity_wallet::command::Runtime>,
+) -> tauri::Builder<identity_wallet::command::Runtime> {
+    builder.plugin(tauri_plugin_single_instance::init(|_app, argv, _cwd| {
+        log::info!("New app instance opened via deep link: {argv:?}");
+    }))
+}
+
+#[cfg(not(desktop))]
+fn setup_desktop_plugins(
+    builder: tauri::Builder<identity_wallet::command::Runtime>,
+) -> tauri::Builder<identity_wallet::command::Runtime> {
+    builder
 }
 
 pub mod tauri_command {
