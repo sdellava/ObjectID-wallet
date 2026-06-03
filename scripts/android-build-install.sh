@@ -2,7 +2,7 @@
 set -euo pipefail
 
 APP_ID="com.impierce.identity_wallet"
-WORKDIR="${WORKDIR:-$HOME/dev/identity-wallet}"
+WORKDIR="${WORKDIR:-$HOME/dev/objectid-wallet-build}"
 NODE_DIR="${NODE_DIR:-$HOME/.local/node/node-v24.14.0-linux-x64}"
 ANDROID_HOME="${ANDROID_HOME:-$HOME/Android/Sdk}"
 ANDROID_NDK_ROOT="${ANDROID_NDK_ROOT:-$ANDROID_HOME/ndk/26.1.10909125}"
@@ -17,7 +17,7 @@ usage() {
 Usage: bash scripts/android-build-install.sh [--no-install] [--clean]
 
 Environment overrides:
-  WORKDIR               WSL build copy directory. Default: $HOME/dev/identity-wallet
+  WORKDIR               WSL build copy directory. Default: $HOME/dev/objectid-wallet-build
   NODE_DIR              Node.js directory. Default: $HOME/.local/node/node-v24.14.0-linux-x64
   ANDROID_HOME          WSL Android SDK. Default: $HOME/Android/Sdk
   ANDROID_NDK_ROOT      Android NDK path. Default: $HOME/Android/Sdk/ndk/26.1.10909125

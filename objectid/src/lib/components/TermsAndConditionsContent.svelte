@@ -1,76 +1,40 @@
 <script lang="ts">
-  import LL from '$i18n/i18n-svelte';
+  import { onMount } from 'svelte';
 
-  const sections = [
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.AGREEMENT.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.AGREEMENT.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DEFINITIONS.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DEFINITIONS.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.USER_RESPONSIBILITIES.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.USER_RESPONSIBILITIES.DESCRIPTION(),
-    },
+  import { invoke } from '@tauri-apps/api/core';
 
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DATA_OWNERSHIP.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DATA_OWNERSHIP.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DATA_VISIBILITY.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DATA_VISIBILITY.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.INTELLECTUAL_PROPERTY_RIGHTS.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.INTELLECTUAL_PROPERTY_RIGHTS.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.PROHIBITED_ACTIVITIES.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.PROHIBITED_ACTIVITIES.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.THIRD_PARTY_SERVICES.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.THIRD_PARTY_SERVICES.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LIABILITY.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LIABILITY.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.INDEMNIFICATION.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.INDEMNIFICATION.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.MODIFICATIONS.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.MODIFICATIONS.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LAW_AND_JURISDIFICATION.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LAW_AND_JURISDIFICATION.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.SEVERABILITY.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.SEVERABILITY.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LANGUAGE.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LANGUAGE.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.ENTIRE_AGREEMENT.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.ENTIRE_AGREEMENT.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.CONTACT.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.CONTACT.DESCRIPTION(),
-    },
-  ];
+  const termsUrl = 'https://objectid.io/general-terms/';
+
+  let terms = $state('');
+  let error = $state('');
+  let loading = $state(true);
+
+  onMount(async () => {
+    try {
+      terms = await invoke<string>('fetch_objectid_terms');
+    } catch (caughtError) {
+      error = caughtError instanceof Error ? caughtError.message : String(caughtError);
+    } finally {
+      loading = false;
+    }
+  });
 </script>
 
-{#each sections as section}
-  <h3 class="my-1 text-xs font-bold">{section.title}</h3>
-  <p class="mb-3 text-xs font-light">{section.description}</p>
-{/each}
+<div class="space-y-3 text-xs leading-relaxed text-slate-700 dark:text-slate-200">
+  {#if loading}
+    <p class="font-medium">Loading the latest ObjectID terms...</p>
+  {:else if error}
+    <div class="rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-600 dark:bg-dark">
+      <p class="font-semibold">The live terms could not be loaded.</p>
+      <p class="mt-2 text-slate-500 dark:text-slate-300">
+        Open <a class="underline" href={termsUrl} target="_blank" rel="noreferrer">objectid.io/general-terms</a>
+        to review the latest version.
+      </p>
+    </div>
+  {:else}
+    <p class="whitespace-pre-line">{terms}</p>
+    <p class="pt-2 text-[11px] text-slate-500 dark:text-slate-300">
+      Loaded from <a class="underline" href={termsUrl} target="_blank" rel="noreferrer">objectid.io/general-terms</a>
+    </p>
+  {/if}
+</div>

@@ -25,6 +25,7 @@ identity-wallet = { path = "../../identity-wallet" }
 iota-sdk = { git = "https://github.com/iotaledger/iota", package = "iota-sdk", rev = "96196f0da231883ec69cda04892c600ef6afa982" }
 jni = "0.21"
 log.workspace = true
+reqwest = { version = "0.11", default-features = false, features = ["rustls-tls", "json"] }
 rustls.workspace = true
 rustls-platform-verifier.workspace = true
 rustls-platform-verifier-05 = { package = "rustls-platform-verifier", version = "0.5.3" }

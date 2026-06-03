@@ -9244,6 +9244,48 @@ dependencies = [
 ]
 
 [[package]]
+name = "objectid"
+version = "0.13.2"
+dependencies = [
+ "did_manager",
+ "dotenvy",
+ "identity-wallet",
+ "iota-sdk 1.22.0-alpha",
+ "jni",
+ "jsonwebtoken",
+ "log",
+ "oauth_tsl",
+ "objectid",
+ "oid4vc",
+ "rand 0.8.5",
+ "reqwest 0.11.27",
+ "rustls 0.23.31",
+ "rustls-platform-verifier 0.5.3",
+ "rustls-platform-verifier 0.6.1",
+ "serde",
+ "serde_json",
+ "serial_test",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-barcode-scanner",
+ "tauri-plugin-biometric",
+ "tauri-plugin-deep-link",
+ "tauri-plugin-fs",
+ "tauri-plugin-keystore",
+ "tauri-plugin-log",
+ "tauri-plugin-opener",
+ "tauri-plugin-os",
+ "tauri-plugin-shell",
+ "tauri-plugin-single-instance",
+ "tempfile",
+ "tokio",
+ "typetag",
+ "url",
+ "uuid",
+ "wiremock",
+]
+
+[[package]]
 name = "oid-registry"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -14589,47 +14631,6 @@ name = "unicode-xid"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
-
-[[package]]
-name = "objectid"
-version = "0.13.2"
-dependencies = [
- "did_manager",
- "dotenvy",
- "identity-wallet",
- "iota-sdk 1.22.0-alpha",
- "jni",
- "jsonwebtoken",
- "log",
- "oauth_tsl",
- "oid4vc",
- "rand 0.8.5",
- "rustls 0.23.31",
- "rustls-platform-verifier 0.5.3",
- "rustls-platform-verifier 0.6.1",
- "serde",
- "serde_json",
- "serial_test",
- "tauri",
- "tauri-build",
- "tauri-plugin-barcode-scanner",
- "tauri-plugin-biometric",
- "tauri-plugin-deep-link",
- "tauri-plugin-fs",
- "tauri-plugin-keystore",
- "tauri-plugin-log",
- "tauri-plugin-opener",
- "tauri-plugin-os",
- "tauri-plugin-shell",
- "tauri-plugin-single-instance",
- "tempfile",
- "tokio",
- "typetag",
- "objectid",
- "url",
- "uuid",
- "wiremock",
-]
 
 [[package]]
 name = "universal-hash"
