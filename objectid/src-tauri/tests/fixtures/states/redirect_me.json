@@ -1,0 +1,13 @@
+{
+  "profile_settings": {
+    "profile": {
+      "name": "Ferris Crabman",
+      "picture": "&#129408",
+      "theme": "system"
+    }
+  },
+  "current_user_prompt": {
+    "type": "redirect",
+    "target": "me"
+  }
+}

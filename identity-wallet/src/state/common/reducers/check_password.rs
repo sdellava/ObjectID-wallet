@@ -6,7 +6,7 @@ use crate::stronghold::StrongholdManager;
 
 pub async fn check_password(state: AppState, action: Action) -> Result<AppState, AppError> {
     if let Some(password) = listen::<CheckPassword>(action).map(|payload| payload.password) {
-        // TODO(refactor): In the current design of OIDwallet, there is no way to tell the frontend that the password is correct, except through a state update.
+        // TODO(refactor): In the current design of ObjectID, there is no way to tell the frontend that the password is correct, except through a state update.
         //   We therefore push a debug message and return the state as is.
         //   TODO: possible solution: introduce unique "action id" to identify which command triggered with action (similar to tracing id)
         if StrongholdManager::load(&password).is_ok() {

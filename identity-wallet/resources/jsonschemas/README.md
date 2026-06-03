@@ -1,4 +1,4 @@
-This folder contains the JSON Schemas of the digital credential data formats supported by OIDwallet:
+This folder contains the JSON Schemas of the digital credential data formats supported by ObjectID:
 
 - [Verifiable Credentials Data Model v1.1](https://www.w3.org/TR/vc-data-model-1.1)
   JSON Schema source: Created by us, Impierce, based on the specification

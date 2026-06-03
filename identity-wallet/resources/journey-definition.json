@@ -1,8 +1,8 @@
 {
   "title": "KW1C Demo",
-  "description": "Set up your profile and get started with your OIDwallet app.",
+  "description": "Set up your profile and get started with your ObjectID app.",
   "description_short": "Complete the KW1C Demo",
-  "creator": "OIDwallet",
+  "creator": "ObjectID",
   "goals": [
     {
       "id": 0,

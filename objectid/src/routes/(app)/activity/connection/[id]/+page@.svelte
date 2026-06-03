@@ -1,0 +1,61 @@
+<script lang="ts">
+  import { beforeNavigate, goto, replaceState } from '$app/navigation';
+  import { page } from '$app/state';
+  import LL from '$i18n/i18n-svelte';
+  import { writable, type Writable } from 'svelte/store';
+  import { fly } from 'svelte/transition';
+
+  import type { Connection } from '@bindings/connections/Connection';
+
+  import { History, Tabs, TopNavBar } from '$lib/components';
+  import { state } from '$lib/stores';
+
+  import ConnectionData from './ConnectionData.svelte';
+  import ConnectionSummary from './ConnectionSummary.svelte';
+
+  let connection: Connection = $state.connections.find((c) => c.id === page.params.id)!;
+
+  let triggers = [$LL.CONNECTION.TABS.SUMMARY(), $LL.CONNECTION.TABS.DATA(), $LL.CONNECTION.TABS.ACTIVITY()];
+  let activeTab: Writable<string> = writable(page.state.tab || triggers[0]);
+
+  beforeNavigate(async ({ type, cancel }) => {
+    replaceState('', { tab: $activeTab });
+    if (type === 'popstate') {
+      cancel();
+      goto('/activity');
+    }
+  });
+</script>
+
+<div class="content-height flex flex-col">
+  <TopNavBar on:back={() => history.back()} title={connection.name} class="bg-silver dark:bg-navy" />
+  <div
+    class="flex grow flex-col overflow-y-auto bg-silver px-4 py-5 dark:bg-navy"
+    in:fly={{ y: 18, duration: 200, opacity: 1 }}
+  >
+    <Tabs value={activeTab} {triggers}>
+      <div slot="0" class="h-full pt-5">
+        <ConnectionSummary {connection} />
+      </div>
+      <div slot="1" class="h-full bg-silver py-5 dark:bg-navy">
+        <ConnectionData id={connection.id} />
+      </div>
+
+      <div slot="2" class="bg-silver pt-5 dark:bg-navy">
+        <!-- TODO: If this turns out to be a costly operation (filtering in backend), consider lazy loading the component -->
+        <History connectionId={connection.id} />
+      </div>
+    </Tabs>
+  </div>
+</div>
+
+<!--
+  TODO: remove bottom bar. General rule: only show it in the top level, when navigation one level down, do not show bottom nav anymore
+  Exception: in settings, we keep the bottom nav, because we have a lot of levels there
+  -->
+<style>
+  .content-height {
+    /* bottom-navigation: 64px */
+    height: calc(100vh - var(--safe-area-inset-top) - var(--safe-area-inset-bottom));
+  }
+</style>

@@ -19,19 +19,6 @@ pub async fn create_or_load_wallet(state: AppState, action: Action) -> Result<Ap
         return Ok(state);
     };
 
-    let wallet = create_or_load_wallet_for_setup(&state, payload.network, None).await?;
-
-    Ok(AppState {
-        iota_wallet: IotaWalletState::from(&wallet),
-        ..state
-    })
-}
-
-pub(crate) async fn create_or_load_wallet_for_setup(
-    state: &AppState,
-    network: crate::state::iota_wallet::IotaNetwork,
-    imported_mnemonic: Option<String>,
-) -> Result<StoredIotaWallet, AppError> {
     let stronghold_manager = state
         .core_utils
         .managers
@@ -41,56 +28,13 @@ pub(crate) async fn create_or_load_wallet_for_setup(
         .clone()
         .ok_or(AppError::MissingManagerError("stronghold"))?;
 
-    if imported_mnemonic.is_none() {
-        if let Some(bytes) = stronghold_manager
-            .get_named(IOTA_WALLET_STORE_KEY)
-            .map_err(AppError::StrongholdValuesError)?
-        {
-            let mut wallet = serde_json::from_slice::<StoredIotaWallet>(&bytes).map_err(AppError::DeserializeFailed)?;
-            if wallet.network != network {
-                wallet.network = network;
-                save_stored_wallet(state, &wallet).await?;
-            }
-            return Ok(wallet);
-        }
-    }
-
-    let (address, mnemonic, public_key) = create_wallet_material(imported_mnemonic)?;
-    let wallet = StoredIotaWallet {
-        mnemonic,
-        address,
-        public_key: Some(public_key),
-        identity_controller_private_key: None,
-        identity_controller_public_jwk: None,
-        network,
-        did: None,
-        did_network: None,
-        did_document: None,
-        identity_controller_cap: None,
-    };
-    let bytes = serde_json::to_vec(&wallet).map_err(AppError::DeserializeFailed)?;
-    stronghold_manager
-        .insert_named(IOTA_WALLET_STORE_KEY, bytes)
-        .map_err(AppError::StrongholdInsertionError)?;
-
-    Ok(wallet)
-}
-
-fn create_wallet_material(imported_mnemonic: Option<String>) -> Result<(String, String, String), AppError> {
-    let mut keystore = InMemKeystore::default();
-    let (address, mnemonic) = match imported_mnemonic {
-        Some(mnemonic) => {
-            let address = keystore
-                .import_from_mnemonic(
-                    &mnemonic,
-                    SignatureScheme::ED25519,
-                    None,
-                    Some("objectid-iota".to_string()),
-                )
-                .map_err(|e| AppError::Error(format!("Failed to import IOTA wallet: {e}")))?;
-            (address, mnemonic)
-        }
+    let mut wallet = match stronghold_manager
+        .get_named(IOTA_WALLET_STORE_KEY)
+        .map_err(AppError::StrongholdValuesError)?
+    {
+        Some(bytes) => serde_json::from_slice::<StoredIotaWallet>(&bytes).map_err(AppError::DeserializeFailed)?,
         None => {
+            let mut keystore = InMemKeystore::default();
             let (address, mnemonic, _) = keystore
                 .generate_and_add_new_key(
                     SignatureScheme::ED25519,
@@ -99,16 +43,40 @@ fn create_wallet_material(imported_mnemonic: Option<String>) -> Result<(String, 
                     Some("word24".to_string()),
                 )
                 .map_err(|e| AppError::Error(format!("Failed to create IOTA wallet: {e}")))?;
-            (address, mnemonic)
+            let public_key = keystore
+                .get_key(&address)
+                .map_err(|e| AppError::Error(format!("Failed to read generated IOTA public key: {e}")))?
+                .public()
+                .encode_base64();
+            let wallet = StoredIotaWallet {
+                mnemonic,
+                address: address.to_string(),
+                public_key: Some(public_key),
+                identity_controller_private_key: None,
+                identity_controller_public_jwk: None,
+                network: payload.network,
+                did: None,
+                did_network: None,
+                did_document: None,
+                identity_controller_cap: None,
+            };
+            let bytes = serde_json::to_vec(&wallet).map_err(AppError::DeserializeFailed)?;
+            stronghold_manager
+                .insert_named(IOTA_WALLET_STORE_KEY, bytes)
+                .map_err(AppError::StrongholdInsertionError)?;
+            wallet
         }
     };
-    let public_key = keystore
-        .get_key(&address)
-        .map_err(|e| AppError::Error(format!("Failed to read generated IOTA public key: {e}")))?
-        .public()
-        .encode_base64();
 
-    Ok((address.to_string(), mnemonic, public_key))
+    if wallet.network != payload.network {
+        wallet.network = payload.network;
+        save_stored_wallet(&state, &wallet).await?;
+    }
+
+    Ok(AppState {
+        iota_wallet: IotaWalletState::from(&wallet),
+        ..state
+    })
 }
 
 pub(crate) async fn load_stored_wallet(state: &AppState) -> Result<StoredIotaWallet, AppError> {

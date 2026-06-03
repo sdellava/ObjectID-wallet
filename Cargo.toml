@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["identity-wallet", "unime/src-tauri"]
+members = ["identity-wallet", "objectid/src-tauri"]
 
 [workspace.dependencies]
 tauri = { version = "2.9.2", features = ["protocol-asset", "rustls-tls"] }
@@ -25,13 +25,13 @@ wiremock = "0.5"
 sd-jwt = { git = "https://github.com/impierce/sd-jwt-payload", rev = "f28789a", package = "sd-jwt-payload" }
 
 [workspace.package]
-name = "oidwallet"
+name = "objectid"
 version = "0.13.2"
 description = "Identity Wallet for people to manage Decentralized Identities and Verifiable Credentials"
 homepage = "https://www.impierce.com/"
 authors = ["Impierce Technologies"]
 keywords = ["identity", "did", "ssi", "wallet", "siopv2"]
 license = "Apache-2.0"
-repository = "https://github.com/sdellava/ObjectID-wallet"
+repository = "https://github.com/impierce/identity-wallet"
 edition = "2021"
 rust-version = "1.76.0"

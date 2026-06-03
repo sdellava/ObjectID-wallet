@@ -27,7 +27,7 @@ body:
       description: Link to any resources relevant for the task such as issues, PRs, reference implementations, or specifications.
       placeholder: |
         Depends on \#1 and \#2
-        [Link to relevant resources](https://github.com/sdellava/ObjectID-wallet)
+        [Link to relevant resources](www.impierce.com)
     validations:
       required: false
   - type: textarea

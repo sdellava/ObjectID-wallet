@@ -24,16 +24,6 @@ pub struct CreateNew {
     pub password: String,
     #[serde(default)]
     pub biometrics_enabled: bool,
-    #[serde(default)]
-    pub iota_wallet: Option<IotaWalletSetup>,
-}
-
-#[derive(Serialize, Deserialize, TS, Clone, Debug)]
-#[ts(export, export_to = "bindings/actions/IotaWalletSetup.ts")]
-#[serde(tag = "mode", rename_all = "snake_case")]
-pub enum IotaWalletSetup {
-    Initialize,
-    ImportSeed { seed: String },
 }
 
 impl std::fmt::Debug for CreateNew {
@@ -44,13 +34,6 @@ impl std::fmt::Debug for CreateNew {
             .field("theme", &self.theme)
             .field("password", &"*****")
             .field("biometrics_enabled", &self.biometrics_enabled)
-            .field(
-                "iota_wallet",
-                &self.iota_wallet.as_ref().map(|setup| match setup {
-                    IotaWalletSetup::Initialize => "initialize",
-                    IotaWalletSetup::ImportSeed { .. } => "import_seed",
-                }),
-            )
             .finish()
     }
 }

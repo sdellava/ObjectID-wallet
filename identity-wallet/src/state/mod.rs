@@ -39,10 +39,10 @@ use verified_data::VerifiedData;
 // TODO: usually in traditional OAuth2/OIDC apps the client_id is provided by the authorization server
 // when registering the app. For now we are hardcoding it here, but in the future we should provide a way to configure it.
 // See: https://github.com/openid/OpenID4VCI/issues/94
-pub const OIDWALLET_CLIENT_ID: &str = "oidwallet";
+pub const OBJECTID_CLIENT_ID: &str = "objectid";
 
 // This is the custom URI scheme that the app will use to receive the authorization code from the authorization server.
-pub const OIDWALLET_REDIRECT_URI: &str = "oidwallet://callback";
+pub const OBJECTID_REDIRECT_URI: &str = "objectid://callback";
 
 // The AppState is the main state of the application shared between the backend and the frontend.
 // We have structured the state and its operations following the redux pattern.
@@ -119,7 +119,7 @@ pub struct AppState {
     pub history: Vec<HistoryEvent>,
     pub verified_data: VerifiedData,
     pub iota_wallet: IotaWalletState,
-    /// Extensions will bring along their own redux compliant code, in the unime folder.
+    /// Extensions will bring along their own redux compliant code, in the objectid folder.
     #[ts(skip)]
     pub extensions: std::collections::HashMap<String, Box<dyn FeatTrait>>,
     pub show_dev_mode_setting: bool,

@@ -18,7 +18,7 @@ use std::sync::Arc;
 use tokio::sync::{Mutex, OnceCell};
 
 /// A `Subject` implements functions required for signatures and verification.
-/// In OIDwallet, it serves as the "binding link" between the protocol libraries (OID4VC) and the secret management (DID Manager).
+/// In ObjectID, it serves as the "binding link" between the protocol libraries (OID4VC) and the secret management (DID Manager).
 #[derive(Debug)]
 pub struct Subject {
     pub stronghold_manager: Arc<StrongholdManager>,

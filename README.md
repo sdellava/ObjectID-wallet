@@ -1,8 +1,8 @@
-![banner.svg](https://github.com/sdellava/ObjectID-wallet/raw/HEAD/.github/banner.svg)
+![banner.svg](https://github.com/impierce/identity-wallet/raw/HEAD/.github/banner.svg)
 
 ---
 
-# ObjectID-wallet
+# ObjectID - Identity Wallet
 
 Identity Wallet for people to manage Decentralized Identities and Verifiable Credentials.
 
@@ -16,12 +16,12 @@ Checkout the [Prerequisites](https://v2.tauri.app/start/prerequisites/) for runn
 
 This repository uses [pnpm workspaces](https://pnpm.io/workspaces):
 
-| Path                | Description                                                 |
-| :------------------ | :---------------------------------------------------------- |
-| `./`                | Project root with Prettier configuration.                   |
-| `./unime`           | pnpm workspace with OIDwallet frontend.                     |
-| `./unime/src-tauri` | Tauri Rust app (not a pnpm workspace).                      |
-| `./identity-wallet` | Rust package with OIDwallet backend (not a pnpm workspace). |
+| Path                | Description                                             |
+| :------------------ | :------------------------------------------------------ |
+| `./`                | Project root with Prettier configuration.               |
+| `./objectid`           | pnpm workspace with ObjectID frontend.                     |
+| `./objectid/src-tauri` | Tauri Rust app (not a pnpm workspace).                  |
+| `./identity-wallet` | Rust package with ObjectID backend (not a pnpm workspace). |
 
 Get up and running with these steps:
 
@@ -38,7 +38,7 @@ pnpm i
 ### 3. Generate icons
 
 ```sh
-cd unime/src-tauri
+cd objectid/src-tauri
 cargo tauri icon
 ```
 
@@ -79,7 +79,7 @@ pnpm tauri ios dev
 > [!NOTE]
 > Before committing, please make sure the code is formatted, linted, and passes all tests.
 
-### OIDwallet frontend
+### ObjectID frontend
 
 Run the following commands from the project root:
 
@@ -89,7 +89,7 @@ pnpm lint
 pnpm test
 ```
 
-Run these commands from `./unime/src-tauri`:
+Run these commands from `./objectid/src-tauri`:
 
 ```sh
 cargo fmt
@@ -97,7 +97,7 @@ cargo clippy
 cargo test
 ```
 
-### OIDwallet backend package
+### ObjectID backend package
 
 Run these commands from `./identity-wallet`:
 
@@ -113,9 +113,9 @@ In order to regenerate the TypeScript bindings in `identity-wallet/bindings` aft
 
 ### Updating translations
 
-1. Edit the base language file (English) at `unime/src/i18n/en/index.ts`.
-2. Inside the `unime` folder, run `pnpm typesafe-i18n` to update the types.
-3. Adjust all other language files in `unime/src/i18n/` accordingly until all types are satisfied.
+1. Edit the base language file (English) at `objectid/src/i18n/en/index.ts`.
+2. Inside the `objectid` folder, run `pnpm typesafe-i18n` to update the types.
+3. Adjust all other language files in `objectid/src/i18n/` accordingly until all types are satisfied.
 4. Running `pnpm check` shouldn't produce any errors related to `i18n`.
 
 ### Updating dependencies
@@ -145,15 +145,15 @@ rd /s /q "%USERPROFILE%\.cargo\git\checkouts"
 
 ### Debugging
 
-You can simulate safe area insets during development by overriding CSS variables `--safe-area-inset-top` and `--safe-area-inset-button` in `unime/src/app.css`. You can add styling to the safe area insets by setting `PUBLIC_STYLE_SAFE_AREA_INSETS=true` in your `.env`.
+You can simulate safe area insets during development by overriding CSS variables `--safe-area-inset-top` and `--safe-area-inset-button` in `objectid/src/app.css`. You can add styling to the safe area insets by setting `PUBLIC_STYLE_SAFE_AREA_INSETS=true` in your `.env`.
 
 ## Release a new version
 
 1. Search the entire project for the current version string (such as `0.6.2`) and replace them with the new version string.
    Be **cautious** not to replace versions of any other dependencies (in `Cargo.toml`, `Cargo.lock`, `package.json`, `package-lock.json`).
-2. Run the script in `unime/src-tauri/gen-static/apply.sh` which copies over the changed files into the (untracked) generated folders for Android and iOS.
-3. Inside `unime/src-tauri` run `cargo tauri icon`.
+2. Run the script in `objectid/src-tauri/gen-static/apply.sh` which copies over the changed files into the (untracked) generated folders for Android and iOS.
+3. Inside `objectid/src-tauri` run `cargo tauri icon`.
 4. To create a release build, there is a special tweak for the respective platform:
-   - For **iOS**, open Xcode and open the root file `unime.xcodeproj`. Go to `Signing & Capabilities`, disable `Automatically manage signing` and select the `Provisioning Profile` manually.
-   - For **Android**, create a `keystore.properties` file in `unime/src-tauri/gen/android` which contains the secrets required in `build.gradle.kts` (such as `keyAlias`, etc.).
-5. Run `pnpm tauri ios build` and `pnpm tauri android build` to build the apps. The iOS build (`.ipa`) will be in `unime/src-tauri/gen/apple/build/arm64` and the Android builds (`.apk` and `.aab`) will be in `unime/src-tauri/gen/android/app/build/outputs/`.
+   - For **iOS**, open Xcode and open the root file `objectid.xcodeproj`. Go to `Signing & Capabilities`, disable `Automatically manage signing` and select the `Provisioning Profile` manually.
+   - For **Android**, create a `keystore.properties` file in `objectid/src-tauri/gen/android` which contains the secrets required in `build.gradle.kts` (such as `keyAlias`, etc.).
+5. Run `pnpm tauri ios build` and `pnpm tauri android build` to build the apps. The iOS build (`.ipa`) will be in `objectid/src-tauri/gen/apple/build/arm64` and the Android builds (`.apk` and `.aab`) will be in `objectid/src-tauri/gen/android/app/build/outputs/`.

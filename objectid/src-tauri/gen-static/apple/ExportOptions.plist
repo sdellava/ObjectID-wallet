@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Use "debugging" for local testing, use "app-store-connect" for TestFlight releases -->
+
+	<!-- <key>method</key>
+    <string>debugging</string>
+    <key>provisioningProfiles</key>
+	<dict>
+		<key>com.impierce.identity-wallet</key>
+		<string>ObjectID - Development Profile</string>
+	</dict> -->
+
+    <key>method</key>
+	<string>app-store-connect</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.impierce.identity-wallet</key>
+		<string>ObjectID - Distribution Profile</string>
+	</dict>
+</dict>
+</plist>

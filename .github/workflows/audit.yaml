@@ -4,10 +4,11 @@ on:
   schedule:
     - cron: "0 3 * * *" # run at 3 AM every day
   workflow_dispatch:
+  push:
+    branches: ["dev"]
 
 jobs:
   cargo-audit:
-    name: Rust dependency audit
     runs-on: ubuntu-latest
 
     steps:
@@ -19,12 +20,9 @@ jobs:
 
       - run: cargo install cargo-audit
 
-      - name: Run cargo audit
-        continue-on-error: true
-        run: cargo audit
+      - run: cargo audit
 
   npm-audit:
-    name: NPM dependency audit
     runs-on: ubuntu-latest
 
     steps:
@@ -32,13 +30,11 @@ jobs:
 
       - uses: pnpm/action-setup@v6
         with:
-          version: 10
+          version: latest
 
       - uses: actions/setup-node@v6
         with:
           node-version: 'lts/*'
           cache: 'pnpm'
 
-      - name: Run pnpm audit
-        continue-on-error: true
-        run: pnpm audit
+      - run: pnpm audit

@@ -195,7 +195,7 @@ impl VerifiableCredentialRecord {
                                 .to_string(),
                         ))?;
 
-                    // TODO: do not use a hash to generate the credential ID. Currently we still do this so that our tests in `unime/src-tauri/tests` don't break.
+                    // TODO: do not use a hash to generate the credential ID. Currently we still do this so that our tests in `objectid/src-tauri/tests` don't break.
                     let hash = { sha256::digest(json!(credential_display).to_string()) };
 
                     let issuance_date = credential_display["issuanceDate"]

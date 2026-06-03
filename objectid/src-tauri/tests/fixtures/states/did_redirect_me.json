@@ -1,0 +1,32 @@
+{
+  "connections": [
+    {
+      "id": "c0f1be09f33c331ee001a09e1515ba70022a102b30ebad7f15f8e6a9017e177c",
+      "name": "example.com",
+      "url": "example.com",
+      "verified": false,
+      "first_interacted": "2024-03-15T01:16:28.712260354+00:00",
+      "last_interacted": "2024-03-15T01:16:28.712260354+00:00"
+    }
+  ],
+  "profile_settings": {
+    "profile": {
+      "name": "Ferris",
+      "picture": "&#129408",
+      "theme": "system"
+    }
+  },
+  "current_user_prompt": {
+    "type": "redirect",
+    "target": "me"
+  },
+  "history": [
+    {
+      "connection_id": "c0f1be09f33c331ee001a09e1515ba70022a102b30ebad7f15f8e6a9017e177c",
+      "connection_name": "example.com",
+      "event_type": "ConnectionAdded",
+      "date": "2024-03-15T01:17:34.692691163+00:00",
+      "credentials": []
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+**/target/
+**/.cargo
+**/Cargo.lock
+!Cargo.lock
+.snapshot
+
+gen/
+
+# All icons can be easily generated through `cargo tauri icon`
+icons/
+# Some icons stay checked in to enable a smoother onboarding, because `cargo tauri dev` does not start without them
+!icons/32x32.png
+!icons/icon.icns

@@ -103,7 +103,6 @@ pub async fn read_wallet_login_request(state: AppState, action: Action) -> Resul
     })
 }
 
-#[allow(dead_code)]
 pub(crate) fn is_wallet_login_request(value: &str) -> bool {
     parse_wallet_login_request(value).ok().flatten().is_some()
 }

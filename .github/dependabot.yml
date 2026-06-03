@@ -6,18 +6,10 @@ updates:
       interval: "monthly"
     ignore:
       - dependency-name: "@tauri-apps/*"
-    groups:
-      npm-dependencies:
-        patterns:
-          - "*"
     rebase-strategy: "disabled"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 10
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
-    groups:
-      github-actions:
-        patterns:
-          - "*"
     rebase-strategy: "disabled"

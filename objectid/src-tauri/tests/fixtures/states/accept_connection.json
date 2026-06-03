@@ -1,0 +1,21 @@
+{
+  "profile_settings": {
+    "profile": {
+      "name": "Ferris",
+      "picture": "&#129408",
+      "theme": "system"
+    }
+  },
+  "current_user_prompt": {
+    "type": "accept-connection",
+    "client_name": "example.com",
+    "logo_uri": null,
+    "redirect_uri": "https://example.com/",
+    "previously_connected": false,
+    "domain_validation": {
+      "status": "Unknown",
+      "message": null
+    },
+    "linked_verifiable_presentations": []
+  }
+}

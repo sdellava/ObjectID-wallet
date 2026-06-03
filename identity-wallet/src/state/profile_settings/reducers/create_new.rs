@@ -3,17 +3,7 @@ use crate::{
     state::{
         actions::{listen, Action},
         core_utils::IdentityManager,
-        iota_wallet::{
-            actions::create_identity::CreateIotaIdentity,
-            reducers::{
-                create_identity as iota_identity_reducer, create_or_load_wallet::create_or_load_wallet_for_setup,
-            },
-            IotaNetwork, IotaWalletState,
-        },
-        profile_settings::{
-            actions::create_new::{CreateNew, IotaWalletSetup},
-            Profile, ProfileSettings,
-        },
+        profile_settings::{actions::create_new::CreateNew, Profile, ProfileSettings},
         trust_list::{TrustList, TrustLists},
         user_prompt::CurrentUserPrompt,
         AppState, SUPPORTED_DID_METHODS, SUPPORTED_SIGNING_ALGORITHMS,
@@ -28,10 +18,6 @@ use oid4vc::oid4vc_core::Subject as _;
 use oid4vc::oid4vc_manager::ProviderManager;
 use oid4vc::oid4vci::Wallet;
 use std::sync::Arc;
-use std::time::Duration;
-use tokio::time::timeout;
-
-const IOTA_ONBOARDING_DID_TIMEOUT: Duration = Duration::from_secs(60);
 
 /// Creates a new profile, produces (deterministic) DIDs and redirects to the main page.
 pub async fn create_identity(state: AppState, action: Action) -> Result<AppState, AppError> {
@@ -41,7 +27,6 @@ pub async fn create_identity(state: AppState, action: Action) -> Result<AppState
         theme,
         password,
         biometrics_enabled,
-        iota_wallet,
     }) = listen::<CreateNew>(action)
     {
         info!("Creating new identity ...");
@@ -105,7 +90,7 @@ pub async fn create_identity(state: AppState, action: Action) -> Result<AppState
         let trust_lists = TrustLists(vec![default_trust_list]);
 
         drop(state_guard);
-        let mut next_state = AppState {
+        return Ok(AppState {
             dids,
             profile_settings,
             current_user_prompt: Some(CurrentUserPrompt::Redirect {
@@ -113,42 +98,7 @@ pub async fn create_identity(state: AppState, action: Action) -> Result<AppState
             }),
             trust_lists,
             ..state
-        };
-
-        if let Some(setup) = iota_wallet {
-            let imported_mnemonic = match setup {
-                IotaWalletSetup::Initialize => None,
-                IotaWalletSetup::ImportSeed { seed } => Some(seed),
-            };
-            let wallet = create_or_load_wallet_for_setup(&next_state, IotaNetwork::Testnet, imported_mnemonic).await?;
-            next_state = AppState {
-                iota_wallet: IotaWalletState::from(&wallet),
-                ..next_state
-            };
-            next_state = match timeout(
-                IOTA_ONBOARDING_DID_TIMEOUT,
-                iota_identity_reducer::create_identity(next_state.clone(), Arc::new(CreateIotaIdentity {}) as Action),
-            )
-            .await
-            {
-                Ok(result) => result?,
-                Err(_) => AppState {
-                    iota_wallet: IotaWalletState {
-                        last_error: Some(
-                            "IOTA DID publication timed out. The wallet was created; try publishing the DID again later."
-                                .to_string(),
-                        ),
-                        ..next_state.iota_wallet
-                    },
-                    ..next_state
-                },
-            };
-            if let Some(did) = next_state.iota_wallet.did.clone() {
-                next_state.dids.insert("did:iota".to_string(), did);
-            }
-        }
-
-        return Ok(next_state);
+        });
     }
 
     Ok(state)

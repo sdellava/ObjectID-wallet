@@ -52,7 +52,7 @@ mod tests {
     #[tokio::test]
     async fn test_migrate_v0_to_v1() {
         let rdr =
-            std::fs::File::open("../unime/src-tauri/tests/fixtures/states/no_profile_redirect_welcome.json").unwrap();
+            std::fs::File::open("../objectid/src-tauri/tests/fixtures/states/no_profile_redirect_welcome.json").unwrap();
 
         let app_state_object: Map<String, Value> = serde_json::from_reader(&rdr).unwrap();
         let app_state = apply_state_migrations(app_state_object, 0).unwrap();

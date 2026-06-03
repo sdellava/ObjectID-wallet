@@ -172,14 +172,14 @@ pub async fn load_ferris_profile() -> Result<AppState, AppError> {
     let journey_definition = r#"
         {
             "title": "NGDIL Demo",
-            "description": "Set up your profile and get started with your OIDwallet app.",
+            "description": "Set up your profile and get started with your ObjectID app.",
             "description_short": "Complete your first steps",
-            "creator": "OIDwallet",
+            "creator": "ObjectID",
             "goals": [
                 {
                     "id": 0,
                     "label": "Set up your profile",
-                    "description": "Make your OIDwallet app your own by choosing a profile name and profile picture.",
+                    "description": "Make your ObjectID app your own by choosing a profile name and profile picture.",
                     "icon": "UserCirclePlus",
                     "faqs": [
                         { "id": 0, "title": "Will this information be shared?", "content": "No. Your profile information will never leave your device." }
