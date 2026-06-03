@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { HTMLImgAttributes } from 'svelte/elements';
-
-  type Props = HTMLImgAttributes;
-
-  let { class: className = '', alt = 'ObjectID', ...rest }: Props = $props();
+  let {
+    class: className = '',
+    alt = 'ObjectID',
+    'aria-hidden': ariaHidden,
+  }: { class?: string; alt?: string; 'aria-hidden'?: 'true' | 'false' | boolean } = $props();
 </script>
 
-<img class={className} src="/brand/objectid-logo-large.png" {alt} {...rest} />
+<img class={className} src="/brand/objectid-logo-large.png" {alt} aria-hidden={ariaHidden} />
 
 <style>
   img {

@@ -1,11 +1,12 @@
-import http, { type IncomingMessage, type ServerResponse } from 'node:http';
 import { Buffer } from 'node:buffer';
 import { randomUUID } from 'node:crypto';
+import http, { type IncomingMessage, type ServerResponse } from 'node:http';
 
-import { IotaClient, getFullnodeUrl } from '@iota/iota-sdk/client';
+import QRCode from 'qrcode';
+
+import { getFullnodeUrl, IotaClient } from '@iota/iota-sdk/client';
 import { Transaction } from '@iota/iota-sdk/transactions';
 import { isValidIotaAddress, normalizeIotaAddress } from '@iota/iota-sdk/utils';
-import QRCode from 'qrcode';
 
 const DEFAULT_BIND = '127.0.0.1:8787';
 const DEFAULT_NETWORK = 'testnet';

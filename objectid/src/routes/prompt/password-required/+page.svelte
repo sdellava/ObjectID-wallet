@@ -14,25 +14,44 @@
   import { state } from '$lib/stores';
 
   let showPassword = false;
+  let biometricsUnlocking = false;
+  let biometricsError: string | undefined;
 
   let password: string;
 
   const SERVICE = 'com.impierce.identity-wallet';
   const USER = 'objectid'; // TODO: rename to "ACCOUNT" to reflect Keychain Access item?
 
+  const withTimeout = <T,>(promise: Promise<T>, timeoutMs: number) =>
+    Promise.race<T>([
+      promise,
+      new Promise<never>((_, reject) => {
+        setTimeout(() => reject(new Error('Biometric authentication timed out')), timeoutMs);
+      }),
+    ]);
+
   const unlockWithBiometrics = async () => {
-    await retrieve(SERVICE, USER)
-      .then((password) => {
-        // TODO: do we need this check or can we change the return type to "Promise<string>"?
-        if (password) {
-          setTimeout(() => {
-            dispatch({ type: '[Storage] Unlock', payload: { password } });
-          }, 500);
-        }
-      })
-      .catch((error) => {
-        warn(error);
-      });
+    if (biometricsUnlocking) {
+      return;
+    }
+
+    biometricsUnlocking = true;
+    biometricsError = undefined;
+
+    try {
+      const password = await withTimeout(retrieve(SERVICE, USER), 20_000);
+      if (password) {
+        await dispatch({ type: '[Storage] Unlock', payload: { password } });
+      } else {
+        biometricsError = 'No biometric secret was found. Enter your password to continue.';
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : `${error}`;
+      biometricsError = message;
+      warn(message);
+    } finally {
+      biometricsUnlocking = false;
+    }
   };
 
   // TODO move to the backend
@@ -46,7 +65,7 @@
     }
     // When biometrics are enabled, try to retrieve the password and inject it.
     if ($state?.profile_settings.biometrics_enabled) {
-      await unlockWithBiometrics();
+      void unlockWithBiometrics();
     }
   });
 </script>
@@ -57,8 +76,22 @@
   <div class="flex flex-col items-center justify-center">
     <ObjectIDLogo class="text-blue dark:text-silver" />
 
+    {#if biometricsUnlocking}
+      <p class="mt-8 text-center text-[13px]/[20px] font-medium text-slate-500 dark:text-slate-300">
+        Unlocking with biometrics...
+      </p>
+    {:else if biometricsError}
+      <p class="mt-8 max-w-[260px] text-center text-[13px]/[20px] font-medium text-slate-500 dark:text-slate-300">
+        {biometricsError}
+      </p>
+      <button
+        class="mt-3 rounded-xl px-4 py-2 text-[13px]/[24px] font-medium text-blue active:bg-grey dark:text-silver dark:active:bg-dark"
+        on:click={unlockWithBiometrics}>Try fingerprint again</button
+      >
+    {/if}
+
     <!-- Manual password entry -->
-    <div class="relative mt-8 mb-4 w-[240px]">
+    <div class="relative mt-6 mb-4 w-[240px]">
       <input
         type={showPassword ? 'text' : 'password'}
         class="h-12 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-[13px]/[24px] text-slate-500 dark:border-slate-600 dark:bg-dark dark:text-slate-300"

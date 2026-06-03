@@ -178,7 +178,9 @@ async fn download_issuer_logo() {
 
     Mock::given(method("GET"))
         .and(path("/logo/issuer.png"))
-        .respond_with(ResponseTemplate::new(200).set_body_raw(include_bytes!("../res/objectid.png").to_vec(), "image/png"))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_raw(include_bytes!("../res/objectid.png").to_vec(), "image/png"),
+        )
         .expect(1)
         .mount(&mock_server)
         .await;

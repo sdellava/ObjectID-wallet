@@ -16,12 +16,12 @@ Checkout the [Prerequisites](https://v2.tauri.app/start/prerequisites/) for runn
 
 This repository uses [pnpm workspaces](https://pnpm.io/workspaces):
 
-| Path                | Description                                             |
-| :------------------ | :------------------------------------------------------ |
-| `./`                | Project root with Prettier configuration.               |
+| Path                   | Description                                                |
+| :--------------------- | :--------------------------------------------------------- |
+| `./`                   | Project root with Prettier configuration.                  |
 | `./objectid`           | pnpm workspace with ObjectID frontend.                     |
-| `./objectid/src-tauri` | Tauri Rust app (not a pnpm workspace).                  |
-| `./identity-wallet` | Rust package with ObjectID backend (not a pnpm workspace). |
+| `./objectid/src-tauri` | Tauri Rust app (not a pnpm workspace).                     |
+| `./identity-wallet`    | Rust package with ObjectID backend (not a pnpm workspace). |
 
 Get up and running with these steps:
 

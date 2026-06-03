@@ -60,9 +60,9 @@ fn main() {
 Afterwards all the plugin's APIs are available through the JavaScript guest bindings:
 
 ```typescript
-import { remove, retrieve, store } from "@impierce/tauri-plugin-keystore";
+import { remove, retrieve, store } from '@impierce/tauri-plugin-keystore';
 
-await store("secr3tPa$$w0rd");
+await store('secr3tPa$$w0rd');
 const password = await retrieve();
 await remove();
 ```
@@ -70,7 +70,7 @@ await remove();
 The provided functions will fail if the device has no biometrics set up, so you should check the biometric status with the official `tauri-plugin-biometric` before using them:
 
 ```typescript
-import { checkStatus, type Status } from "@tauri-apps/plugin-biometric";
+import { checkStatus, type Status } from '@tauri-apps/plugin-biometric';
 
 const biometricsStatus: Status = await checkStatus();
 assert(biometricsStatus.biometryType !== BiometryType.None);

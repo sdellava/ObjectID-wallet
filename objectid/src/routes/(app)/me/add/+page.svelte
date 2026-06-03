@@ -6,12 +6,7 @@
   import type { SVGAttributes } from 'svelte/elements';
 
   import { TopNavBar } from '$lib/components';
-  import {
-    CaretRightBoldIcon,
-    EnvelopeOpenFillIcon,
-    HouseFillIcon,
-    IdentificationBadgeFillIcon,
-  } from '$lib/icons';
+  import { CaretRightBoldIcon, EnvelopeOpenFillIcon, HouseFillIcon, IdentificationBadgeFillIcon } from '$lib/icons';
   import { state as appState } from '$lib/stores';
 
   type Data = {
@@ -43,7 +38,6 @@
       link: '/me/add/address/info',
     },
   ];
-
 </script>
 
 <TopNavBar on:back={() => history.back()} title={$LL.ADD_CREDENTIALS.NAVBAR_TITLE()} class="sticky top-0 z-10" />

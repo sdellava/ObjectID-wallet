@@ -84,9 +84,7 @@
         onclick={() => goto('/me/iota-identity')}
       >
         <div class="flex items-center justify-between gap-3">
-          <p class="text-[13px]/[18px] font-semibold text-slate-800 dark:text-grey">
-            Distributed Identity
-          </p>
+          <p class="text-[13px]/[18px] font-semibold text-slate-800 dark:text-grey">Distributed Identity</p>
           <p class="rounded-md bg-primary px-2 py-1 text-[10px]/[14px] font-semibold text-white dark:text-dark">
             {$state.iota_wallet.network}
           </p>

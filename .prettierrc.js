@@ -4,6 +4,7 @@ export default {
   tabWidth: 2,
   singleQuote: true,
   semi: true,
+  endOfLine: 'auto',
   trailingComma: 'all',
   printWidth: 120,
   importOrder: [

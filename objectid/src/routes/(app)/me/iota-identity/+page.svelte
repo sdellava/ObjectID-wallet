@@ -1,7 +1,9 @@
 <script lang="ts">
   import { tick } from 'svelte';
-  import { writable } from 'svelte/store';
+
   import { goto } from '$app/navigation';
+  import { writable } from 'svelte/store';
+
   import { open } from '@tauri-apps/plugin-shell';
 
   import { ActionSheet, TopNavBar } from '$lib/components';
@@ -161,7 +163,8 @@
     {#if showDocument}
       <section class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-600 dark:bg-dark">
         <p class="text-base font-semibold text-slate-800 dark:text-grey">DID document</p>
-        <pre class="mt-3 max-h-[420px] overflow-auto whitespace-pre-wrap break-all rounded-lg bg-silver p-3 font-mono text-[11px]/[16px] text-slate-800 dark:bg-navy dark:text-grey">{didDocument}</pre>
+        <pre
+          class="mt-3 max-h-[420px] overflow-auto rounded-lg bg-silver p-3 font-mono text-[11px]/[16px] break-all whitespace-pre-wrap text-slate-800 dark:bg-navy dark:text-grey">{didDocument}</pre>
       </section>
     {/if}
 

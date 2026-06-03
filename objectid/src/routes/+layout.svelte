@@ -80,11 +80,19 @@
     }
   }
 
+  async function navigateIfNeeded(path: string) {
+    if (page.url.pathname === path) {
+      return;
+    }
+
+    await goto(path);
+  }
+
   onMount(async () => {
     try {
       detachConsole = await attachConsole();
     } catch (e) {
-      console.error(`Failed to attach console logger: ${e}`);
+      void error(`Failed to attach console logger: ${e}`);
     }
 
     loadAllLocales(); //TODO: performance: only load locale on user request
@@ -95,7 +103,7 @@
         errorState.set(event.payload as string);
       });
     } catch (e) {
-      console.error(`Failed to listen for backend errors: ${e}`);
+      void error(`Failed to listen for backend errors: ${e}`);
     }
 
     try {
@@ -130,21 +138,17 @@
 
         if (redirectPath) {
           info(`Redirecting to: ${redirectPath}.`);
-          try {
-            goto(redirectPath);
-          } catch (e) {
-            error(`Failed to redirect to ${redirectPath}: ${e}`);
-          }
+          void navigateIfNeeded(redirectPath).catch((e) => error(`Failed to redirect to ${redirectPath}: ${e}`));
         }
       });
     } catch (e) {
-      console.error(`Failed to listen for state changes: ${e}`);
+      void error(`Failed to listen for state changes: ${e}`);
     }
 
     try {
       await dispatch({ type: '[App] Get state' });
     } catch (e) {
-      console.error(`Failed to load app state: ${e}`);
+      void error(`Failed to load app state: ${e}`);
       errorState.set(`${e}`);
     }
 
@@ -156,7 +160,7 @@
         pendingDeepLinkUrl.set(new URL(invocationUrls[0]));
       }
     } catch (e) {
-      console.error(`Failed to get launch deep links: ${e}`);
+      void error(`Failed to get launch deep links: ${e}`);
     }
 
     // If a deep link is received with the app already open, try processing it immediately.
@@ -171,7 +175,7 @@
         }
       });
     } catch (e) {
-      console.error(`Failed to listen for deep links: ${e}`);
+      void error(`Failed to listen for deep links: ${e}`);
     }
   });
 
@@ -224,7 +228,7 @@
     let type = $appState?.current_user_prompt?.type;
 
     if (type && type !== 'redirect') {
-      goto(`/prompt/${type}`);
+      void navigateIfNeeded(`/prompt/${type}`).catch((e) => error(`Failed to redirect to prompt ${type}: ${e}`));
     }
   }
 

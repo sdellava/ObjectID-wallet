@@ -1,12 +1,8 @@
 <script lang="ts">
-  import type { HTMLImgAttributes } from 'svelte/elements';
-
-  type Props = HTMLImgAttributes;
-
-  let { class: className = '', alt = 'ObjectID', ...rest }: Props = $props();
+  let { class: className = '', alt = 'ObjectID' }: { class?: string; alt?: string } = $props();
 </script>
 
-<img class={className} src="/brand/objectid-icon.png" {alt} {...rest} />
+<img class={className} src="/brand/objectid-icon.png" {alt} />
 
 <style>
   img {
