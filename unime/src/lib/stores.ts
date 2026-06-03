@@ -12,7 +12,6 @@ interface OnboardingState {
 const empty_state: AppState = {
   version: 0,
   dids: {},
-  iota_wallet: null,
   connections: [],
   credentials: [],
   search_results: {
@@ -43,6 +42,22 @@ const empty_state: AppState = {
   trust_lists: [],
   verified_data: {
     email_verification: null,
+  },
+  iota_wallet: {
+    network: 'testnet',
+    address: null,
+    public_key: null,
+    seed_phrase: null,
+    did: null,
+    did_document: null,
+    identity_controller_cap: null,
+    identity_validation_status: null,
+    identity_validation_error: null,
+    identity_rotation_status: null,
+    identity_destruction_status: null,
+    faucet_status: null,
+    last_transaction_digest: null,
+    last_error: null,
   },
   show_dev_mode_setting: false,
   is_unlocked: false,

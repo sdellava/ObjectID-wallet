@@ -5,6 +5,7 @@ pub mod core_utils;
 pub mod credentials;
 pub mod dev_mode;
 pub mod did;
+pub mod iota_wallet;
 pub mod profile_settings;
 pub mod qr_code;
 pub mod search;
@@ -13,6 +14,7 @@ pub mod user_journey;
 pub mod user_prompt;
 pub mod verified_data;
 
+use self::iota_wallet::IotaWalletState;
 use self::search::SearchResults;
 use self::{
     actions::Action, core_utils::CoreUtils, dev_mode::DevMode, profile_settings::ProfileSettings,
@@ -90,26 +92,6 @@ pub const SUPPORTED_SIGNING_ALGORITHMS: &[Algorithm] = &[Algorithm::EdDSA, Algor
 pub const SUPPORTED_DID_METHODS: &[&str] = &["did:jwk", "did:key"];
 pub const APP_STATE_VERSION: u32 = 1;
 
-#[derive(Default, Serialize, Deserialize, TS, Clone, PartialEq, Debug)]
-#[ts(export, export_to = "bindings/IotaWallet.ts")]
-#[serde(default)]
-pub struct IotaWallet {
-    pub address: String,
-    pub did: Option<String>,
-    pub network: IotaNetwork,
-    pub imported: bool,
-    pub did_document_published: bool,
-}
-
-#[derive(Default, Serialize, Deserialize, TS, Clone, PartialEq, Debug)]
-#[ts(export, export_to = "bindings/IotaNetwork.ts")]
-#[serde(rename_all = "snake_case")]
-pub enum IotaNetwork {
-    Mainnet,
-    #[default]
-    Testnet,
-}
-
 /// The inner state of the application managed by Tauri. When the state is serialized in order to be sent to the
 /// frontend, the `managers` and `active_connection_request` fields are skipped.
 #[derive(Default, Serialize, Deserialize, Derivative, TS, Clone)]
@@ -119,7 +101,6 @@ pub enum IotaNetwork {
 pub struct AppState {
     pub version: u32,
     pub dids: HashMap<String, String>,
-    pub iota_wallet: Option<IotaWallet>,
     pub connections: Connections,
     pub credentials: Vec<DisplayCredential>,
     pub trust_lists: TrustLists,
@@ -137,6 +118,7 @@ pub struct AppState {
     pub debug_messages: VecDeque<String>,
     pub history: Vec<HistoryEvent>,
     pub verified_data: VerifiedData,
+    pub iota_wallet: IotaWalletState,
     /// Extensions will bring along their own redux compliant code, in the unime folder.
     #[ts(skip)]
     pub extensions: std::collections::HashMap<String, Box<dyn FeatTrait>>,

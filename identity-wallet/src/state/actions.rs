@@ -77,6 +77,12 @@ mod bindings {
         },
         dev_mode::actions::{dev_profile::DevProfile, show_setting::ShowDevModeSetting},
         did::actions::{set_preferred_keytype::SetPreferredKeyType, set_preferred_method::SetPreferredDidMethod},
+        iota_wallet::actions::{
+            create_identity::CreateIotaIdentity, create_or_load_wallet::CreateOrLoadIotaWallet,
+            destroy_identity::DestroyIotaIdentity, request_faucet_funds::RequestIotaFaucetFunds,
+            rotate_identity_keys::RotateIotaIdentityKeys, sign_prepared_transaction::SignPreparedIotaTransaction,
+            submit_wallet_login::SubmitWalletLogin, validate_identity::ValidateIotaIdentity,
+        },
         profile_settings::actions::{
             create_new::CreateNew, enable_biometrics::EnableBiometrics, set_locale::SetLocale,
             update_profile_settings::UpdateProfileSettings, update_sorting_preference::UpdateSortingPreference,
@@ -183,5 +189,21 @@ mod bindings {
         ResetEmailVerification,
         #[serde(rename = "[Credential] Self Issue")]
         SelfIssueCredential { payload: SelfIssueCredential },
+        #[serde(rename = "[IOTA Wallet] Create or load")]
+        CreateOrLoadIotaWallet { payload: CreateOrLoadIotaWallet },
+        #[serde(rename = "[IOTA Wallet] Request faucet funds")]
+        RequestIotaFaucetFunds { payload: RequestIotaFaucetFunds },
+        #[serde(rename = "[IOTA Wallet] Create identity")]
+        CreateIotaIdentity { payload: CreateIotaIdentity },
+        #[serde(rename = "[IOTA Wallet] Rotate identity keys")]
+        RotateIotaIdentityKeys { payload: RotateIotaIdentityKeys },
+        #[serde(rename = "[IOTA Wallet] Validate identity")]
+        ValidateIotaIdentity { payload: ValidateIotaIdentity },
+        #[serde(rename = "[IOTA Wallet] Destroy identity")]
+        DestroyIotaIdentity { payload: DestroyIotaIdentity },
+        #[serde(rename = "[IOTA Wallet] Sign prepared transaction")]
+        SignPreparedIotaTransaction { payload: SignPreparedIotaTransaction },
+        #[serde(rename = "[IOTA Wallet] Submit wallet login")]
+        SubmitWalletLogin { payload: SubmitWalletLogin },
     }
 }

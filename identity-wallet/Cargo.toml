@@ -10,9 +10,10 @@ tauri-plugin-fs = { version = "2" }
 tauri-plugin-opener = { version = "2" }
 
 anyhow = "1.0"
+aes-gcm = "0.10"
 async-trait = "0.1"
 base64 = "0.22"
-blake2 = "0.10"
+bcs = "0.1"
 chrono = "0.4"
 derivative = "2.2"
 did_manager.workspace = true
@@ -31,6 +32,17 @@ identity_core = { git = "https://github.com/iotaledger/identity", tag = "v1.9.6-
 identity_eddsa_verifier = { git = "https://github.com/iotaledger/identity", tag = "v1.9.6-beta.1" }
 identity_iota = { git = "https://github.com/iotaledger/identity", tag = "v1.9.6-beta.1" }
 identity_jose = { git = "https://github.com/iotaledger/identity", tag = "v1.9.6-beta.1" }
+identity_storage = { git = "https://github.com/iotaledger/identity", tag = "v1.9.6-beta.1" }
+product_common = { git = "https://github.com/iotaledger/product-core.git", tag = "v0.8.16", package = "product_common", features = [
+    "gas-station",
+] }
+iota-sdk = { git = "https://github.com/iotaledger/iota", package = "iota-sdk", rev = "96196f0da231883ec69cda04892c600ef6afa982" }
+iota-keys = { git = "https://github.com/iotaledger/iota", package = "iota-keys", rev = "96196f0da231883ec69cda04892c600ef6afa982" }
+iota-sdk-types = { git = "https://github.com/iotaledger/iota-rust-sdk.git", rev = "e19c78a1bee17e0bf85fcd5b16a2f080cef26274", features = [
+    "hash",
+    "serde",
+    "schemars",
+] }
 iota_stronghold = { version = "2.1" }
 itertools = "0.10"
 jsonschema = "0.29"
@@ -39,7 +51,7 @@ lazy_static = "1.4"
 log.workspace = true
 oauth_tsl.workspace = true
 oid4vc.workspace = true
-p256 = { version = "0.13", features = ["jwk"] }
+p256 = { version = "0.13", features = ["ecdh", "jwk"] }
 reqwest = { version = "0.11", default-features = false, features = [
     "json",
     "rustls-tls",
@@ -52,6 +64,7 @@ sd-jwt = { package = "sd-jwt-payload", version = "0.5.1", default-features = fal
 serde = { version = "1.0", features = ["derive"] }
 serde_json.workspace = true
 serde_with = "3.8"
+secret-storage = { git = "https://github.com/iotaledger/secret-storage", tag = "v0.3.0" }
 sha256 = "1.4"
 stronghold_engine = { version = "2.0.1" }
 stronghold_ext = { git = "https://github.com/impierce/stronghold_ext", features = [
@@ -59,13 +72,13 @@ stronghold_ext = { git = "https://github.com/impierce/stronghold_ext", features 
 ] }
 strum = { version = "0.25", features = ["derive"] }
 thiserror = "1.0"
+tiny-bip39 = "1.0"
 tokio.workspace = true
 ts-rs = { version = "7.0", features = ["chrono-impl", "url-impl"] }
 typetag = "0.2"
 unicode-normalization = "0.1"
 url = "2.5"
 uuid = { version = "1.4", features = ["v4", "fast-rng", "serde"] }
-zeroize = "1"
 
 [dev-dependencies]
 serial_test.workspace = true

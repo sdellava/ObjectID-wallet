@@ -3,13 +3,20 @@ use crate::{
     state::{
         actions::{listen, Action},
         core_utils::IdentityManager,
+        iota_wallet::{
+            actions::create_identity::CreateIotaIdentity,
+            reducers::{
+                create_identity as iota_identity_reducer, create_or_load_wallet::create_or_load_wallet_for_setup,
+            },
+            IotaNetwork, IotaWalletState,
+        },
         profile_settings::{
             actions::create_new::{CreateNew, IotaWalletSetup},
             Profile, ProfileSettings,
         },
         trust_list::{TrustList, TrustLists},
         user_prompt::CurrentUserPrompt,
-        AppState, IotaNetwork, IotaWallet, SUPPORTED_DID_METHODS, SUPPORTED_SIGNING_ALGORITHMS,
+        AppState, SUPPORTED_DID_METHODS, SUPPORTED_SIGNING_ALGORITHMS,
     },
     stronghold::StrongholdManager,
     subject::subject,
@@ -71,38 +78,6 @@ pub async fn create_identity(state: AppState, action: Action) -> Result<AppState
             .map_err(|e| Error(e.to_string()))?;
         dids.insert("did:key".to_string(), did_key);
 
-        let iota_wallet = match iota_wallet {
-            Some(IotaWalletSetup::Initialize) => {
-                let (_mnemonic, address) = stronghold_manager
-                    .initialize_iota_wallet()
-                    .map_err(|e| Error(e.to_string()))?;
-                let did = format!("did:iota:testnet:{address}");
-                dids.insert("did:iota".to_string(), did.clone());
-                Some(IotaWallet {
-                    address,
-                    did: Some(did),
-                    network: IotaNetwork::Testnet,
-                    imported: false,
-                    did_document_published: false,
-                })
-            }
-            Some(IotaWalletSetup::ImportSeed { seed }) => {
-                let address = stronghold_manager
-                    .import_iota_seed(&seed)
-                    .map_err(|e| Error(e.to_string()))?;
-                let did = format!("did:iota:testnet:{address}");
-                dids.insert("did:iota".to_string(), did.clone());
-                Some(IotaWallet {
-                    address,
-                    did: Some(did),
-                    network: IotaNetwork::Testnet,
-                    imported: true,
-                    did_document_published: false,
-                })
-            }
-            None => None,
-        };
-
         let profile_settings = ProfileSettings {
             profile: Some(Profile {
                 name,
@@ -126,16 +101,34 @@ pub async fn create_identity(state: AppState, action: Action) -> Result<AppState
         let trust_lists = TrustLists(vec![default_trust_list]);
 
         drop(state_guard);
-        return Ok(AppState {
+        let mut next_state = AppState {
             dids,
-            iota_wallet,
             profile_settings,
             current_user_prompt: Some(CurrentUserPrompt::Redirect {
                 target: "me".to_string(),
             }),
             trust_lists,
             ..state
-        });
+        };
+
+        if let Some(setup) = iota_wallet {
+            let imported_mnemonic = match setup {
+                IotaWalletSetup::Initialize => None,
+                IotaWalletSetup::ImportSeed { seed } => Some(seed),
+            };
+            let wallet = create_or_load_wallet_for_setup(&next_state, IotaNetwork::Testnet, imported_mnemonic).await?;
+            next_state = AppState {
+                iota_wallet: IotaWalletState::from(&wallet),
+                ..next_state
+            };
+            next_state =
+                iota_identity_reducer::create_identity(next_state, Arc::new(CreateIotaIdentity {}) as Action).await?;
+            if let Some(did) = next_state.iota_wallet.did.clone() {
+                next_state.dids.insert("did:iota".to_string(), did);
+            }
+        }
+
+        return Ok(next_state);
     }
 
     Ok(state)
