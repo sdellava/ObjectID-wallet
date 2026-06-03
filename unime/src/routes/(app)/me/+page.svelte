@@ -26,6 +26,17 @@
 
   let triggers = [$LL.ME.CREDENTIAL_TABS.ALL(), $LL.ME.CREDENTIAL_TABS.DATA(), $LL.ME.CREDENTIAL_TABS.BADGES()];
   let activeTab: Writable<string> = writable(page.state.tab || triggers[0]);
+  $: primaryDid =
+    $state?.iota_wallet?.did ??
+    $state?.dids?.[$state?.profile_settings?.preferred_did_methods?.at(0) ?? 'did:jwk'] ??
+    Object.values($state?.dids ?? {}).at(0);
+
+  const truncateMiddle = (value: string, start = 18, end = 10) => {
+    if (value.length <= start + end + 3) {
+      return value;
+    }
+    return `${value.slice(0, start)}...${value.slice(-end)}`;
+  };
 
   beforeNavigate(async ({ type, cancel }) => {
     replaceState('', { tab: $activeTab });
@@ -72,6 +83,27 @@
   </div>
 
   <div class="p-5 pt-0">
+    {#if primaryDid}
+      <div class="mb-4 rounded-xl border border-black/10 bg-white p-4 shadow-sm dark:border-white/15 dark:bg-dark">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <p class="text-[11px]/[16px] font-semibold text-slate-500 uppercase dark:text-slate-300">DID</p>
+            <p class="text-[13px]/[20px] font-semibold break-all text-slate-900 dark:text-grey">{primaryDid}</p>
+          </div>
+          {#if $state?.iota_wallet?.network === 'testnet'}
+            <span
+              class="shrink-0 rounded-full border border-black bg-black px-2 py-1 text-[10px]/[14px] font-semibold text-white dark:border-white dark:bg-white dark:text-black"
+              >testnet</span
+            >
+          {/if}
+        </div>
+        {#if $state?.iota_wallet?.address}
+          <p class="mt-2 text-[12px]/[18px] font-medium text-slate-500 dark:text-slate-300">
+            IOTA address: {truncateMiddle($state.iota_wallet.address)}
+          </p>
+        {/if}
+      </div>
+    {/if}
     <WelcomeMessage />
     {#if $state?.user_journey}
       <div class="pt-4">

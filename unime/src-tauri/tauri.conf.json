@@ -7,8 +7,9 @@
     "security": {
       "csp": {
         "default-src": "'self' ipc: http://ipc.localhost",
+        "frame-src": "'self' https://objectid.io",
         "style-src": "'unsafe-inline' 'self'",
-        "img-src": "'self' asset: http://asset.localhost data:"
+        "img-src": "'self' asset: http://asset.localhost data: https://objectid.io"
       },
       "assetProtocol": {
         "enable": true,

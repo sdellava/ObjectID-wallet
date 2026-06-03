@@ -12,6 +12,7 @@ tauri-plugin-opener = { version = "2" }
 anyhow = "1.0"
 async-trait = "0.1"
 base64 = "0.22"
+blake2 = "0.10"
 chrono = "0.4"
 derivative = "2.2"
 did_manager.workspace = true
@@ -64,6 +65,7 @@ typetag = "0.2"
 unicode-normalization = "0.1"
 url = "2.5"
 uuid = { version = "1.4", features = ["v4", "fast-rng", "serde"] }
+zeroize = "1"
 
 [dev-dependencies]
 serial_test.workspace = true

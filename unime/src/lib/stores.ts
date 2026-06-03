@@ -12,6 +12,7 @@ interface OnboardingState {
 const empty_state: AppState = {
   version: 0,
   dids: {},
+  iota_wallet: null,
   connections: [],
   credentials: [],
   search_results: {

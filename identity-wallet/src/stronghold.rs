@@ -1,7 +1,11 @@
 use crate::{persistence::STRONGHOLD, state::credentials::VerifiableCredentialRecord};
 
+use blake2::{Blake2b512, Digest};
 use iota_stronghold::{
-    procedures::{GenerateKey, KeyType, StrongholdProcedure},
+    procedures::{
+        BIP39Generate, Curve, GenerateKey, KeyType, MnemonicLanguage, PublicKey, Slip10Derive, Slip10DeriveInput,
+        StrongholdProcedure, WriteVault,
+    },
     Client, KeyProvider, Location, SnapshotPath, Stronghold,
 };
 use log::info;
@@ -10,11 +14,14 @@ use stronghold_ext::{
     procs::{self, es256::Es256Procs},
 };
 use uuid::Uuid;
+use zeroize::Zeroizing;
 
 // This file is where we implement the stronghold library for our app, which is used to store sensitive data.
 // We have to follow the hard-coded values used in `identity.rs` to make our Stronghold compatible.
 static STRONGHOLD_VAULT_PATH: &str = "iota_identity_vault";
 static STRONGHOLD_CLIENT_PATH: &[u8] = b"iota_identity_client";
+static IOTA_WALLET_SEED_KEY: &str = "iota-wallet-seed";
+static IOTA_WALLET_KEY: &str = "iota-wallet-ed25519-0";
 
 /// This struct is the main point of communication between our appstate and the stronghold library.
 #[derive(Debug)]
@@ -148,6 +155,72 @@ impl StrongholdManager {
         self.commit()
     }
 
+    pub fn initialize_iota_wallet(&self) -> anyhow::Result<(String, String)> {
+        let seed_location = stronghold_location(IOTA_WALLET_SEED_KEY);
+        let key_location = stronghold_location(IOTA_WALLET_KEY);
+
+        let mnemonic = self
+            .client
+            .execute_procedure(StrongholdProcedure::BIP39Generate(BIP39Generate {
+                passphrase: Default::default(),
+                language: MnemonicLanguage::English,
+                output: seed_location.clone(),
+            }))?
+            .try_into()?;
+
+        self.derive_iota_wallet_key(seed_location, key_location.clone())?;
+        let address = self.iota_address_from_key(key_location)?;
+        self.commit()?;
+
+        Ok((mnemonic, address))
+    }
+
+    pub fn import_iota_seed(&self, seed: &str) -> anyhow::Result<String> {
+        let seed_location = stronghold_location(IOTA_WALLET_SEED_KEY);
+        let key_location = stronghold_location(IOTA_WALLET_KEY);
+
+        self.client
+            .execute_procedure(StrongholdProcedure::WriteVault(WriteVault {
+                data: Zeroizing::new(seed.as_bytes().to_vec()),
+                location: seed_location.clone(),
+            }))?;
+
+        self.derive_iota_wallet_key(seed_location, key_location.clone())?;
+        let address = self.iota_address_from_key(key_location)?;
+        self.commit()?;
+
+        Ok(address)
+    }
+
+    fn derive_iota_wallet_key(&self, seed_location: Location, key_location: Location) -> anyhow::Result<()> {
+        self.client
+            .execute_procedure(StrongholdProcedure::Slip10Derive(Slip10Derive {
+                curve: Curve::Ed25519,
+                chain: vec![44, 4218, 0, 0, 0],
+                input: Slip10DeriveInput::Seed(seed_location),
+                output: key_location,
+            }))?;
+
+        Ok(())
+    }
+
+    fn iota_address_from_key(&self, key_location: Location) -> anyhow::Result<String> {
+        let public_key: Vec<u8> = self
+            .client
+            .execute_procedure(StrongholdProcedure::PublicKey(PublicKey {
+                ty: KeyType::Ed25519,
+                private_key: key_location,
+            }))?
+            .into();
+
+        let mut hasher = Blake2b512::new();
+        hasher.update([0x00]);
+        hasher.update(public_key);
+        let digest = hasher.finalize();
+
+        Ok(format!("0x{}", hex_lower(&digest[..32])))
+    }
+
     // TODO: fix this function's return type.
     pub fn values(&self) -> anyhow::Result<Option<Vec<VerifiableCredentialRecord>>> {
         let client = self.client.clone();
@@ -172,6 +245,20 @@ impl StrongholdManager {
 
         Ok(value)
     }
+}
+
+fn stronghold_location(key: &str) -> Location {
+    Location::generic(STRONGHOLD_VAULT_PATH.as_bytes().to_vec(), key.as_bytes().to_vec())
+}
+
+fn hex_lower(bytes: &[u8]) -> String {
+    const HEX: &[u8; 16] = b"0123456789abcdef";
+    let mut out = String::with_capacity(bytes.len() * 2);
+    for byte in bytes {
+        out.push(HEX[(byte >> 4) as usize] as char);
+        out.push(HEX[(byte & 0x0f) as usize] as char);
+    }
+    out
 }
 
 #[cfg(test)]
@@ -199,5 +286,23 @@ mod tests {
 
         let value = stronghold_manager.get(key).unwrap();
         assert!(value.is_none());
+    }
+
+    #[test]
+    #[serial_test::serial]
+    fn test_iota_wallet_initialization_and_import() {
+        let path = NamedTempFile::new().unwrap().into_temp_path();
+        *STRONGHOLD.lock().unwrap() = path.as_os_str().into();
+
+        let stronghold_manager = StrongholdManager::create("sup3rSecr3t").unwrap();
+        let (mnemonic, address) = stronghold_manager.initialize_iota_wallet().unwrap();
+
+        assert!(mnemonic.split_whitespace().count() >= 12);
+        assert!(address.starts_with("0x"));
+        assert_eq!(address.len(), 66);
+
+        let imported_address = stronghold_manager.import_iota_seed("objectid imported seed").unwrap();
+        assert!(imported_address.starts_with("0x"));
+        assert_eq!(imported_address.len(), 66);
     }
 }

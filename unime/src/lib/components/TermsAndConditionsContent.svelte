@@ -1,76 +1,29 @@
 <script lang="ts">
-  import LL from '$i18n/i18n-svelte';
-
-  const sections = [
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.AGREEMENT.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.AGREEMENT.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DEFINITIONS.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DEFINITIONS.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.USER_RESPONSIBILITIES.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.USER_RESPONSIBILITIES.DESCRIPTION(),
-    },
-
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DATA_OWNERSHIP.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DATA_OWNERSHIP.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DATA_VISIBILITY.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.DATA_VISIBILITY.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.INTELLECTUAL_PROPERTY_RIGHTS.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.INTELLECTUAL_PROPERTY_RIGHTS.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.PROHIBITED_ACTIVITIES.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.PROHIBITED_ACTIVITIES.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.THIRD_PARTY_SERVICES.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.THIRD_PARTY_SERVICES.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LIABILITY.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LIABILITY.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.INDEMNIFICATION.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.INDEMNIFICATION.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.MODIFICATIONS.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.MODIFICATIONS.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LAW_AND_JURISDIFICATION.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LAW_AND_JURISDIFICATION.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.SEVERABILITY.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.SEVERABILITY.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LANGUAGE.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.LANGUAGE.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.ENTIRE_AGREEMENT.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.ENTIRE_AGREEMENT.DESCRIPTION(),
-    },
-    {
-      title: $LL.ONBOARDING.TERMS.T_AND_C.FULL.CONTACT.TITLE(),
-      description: $LL.ONBOARDING.TERMS.T_AND_C.FULL.CONTACT.DESCRIPTION(),
-    },
-  ];
+  const termsUrl = 'https://objectid.io/general-terms/';
 </script>
 
-{#each sections as section}
-  <h3 class="my-1 text-xs font-bold">{section.title}</h3>
-  <p class="mb-3 text-xs font-light">{section.description}</p>
-{/each}
+<div class="space-y-3">
+  <iframe
+    title="ObjectID General Terms and Conditions"
+    src={termsUrl}
+    class="h-[55vh] w-full rounded-lg border border-slate-200 bg-white dark:border-slate-600"
+  ></iframe>
+  <p class="text-xs font-medium text-slate-500 dark:text-slate-300">
+    The live terms are loaded from
+    <a class="font-semibold text-black underline dark:text-white" href={termsUrl} target="_blank" rel="noreferrer">
+      objectid.io/general-terms
+    </a>
+    . If the embedded page is unavailable, open the link above to review the latest version.
+  </p>
+  <div
+    class="rounded-lg border border-slate-200 p-3 text-xs font-medium text-slate-600 dark:border-slate-600 dark:text-slate-300"
+  >
+    <p class="font-semibold text-slate-900 dark:text-grey">ObjectID General Terms and Conditions</p>
+    <p class="pt-1">Effective Date: 1 June 2025</p>
+    <p class="pt-2">
+      ObjectID.io is a service provided by SDV Consulting SRLS. By accessing or using the website, dApp, APIs,
+      smart-contract interactions, credit-based operations, or associated services, the user agrees to the terms
+      published at the live link above.
+    </p>
+  </div>
+</div>

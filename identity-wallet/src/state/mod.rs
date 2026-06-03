@@ -90,6 +90,26 @@ pub const SUPPORTED_SIGNING_ALGORITHMS: &[Algorithm] = &[Algorithm::EdDSA, Algor
 pub const SUPPORTED_DID_METHODS: &[&str] = &["did:jwk", "did:key"];
 pub const APP_STATE_VERSION: u32 = 1;
 
+#[derive(Default, Serialize, Deserialize, TS, Clone, PartialEq, Debug)]
+#[ts(export, export_to = "bindings/IotaWallet.ts")]
+#[serde(default)]
+pub struct IotaWallet {
+    pub address: String,
+    pub did: Option<String>,
+    pub network: IotaNetwork,
+    pub imported: bool,
+    pub did_document_published: bool,
+}
+
+#[derive(Default, Serialize, Deserialize, TS, Clone, PartialEq, Debug)]
+#[ts(export, export_to = "bindings/IotaNetwork.ts")]
+#[serde(rename_all = "snake_case")]
+pub enum IotaNetwork {
+    Mainnet,
+    #[default]
+    Testnet,
+}
+
 /// The inner state of the application managed by Tauri. When the state is serialized in order to be sent to the
 /// frontend, the `managers` and `active_connection_request` fields are skipped.
 #[derive(Default, Serialize, Deserialize, Derivative, TS, Clone)]
@@ -99,6 +119,7 @@ pub const APP_STATE_VERSION: u32 = 1;
 pub struct AppState {
     pub version: u32,
     pub dids: HashMap<String, String>,
+    pub iota_wallet: Option<IotaWallet>,
     pub connections: Connections,
     pub credentials: Vec<DisplayCredential>,
     pub trust_lists: TrustLists,

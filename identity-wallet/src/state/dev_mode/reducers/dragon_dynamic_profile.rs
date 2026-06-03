@@ -89,6 +89,7 @@ async fn create_new_profile(state: AppState) -> Result<AppState, AppError> {
         theme: AppTheme::Dark,
         password: PASSWORD.to_string(),
         biometrics_enabled: false,
+        iota_wallet: None,
     };
 
     command::reduce(state, Arc::new(create_new)).await
