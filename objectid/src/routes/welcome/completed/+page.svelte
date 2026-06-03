@@ -49,8 +49,8 @@
     await dispatch({ type: '[IOTA Wallet] Create identity', payload: {} });
 
     progress = 100;
-    statusMessage = 'Opening your distributed identity...';
-    await goto('/me/iota-identity');
+    statusMessage = 'Opening your wallet home...';
+    await goto('/me');
   };
 
   const importSeed = async () => {
