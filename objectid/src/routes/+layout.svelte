@@ -36,10 +36,10 @@
 
   import { loadIcons } from '$lib/icons/iconify';
 
-  let detachConsole: UnlistenFn;
-  let unlistenError: UnlistenFn;
-  let unlistenStateChanged: UnlistenFn;
-  let unlistenDeepLink: UnlistenFn;
+  let detachConsole: UnlistenFn = () => {};
+  let unlistenError: UnlistenFn = () => {};
+  let unlistenStateChanged: UnlistenFn = () => {};
+  let unlistenDeepLink: UnlistenFn = () => {};
 
   const pendingDeepLinkUrl = writable<URL | undefined>();
 
@@ -81,73 +81,98 @@
   }
 
   onMount(async () => {
-    detachConsole = await attachConsole();
+    try {
+      detachConsole = await attachConsole();
+    } catch (e) {
+      console.error(`Failed to attach console logger: ${e}`);
+    }
 
     loadAllLocales(); //TODO: performance: only load locale on user request
 
-    unlistenError = await listen('error', (event) => {
-      error(`Error: ${event.payload}`);
-      errorState.set(event.payload as string);
-    });
+    try {
+      unlistenError = await listen('error', (event) => {
+        error(`Error: ${event.payload}`);
+        errorState.set(event.payload as string);
+      });
+    } catch (e) {
+      console.error(`Failed to listen for backend errors: ${e}`);
+    }
 
-    unlistenStateChanged = await listen('state-changed', (event) => {
-      // Set frontend state to state received from backend.
-      appState.set(event.payload as AppState);
+    try {
+      unlistenStateChanged = await listen('state-changed', (event) => {
+        // Set frontend state to state received from backend.
+        appState.set(event.payload as AppState);
 
-      // Update locale based on the frontend state.
-      setLocale($appState.profile_settings.locale);
+        // Update locale based on the frontend state.
+        setLocale($appState.profile_settings.locale);
 
-      // Process a deep link (only if the app is already unlocked).
-      const url = get(pendingDeepLinkUrl);
-      if ($appState?.is_unlocked && url) {
-        processDeepLink(url);
-      }
-
-      let redirectPath: string | undefined;
-
-      if ($appState.current_user_prompt) {
-        // Generic redirect.
-        if ($appState.current_user_prompt.type === 'redirect') {
-          redirectPath = `/${$appState.current_user_prompt.target}`;
+        // Process a deep link (only if the app is already unlocked).
+        const url = get(pendingDeepLinkUrl);
+        if ($appState?.is_unlocked && url) {
+          processDeepLink(url);
         }
-        // Prompt redirect.
-        else {
-          redirectPath = `/prompt/${$appState.current_user_prompt.type}`;
+
+        let redirectPath: string | undefined;
+
+        if ($appState.current_user_prompt) {
+          // Generic redirect.
+          if ($appState.current_user_prompt.type === 'redirect') {
+            redirectPath = `/${$appState.current_user_prompt.target}`;
+          }
+          // Prompt redirect.
+          else {
+            redirectPath = `/prompt/${$appState.current_user_prompt.type}`;
+          }
         }
-      }
 
-      // DEV: uncommenting this helps local development by always redirecting to the page you're working on
-      // redirectPath = '/me/settings/about';
+        // DEV: uncommenting this helps local development by always redirecting to the page you're working on
+        // redirectPath = '/me/settings/about';
 
-      if (redirectPath) {
-        info(`Redirecting to: ${redirectPath}.`);
-        try {
-          goto(redirectPath);
-        } catch (e) {
-          error(`Failed to redirect to ${redirectPath}: ${e}`);
+        if (redirectPath) {
+          info(`Redirecting to: ${redirectPath}.`);
+          try {
+            goto(redirectPath);
+          } catch (e) {
+            error(`Failed to redirect to ${redirectPath}: ${e}`);
+          }
         }
-      }
-    });
+      });
+    } catch (e) {
+      console.error(`Failed to listen for state changes: ${e}`);
+    }
 
-    dispatch({ type: '[App] Get state' });
+    try {
+      await dispatch({ type: '[App] Get state' });
+    } catch (e) {
+      console.error(`Failed to load app state: ${e}`);
+      errorState.set(`${e}`);
+    }
 
     // If the app is launched with a deep link, it is stored for later processing via the `state-changed` listener.
-    const invocationUrls = await getCurrent();
-    if (invocationUrls) {
-      info(`App launched with deep links: ${invocationUrls}`);
-      pendingDeepLinkUrl.set(new URL(invocationUrls[0]));
+    try {
+      const invocationUrls = await getCurrent();
+      if (invocationUrls) {
+        info(`App launched with deep links: ${invocationUrls}`);
+        pendingDeepLinkUrl.set(new URL(invocationUrls[0]));
+      }
+    } catch (e) {
+      console.error(`Failed to get launch deep links: ${e}`);
     }
 
     // If a deep link is received with the app already open, try processing it immediately.
-    unlistenDeepLink = await onOpenUrl((urls) => {
-      info(`Received deep link while running, storing for processing: ${urls[0]}`);
-      const invocationUrl = new URL(urls[0]);
-      pendingDeepLinkUrl.set(invocationUrl);
+    try {
+      unlistenDeepLink = await onOpenUrl((urls) => {
+        info(`Received deep link while running, storing for processing: ${urls[0]}`);
+        const invocationUrl = new URL(urls[0]);
+        pendingDeepLinkUrl.set(invocationUrl);
 
-      if ($appState?.is_unlocked) {
-        processDeepLink(invocationUrl);
-      }
-    });
+        if ($appState?.is_unlocked) {
+          processDeepLink(invocationUrl);
+        }
+      });
+    } catch (e) {
+      console.error(`Failed to listen for deep links: ${e}`);
+    }
   });
 
   onDestroy(() => {
