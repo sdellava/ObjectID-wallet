@@ -6,7 +6,7 @@
   import { fade } from 'svelte/transition';
 
   import { store } from '@impierce/tauri-plugin-keystore';
-  import { authenticate, BiometryType, checkStatus, type Status } from '@tauri-apps/plugin-biometric';
+  import { BiometryType, checkStatus, type Status } from '@tauri-apps/plugin-biometric';
 
   import { ActionSheet, Button, TopNavBar } from '$lib/components';
   import {
@@ -34,25 +34,33 @@
 
   let biometricsStatus: Status;
   let biometricsName: string;
+  let biometricsLoading = false;
 
   const enableBiometrics = async () => {
-    $onboarding_state.biometrics_enabled = true;
+    if (biometricsLoading) return;
+    biometricsLoading = true;
 
     if ($state.dev_mode !== 'Off') {
+      onboarding_state.set({ ...$onboarding_state, biometrics_enabled: true });
       goto('/welcome/completed');
+      biometricsLoading = false;
+      return;
     }
 
     const password = $onboarding_state.password;
 
     if (password) {
-      // TODO: authenticate first, before storing the password => duplicate check?
-      await authenticate('Enable biometrics').then(async () => {
-        await store(password).then(() => {
+      await store(password)
+        .then(() => {
+          onboarding_state.set({ ...$onboarding_state, biometrics_enabled: true });
           goto('/welcome/completed');
+        })
+        .finally(() => {
+          biometricsLoading = false;
         });
-      });
     } else {
       error.set('Biometrics enabled, but no password value provided');
+      biometricsLoading = false;
     }
   };
 
@@ -163,13 +171,17 @@
       </div>
       <div slot="content" class="flex w-full flex-col space-y-[10px] pt-[20px]">
         <Button
-          label={$LL.ONBOARDING.PASSWORD.BIOMETRICS.CONFIRM({ type: biometricsName })}
+          label={biometricsLoading
+            ? 'Enabling...'
+            : $LL.ONBOARDING.PASSWORD.BIOMETRICS.CONFIRM({ type: biometricsName })}
           on:click={enableBiometrics}
+          disabled={biometricsLoading}
         />
         <Button
           variant="secondary"
           label={$LL.ONBOARDING.PASSWORD.BIOMETRICS.DECIDE_LATER()}
           on:click={() => goto('/welcome/completed')}
+          disabled={biometricsLoading}
         />
       </div>
     </ActionSheet>

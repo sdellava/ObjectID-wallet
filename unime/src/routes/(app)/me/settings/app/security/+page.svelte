@@ -6,7 +6,7 @@
   import { fly } from 'svelte/transition';
 
   import { remove as remove_inner, store as store_inner } from '@impierce/tauri-plugin-keystore';
-  import { authenticate, BiometryType, checkStatus, type Status } from '@tauri-apps/plugin-biometric';
+  import { BiometryType, checkStatus, type Status } from '@tauri-apps/plugin-biometric';
   import { warn } from '@tauri-apps/plugin-log';
 
   import { ActionSheet, Button, SettingsSwitch, TopNavBar } from '$lib/components';
@@ -28,6 +28,7 @@
   let passwordValue: string = $state($appState.dev_mode !== 'Off' ? 'sup3rSecr3t' : '');
 
   let error: string | null = $state(null);
+  let biometricOperationInProgress = $state(false);
 
   let action: 'enable' | 'disable' | undefined = $state();
 
@@ -35,6 +36,7 @@
   let inputElement: HTMLInputElement;
 
   const toggleBiometrics = async (curr: boolean) => {
+    if (biometricOperationInProgress) return;
     if (curr) {
       action = 'disable';
     } else {
@@ -44,6 +46,7 @@
   };
 
   const checkPassword = async () => {
+    if (biometricOperationInProgress) return;
     let enable = action === 'enable';
     // Check if the password is correct
     await dispatch({ type: '[Storage] Check password', payload: { password: passwordValue } });
@@ -58,15 +61,15 @@
         return;
       }
 
-      // Authenticate with biometrics first, then update the state.
+      biometricOperationInProgress = true;
       if (enable) {
-        authenticate('Enable biometrics').then(async () => {
-          await store(passwordValue);
+        await store(passwordValue).finally(() => {
+          biometricOperationInProgress = false;
           $openPasswordPrompt = false;
         });
       } else {
-        authenticate('Disable biometrics').then(async () => {
-          await remove();
+        await remove().finally(() => {
+          biometricOperationInProgress = false;
           $openPasswordPrompt = false;
         });
       }
@@ -186,6 +189,7 @@
 
       <Button
         label={$LL.CONTINUE()}
+        disabled={biometricOperationInProgress}
         on:click={() => {
           checkPassword();
         }}

@@ -48,12 +48,18 @@
 <div class="mt-8 grow p-4" in:fade={{ delay: 200 }}>
   <div class="pt-4 pb-8">
     <p class="pb-8 text-3xl font-semibold text-slate-700 dark:text-grey">
-      {$LL.ONBOARDING.PASSWORD.COMPLETED.TITLE_1()}
-      <span class="text-primary">{$LL.ONBOARDING.PASSWORD.COMPLETED.TITLE_2()}</span>
+      Your Distributed Digital Identity
+      <span class="text-primary">is now being created</span>
     </p>
   </div>
   <div class="flex flex-col items-center justify-center space-y-6 rounded-3xl bg-white p-5 dark:bg-dark">
-    <p class="text-[22px]/[30px] font-semibold text-primary">{$LL.ONBOARDING.PASSWORD.COMPLETED.MESSAGE_1()}</p>
+    <p class="text-center text-[22px]/[30px] font-semibold text-primary">
+      {#if loading}
+        Your Distributed Digital Identity is now being created
+      {:else}
+        {$LL.ONBOARDING.PASSWORD.COMPLETED.MESSAGE_1()}
+      {/if}
+    </p>
     <div class="relative">
       <div class="relative z-10">
         <div class="text-[100px]/[100px]"><ShieldFillIcon class="text-primary" /></div>
@@ -98,6 +104,18 @@
           {loadingMode === 'import_seed' ? 'Opening scanner...' : 'Import seed from dapp.objectid.io'}
         </button>
       </div>
+      {#if loading}
+        <div class="mt-4 space-y-2">
+          <div class="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-navy">
+            <div class="indeterminate-progress h-full rounded-full bg-black dark:bg-white"></div>
+          </div>
+          <p class="text-[12px]/[18px] font-medium text-slate-500 dark:text-slate-300">
+            {loadingMode === 'initialize'
+              ? 'Creating the wallet, publishing the DID document, and securing the identity on IOTA.'
+              : 'Creating your profile before opening the scanner.'}
+          </p>
+        </div>
+      {/if}
     </div>
     <!-- Hint: backup -->
     <!-- <div class="bg-slate-100 p-4 rounded-2xl w-full">
@@ -105,3 +123,19 @@
     </div> -->
   </div>
 </div>
+
+<style>
+  .indeterminate-progress {
+    width: 45%;
+    animation: progress-slide 1.15s ease-in-out infinite;
+  }
+
+  @keyframes progress-slide {
+    0% {
+      transform: translateX(-110%);
+    }
+    100% {
+      transform: translateX(230%);
+    }
+  }
+</style>
