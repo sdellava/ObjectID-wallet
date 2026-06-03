@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "OIDwallet",
   "version": "0.13.2",
-  "identifier": "com.impierce.identity-wallet",
+  "identifier": "com.objectid.wallet",
   "app": {
     "security": {
       "csp": {

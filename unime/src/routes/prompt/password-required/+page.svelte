@@ -17,7 +17,7 @@
 
   let password: string;
 
-  const SERVICE = 'com.impierce.identity-wallet';
+  const SERVICE = 'com.objectid.wallet';
   const USER = 'oidwallet'; // TODO: rename to "ACCOUNT" to reflect Keychain Access item?
 
   const unlockWithBiometrics = async () => {

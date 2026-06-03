@@ -16,7 +16,7 @@
   import { state as appState, error as errorState, navigationDirection } from '$lib/stores';
   import { localizedBiometricsTypeString } from '$lib/utils';
 
-  const SERVICE = 'com.impierce.identity-wallet';
+  const SERVICE = 'com.objectid.wallet';
   const USER = 'oidwallet'; // TODO: rename to "ACCOUNT" to reflect Keychain Access item?
 
   let biometricsStatus: Status | undefined = $state();

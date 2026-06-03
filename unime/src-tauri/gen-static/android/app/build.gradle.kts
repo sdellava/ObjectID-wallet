@@ -38,10 +38,10 @@ val tauriProperties = Properties().apply {
 
 android {
     compileSdk = 35
-    namespace = "com.impierce.identity_wallet"
+    namespace = "com.objectid.wallet"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
-        applicationId = "com.impierce.identity_wallet"
+        applicationId = "com.objectid.wallet"
         minSdk = 28
         targetSdk = 35
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()

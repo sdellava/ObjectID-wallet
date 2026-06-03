@@ -41,9 +41,7 @@ describe('Image', () => {
           return Promise.resolve('_foobar');
         // join()
         case 'plugin:path|join':
-          return Promise.resolve(
-            `/Users/daniel/Library/Application Support/com.impierce.identity-wallet/assets/${id}.png`,
-          );
+          return Promise.resolve(`/Users/daniel/Library/Application Support/com.objectid.wallet/assets/${id}.png`);
         // exists()
         case 'plugin:fs|exists':
           return Promise.resolve(true);
@@ -62,7 +60,7 @@ describe('Image', () => {
     //     // join()
     //     case 'plugin:path|join':
     //       return Promise.resolve(
-    //         `/Users/daniel/Library/Application Support/com.impierce.identity-wallet/assets/${id}.png`,
+    //         `/Users/daniel/Library/Application Support/com.objectid.wallet/assets/${id}.png`,
     //       );
     //     // exists()
     //     case 'plugin:fs|exists':
@@ -79,7 +77,7 @@ describe('Image', () => {
     // // join()
     // if (cmd === 'plugin:path|join') {
     //   return Promise.resolve(
-    //     `/Users/daniel/Library/Application Support/com.impierce.identity-wallet/assets/${id}.png`,
+    //     `/Users/daniel/Library/Application Support/com.objectid.wallet/assets/${id}.png`,
     //   );
     // }
     // // exists()

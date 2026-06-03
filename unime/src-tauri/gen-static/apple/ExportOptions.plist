@@ -8,7 +8,7 @@
     <string>debugging</string>
     <key>provisioningProfiles</key>
 	<dict>
-		<key>com.impierce.identity-wallet</key>
+		<key>com.objectid.wallet</key>
 		<string>OIDwallet - Development Profile</string>
 	</dict> -->
 
@@ -16,7 +16,7 @@
 	<string>app-store-connect</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>com.impierce.identity-wallet</key>
+		<key>com.objectid.wallet</key>
 		<string>OIDwallet - Distribution Profile</string>
 	</dict>
 </dict>
