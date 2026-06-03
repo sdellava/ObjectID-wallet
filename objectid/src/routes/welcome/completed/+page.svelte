@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { fade } from 'svelte/transition';
 
   import '@lottiefiles/lottie-player';
@@ -11,7 +12,52 @@
   import { onboarding_state } from '$lib/stores';
   import { calculateInitials } from '$lib/utils';
 
-  let loading = false;
+  let loadingIdentity = false;
+  let loadingImport = false;
+  let statusMessage = '';
+
+  const createProfile = () =>
+    dispatch({
+      type: '[DID] Create new',
+      payload: {
+        name: $onboarding_state.name ?? '',
+        picture: '',
+        theme: 'system',
+        password: $onboarding_state.password ?? '',
+        biometrics_enabled: $onboarding_state.biometrics_enabled ?? false,
+      },
+    });
+
+  const createDistributedIdentity = async () => {
+    if (loadingIdentity || loadingImport) return;
+
+    loadingIdentity = true;
+    statusMessage = 'Creating your profile...';
+    await createProfile();
+
+    statusMessage = 'Configuring your IOTA wallet...';
+    await dispatch({
+      type: '[IOTA Wallet] Create or load',
+      payload: { network: 'testnet' },
+    });
+
+    statusMessage = 'Creating your European Verifiable Identity...';
+    await dispatch({ type: '[IOTA Wallet] Create identity', payload: {} });
+
+    statusMessage = 'Opening your distributed identity...';
+    await goto('/me/iota-identity');
+  };
+
+  const importSeed = async () => {
+    if (loadingIdentity || loadingImport) return;
+
+    loadingImport = true;
+    statusMessage = 'Creating your profile...';
+    await createProfile();
+
+    statusMessage = 'Opening the scanner...';
+    setTimeout(() => goto('/scan'), 100);
+  };
 </script>
 
 <!-- TODO: should we show this screen AFTER a successful creation of a stronghold? -->
@@ -49,6 +95,12 @@
     <p class="text-[22px]/[30px] font-semibold text-primary">
       {$LL.ONBOARDING.PASSWORD.COMPLETED.MESSAGE_2()}, {$onboarding_state.name}!
     </p>
+    <p class="text-center text-[13px]/[20px] font-medium text-slate-500 dark:text-slate-300">
+      Choose how you want to set up your ObjectID wallet.
+    </p>
+    {#if statusMessage}
+      <p class="text-center text-[12px]/[18px] font-semibold text-primary">{statusMessage}</p>
+    {/if}
     <!-- Hint: backup -->
     <!-- <div class="bg-slate-100 p-4 rounded-2xl w-full">
       <p class="text-sm text-slate-800">Let's create a quick backup.</p>
@@ -57,21 +109,19 @@
 </div>
 
 <div class="rounded-t-3xl bg-white p-6 dark:bg-dark" in:fade={{ delay: 200 }}>
-  <Button
-    label={$LL.CONTINUE()}
-    on:click={() => {
-      dispatch({
-        type: '[DID] Create new',
-        payload: {
-          name: $onboarding_state.name ?? '',
-          picture: '',
-          theme: 'system',
-          password: $onboarding_state.password ?? '',
-          biometrics_enabled: $onboarding_state.biometrics_enabled ?? false,
-        },
-      });
-      loading = true;
-    }}
-    {loading}
-  />
+  <div class="flex flex-col gap-3">
+    <Button
+      label="Create a new distributed identity"
+      on:click={createDistributedIdentity}
+      loading={loadingIdentity}
+      disabled={loadingImport}
+    />
+    <Button
+      label="Import SEED from dapp.objectid.io"
+      variant="secondary"
+      on:click={importSeed}
+      loading={loadingImport}
+      disabled={loadingIdentity}
+    />
+  </div>
 </div>
