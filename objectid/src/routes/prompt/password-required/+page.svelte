@@ -63,10 +63,6 @@
         dispatch({ type: '[Storage] Unlock', payload: { password: 'sup3rSecr3t' } });
       }, 500);
     }
-    // When biometrics are enabled, try to retrieve the password and inject it.
-    if ($state?.profile_settings.biometrics_enabled) {
-      void unlockWithBiometrics();
-    }
   });
 </script>
 
@@ -87,6 +83,11 @@
       <button
         class="mt-3 rounded-xl px-4 py-2 text-[13px]/[24px] font-medium text-blue active:bg-grey dark:text-silver dark:active:bg-dark"
         on:click={unlockWithBiometrics}>Try fingerprint again</button
+      >
+    {:else if $state?.profile_settings.biometrics_enabled}
+      <button
+        class="mt-8 rounded-xl px-4 py-2 text-[13px]/[24px] font-medium text-blue active:bg-grey dark:text-silver dark:active:bg-dark"
+        on:click={unlockWithBiometrics}>Unlock with fingerprint</button
       >
     {/if}
 

@@ -3,11 +3,7 @@
 
   import { beforeNavigate, goto } from '$app/navigation';
   import { page } from '$app/state';
-  import {
-    PUBLIC_DEV_MODE_MENU_EXPANDED,
-    PUBLIC_DEV_SHOW_CURRENT_ROUTE,
-    PUBLIC_STYLE_SAFE_AREA_INSETS,
-  } from '$env/static/public';
+  import { env } from '$env/dynamic/public';
   import LL, { setLocale } from '$i18n/i18n-svelte';
   import { loadAllLocales } from '$i18n/i18n-util.sync';
   import type { SVGAttributes } from 'svelte/elements';
@@ -40,6 +36,11 @@
   let unlistenError: UnlistenFn = () => {};
   let unlistenStateChanged: UnlistenFn = () => {};
   let unlistenDeepLink: UnlistenFn = () => {};
+  let hasLoadedInitialState = false;
+
+  const PUBLIC_DEV_MODE_MENU_EXPANDED = env.PUBLIC_DEV_MODE_MENU_EXPANDED;
+  const PUBLIC_DEV_SHOW_CURRENT_ROUTE = env.PUBLIC_DEV_SHOW_CURRENT_ROUTE;
+  const PUBLIC_STYLE_SAFE_AREA_INSETS = env.PUBLIC_STYLE_SAFE_AREA_INSETS;
 
   const pendingDeepLinkUrl = writable<URL | undefined>();
 
@@ -108,38 +109,7 @@
 
     try {
       unlistenStateChanged = await listen('state-changed', (event) => {
-        // Set frontend state to state received from backend.
-        appState.set(event.payload as AppState);
-
-        // Update locale based on the frontend state.
-        setLocale($appState.profile_settings.locale);
-
-        // Process a deep link (only if the app is already unlocked).
-        const url = get(pendingDeepLinkUrl);
-        if ($appState?.is_unlocked && url) {
-          processDeepLink(url);
-        }
-
-        let redirectPath: string | undefined;
-
-        if ($appState.current_user_prompt) {
-          // Generic redirect.
-          if ($appState.current_user_prompt.type === 'redirect') {
-            redirectPath = `/${$appState.current_user_prompt.target}`;
-          }
-          // Prompt redirect.
-          else {
-            redirectPath = `/prompt/${$appState.current_user_prompt.type}`;
-          }
-        }
-
-        // DEV: uncommenting this helps local development by always redirecting to the page you're working on
-        // redirectPath = '/me/settings/about';
-
-        if (redirectPath) {
-          info(`Redirecting to: ${redirectPath}.`);
-          void navigateIfNeeded(redirectPath).catch((e) => error(`Failed to redirect to ${redirectPath}: ${e}`));
-        }
+        void handleStateChanged(event.payload as AppState);
       });
     } catch (e) {
       void error(`Failed to listen for state changes: ${e}`);
@@ -178,6 +148,48 @@
       void error(`Failed to listen for deep links: ${e}`);
     }
   });
+
+  async function handleStateChanged(nextState: AppState) {
+    try {
+      // Set frontend state to state received from backend.
+      appState.set(nextState);
+
+      // Update locale based on the frontend state.
+      setLocale($appState.profile_settings.locale);
+
+      // Process a deep link (only if the app is already unlocked).
+      const url = get(pendingDeepLinkUrl);
+      if ($appState?.is_unlocked && url) {
+        processDeepLink(url);
+      }
+
+      let redirectPath: string | undefined;
+
+      if ($appState.current_user_prompt) {
+        // Generic redirect.
+        if ($appState.current_user_prompt.type === 'redirect') {
+          redirectPath = `/${$appState.current_user_prompt.target}`;
+        }
+        // Prompt redirect.
+        else {
+          redirectPath = `/prompt/${$appState.current_user_prompt.type}`;
+        }
+      }
+
+      // DEV: uncommenting this helps local development by always redirecting to the page you're working on
+      // redirectPath = '/me/settings/about';
+
+      if (redirectPath) {
+        info(`Redirecting to: ${redirectPath}.`);
+        await navigateIfNeeded(redirectPath);
+      }
+      hasLoadedInitialState = true;
+    } catch (e) {
+      void error(`Failed to process app state: ${e}`);
+      errorState.set(`${e}`);
+      hasLoadedInitialState = true;
+    }
+  }
 
   onDestroy(() => {
     // Destroy in reverse order.
@@ -227,7 +239,7 @@
     // User prompt
     let type = $appState?.current_user_prompt?.type;
 
-    if (type && type !== 'redirect') {
+    if (hasLoadedInitialState && type && type !== 'redirect') {
       void navigateIfNeeded(`/prompt/${type}`).catch((e) => error(`Failed to redirect to prompt ${type}: ${e}`));
     }
   }
@@ -530,7 +542,13 @@ Stacking context: We have to deviate from the DOM-sequence.
       </div>
     {/if}
 
-    <slot />
+    {#if hasLoadedInitialState}
+      <slot />
+    {:else}
+      <div class="flex min-h-full items-center justify-center bg-white dark:bg-dark">
+        <div class="h-10 w-10 animate-pulse rounded-full bg-primary/20"></div>
+      </div>
+    {/if}
 
     <!-- Show actual (non-localized) error message in dev mode, default (localized) message otherwise.  -->
     {#if $errorState}
