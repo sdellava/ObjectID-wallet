@@ -4,7 +4,6 @@
   import { fade } from 'svelte/transition';
 
   import { Button } from '$lib/components';
-  import MeLarge from '$lib/static/svg/logo/MeLarge.svelte';
   import ObjectIDText from '$lib/static/svg/logo/ObjectIDText.svelte';
   import { onboarding_state } from '$lib/stores';
 
@@ -33,8 +32,8 @@
     </div>
   </div>
 
-  <div class="absolute bottom-16 left-0">
-    <MeLarge class="h-auto w-screen" />
+  <div class="pointer-events-none absolute right-[-18vw] bottom-18 left-[-18vw] opacity-8">
+    <ObjectIDText alt="" aria-hidden="true" class="w-[136vw] max-w-none" />
   </div>
 
   <!-- Actions -->
