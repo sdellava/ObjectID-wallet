@@ -39,7 +39,7 @@ jobs:
           distribution: "temurin"
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - name: Set up Android NDK
         uses: nttld/setup-ndk@v1
@@ -84,7 +84,7 @@ jobs:
         run: pnpm --filter=oidwallet tauri android build --debug --target aarch64 --apk true --aab false
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: OIDwallet-debug-apk
           path: unime/src-tauri/gen/android/app/build/outputs/apk/**/*.apk
