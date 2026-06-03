@@ -1,6 +1,6 @@
 use crate::oid4vci::authorization_request::CodeChallengeMethod;
 use crate::state::credentials::reducers::send_token_request::send_token_request;
-use crate::state::{UNIME_CLIENT_ID, UNIME_REDIRECT_URI};
+use crate::state::{OIDWALLET_CLIENT_ID, OIDWALLET_REDIRECT_URI};
 use crate::{
     error::AppError::{self, *},
     state::{
@@ -142,7 +142,7 @@ pub async fn send_credential_request(state: AppState, action: Action) -> Result<
                 // Else, if the Credential Offer contains an authorization code grant, then initiate the authorization
                 // request. First, A Pushed Authorization Request (PAR) is sent to the authorization server. Then, the
                 // `opener` plugin is used to open the authorization endpoint in the system browser. The flow will
-                // continue when UniMe receives the authorization code via during redirection back to the app from the
+                // continue when OIDwallet receives the authorization code via during redirection back to the app from the
                 // browser. The frontend will then dispatch the `CodeReceived` action which will continue the flow.
                 } else if let Some(authorization_code) = authorization_code {
                     let specified_authorization_server = authorization_code.authorization_server.as_ref();
@@ -209,8 +209,8 @@ pub async fn send_credential_request(state: AppState, action: Action) -> Result<
                                         .to_string(),
                                 ))?
                                 .clone(),
-                            UNIME_CLIENT_ID,
-                            UNIME_REDIRECT_URI.parse().unwrap(),
+                            OIDWALLET_CLIENT_ID,
+                            OIDWALLET_REDIRECT_URI.parse().unwrap(),
                             wallet_state.clone(),
                             authorization_details,
                             authorization_code
@@ -238,7 +238,7 @@ pub async fn send_credential_request(state: AppState, action: Action) -> Result<
 
                     authorization_endpoint
                         .query_pairs_mut()
-                        .append_pair("client_id", UNIME_CLIENT_ID)
+                        .append_pair("client_id", OIDWALLET_CLIENT_ID)
                         .append_pair("request_uri", &par_response.request_uri.to_string());
 
                     info!("Opening URL in browser: `{authorization_endpoint}`");

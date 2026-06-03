@@ -17,7 +17,7 @@
   import { localizedBiometricsTypeString } from '$lib/utils';
 
   const SERVICE = 'com.impierce.identity-wallet';
-  const USER = 'unime'; // TODO: rename to "ACCOUNT" to reflect Keychain Access item?
+  const USER = 'oidwallet'; // TODO: rename to "ACCOUNT" to reflect Keychain Access item?
 
   let biometricsStatus: Status | undefined = $state();
   let biometryTypeString: string = $state('');

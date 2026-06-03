@@ -1,8 +1,8 @@
-![banner.svg](https://github.com/impierce/identity-wallet/raw/HEAD/.github/banner.svg)
+![banner.svg](https://github.com/sdellava/ObjectID-wallet/raw/HEAD/.github/banner.svg)
 
 ---
 
-# UniMe - Identity Wallet
+# ObjectID-wallet
 
 Identity Wallet for people to manage Decentralized Identities and Verifiable Credentials.
 
@@ -19,9 +19,9 @@ This repository uses [pnpm workspaces](https://pnpm.io/workspaces):
 | Path                | Description                                             |
 | :------------------ | :------------------------------------------------------ |
 | `./`                | Project root with Prettier configuration.               |
-| `./unime`           | pnpm workspace with UniMe frontend.                     |
+| `./unime`           | pnpm workspace with OIDwallet frontend.                     |
 | `./unime/src-tauri` | Tauri Rust app (not a pnpm workspace).                  |
-| `./identity-wallet` | Rust package with UniMe backend (not a pnpm workspace). |
+| `./identity-wallet` | Rust package with OIDwallet backend (not a pnpm workspace). |
 
 Get up and running with these steps:
 
@@ -79,7 +79,7 @@ pnpm tauri ios dev
 > [!NOTE]
 > Before committing, please make sure the code is formatted, linted, and passes all tests.
 
-### UniMe frontend
+### OIDwallet frontend
 
 Run the following commands from the project root:
 
@@ -97,7 +97,7 @@ cargo clippy
 cargo test
 ```
 
-### UniMe backend package
+### OIDwallet backend package
 
 Run these commands from `./identity-wallet`:
 

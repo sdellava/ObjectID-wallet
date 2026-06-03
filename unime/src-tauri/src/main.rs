@@ -4,5 +4,5 @@
 fn main() {
     #[cfg(not(feature = "test_utils"))]
     #[cfg(desktop)]
-    unime::run();
+    oidwallet::run();
 }

@@ -148,7 +148,7 @@
 
       <ActionSheet
         titleText="Complete new goals"
-        descriptionText="Start your mission here! Goals will lead you through important features and possibilities of UniMe app."
+        descriptionText="Start your mission here! Goals will lead you through important features and possibilities of OIDwallet app."
       >
         <!-- TODO: bug: properly $close the drawer with melt-ui (otherwise two clicks necessary) -->
         <Button slot="trigger" let:trigger {trigger} label="Let's go" />

@@ -10,7 +10,7 @@
   import { ActionSheet, Button } from '$lib/components';
   import { dispatch } from '$lib/dispatcher';
   import { EyeClosedRegularIcon, EyeRegularIcon } from '$lib/icons';
-  import UniMeLogo from '$lib/static/svg/logo/UniMeLogo.svelte';
+  import OIDwalletLogo from '$lib/static/svg/logo/OIDwalletLogo.svelte';
   import { state } from '$lib/stores';
 
   let showPassword = false;
@@ -18,7 +18,7 @@
   let password: string;
 
   const SERVICE = 'com.impierce.identity-wallet';
-  const USER = 'unime'; // TODO: rename to "ACCOUNT" to reflect Keychain Access item?
+  const USER = 'oidwallet'; // TODO: rename to "ACCOUNT" to reflect Keychain Access item?
 
   const unlockWithBiometrics = async () => {
     await retrieve(SERVICE, USER)
@@ -55,7 +55,7 @@
   <!-- Placeholder -->
   <!-- <div class="aspect-square w-1/4 rounded-3xl border border-slate-200 bg-slate-100" /> -->
   <div class="flex flex-col items-center justify-center">
-    <UniMeLogo class="text-blue dark:text-silver" />
+    <OIDwalletLogo class="text-blue dark:text-silver" />
 
     <!-- Manual password entry -->
     <div class="relative mt-8 mb-4 w-[240px]">

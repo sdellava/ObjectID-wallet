@@ -4,13 +4,13 @@ const fi_FI = {
   ONBOARDING: {
     WELCOME: {
       GREETING: 'Tervetuloa',
-      WHAT_IS_UNIME_1: 'UniMe yhdistää digitaalisen maailmasi turvallisesti.',
-      WHAT_IS_UNIME_2: 'Luo uusi identiteettiprofiili aloittaaksesi.',
+      WHAT_IS_OIDWALLET_1: 'OIDwallet yhdistää digitaalisen maailmasi turvallisesti.',
+      WHAT_IS_OIDWALLET_2: 'Luo uusi identiteettiprofiili aloittaaksesi.',
       CREATE_NEW_PROFILE: 'Luo uusi profiili',
       SELECT_LANGUAGE: 'Valitse kieli',
     },
     PLEDGE: {
-      NAVBAR_TITLE: 'UniMe-lupaus',
+      NAVBAR_TITLE: 'OIDwallet-lupaus',
       TITLE_1: 'Ei mitään',
       TITLE_2: 'hämärää',
       SUBTITLE: 'Tässä on lupauksemme sinulle.',
@@ -37,21 +37,21 @@ const fi_FI = {
       T_AND_C: {
         TITLE: 'Käyttöehdot',
         DESCRIPTION: 'Olen lukenut ja hyväksyn käyttöehdot.',
-        DIALOG_TITLE: 'UniMe Käyttöehdot',
+        DIALOG_TITLE: 'OIDwallet Käyttöehdot',
         LAST_UPDATED: 'Viimeksi päivitetty: 10. syyskuuta 2025',
         TL_DR:
-          'Kuten kaikki sovellusten tarjoajat, meidän on lain mukaan annettava sinulle tärkeitä ehtoja ja sääntöjä. Olemme tehneet parhaamme pitääksesi asiat selkeinä ja ytimekkäinä. Tässä lyhyt versio: UniMe antaa sinulle vallan. Se ei kerää tietojasi, kunnioittaa yksityisyyttäsi ja antaa sinun päättää, mitä tietoja tallennat ja jaat. Identiteettisi ja tietosi pysyvät sinulla, samoin vastuu niiden hallinnasta. Emme tallenna tietojasi emmekä pääse niihin käsiksi, joten kaikki tietojen menetys, joka johtuu laitteen tai sovelluksen käytön menettämisestä, on myös sinun vastuullasi. Suurella vallalla tulee suuri vastuu. Tässä kaikki, mitä sinun tulee tietää:',
+          'Kuten kaikki sovellusten tarjoajat, meidän on lain mukaan annettava sinulle tärkeitä ehtoja ja sääntöjä. Olemme tehneet parhaamme pitääksesi asiat selkeinä ja ytimekkäinä. Tässä lyhyt versio: OIDwallet antaa sinulle vallan. Se ei kerää tietojasi, kunnioittaa yksityisyyttäsi ja antaa sinun päättää, mitä tietoja tallennat ja jaat. Identiteettisi ja tietosi pysyvät sinulla, samoin vastuu niiden hallinnasta. Emme tallenna tietojasi emmekä pääse niihin käsiksi, joten kaikki tietojen menetys, joka johtuu laitteen tai sovelluksen käytön menettämisestä, on myös sinun vastuullasi. Suurella vallalla tulee suuri vastuu. Tässä kaikki, mitä sinun tulee tietää:',
         // Note: this translation had not been verified by a legal expert.
         FULL: {
           AGREEMENT: {
             TITLE: 'Ehtojen hyväksyminen',
             DESCRIPTION:
-              'Kiitos, että valitsit UniMen, EU:n digitaalisen henkilöllisyyslompakon (mobiilisovellus), jonka on kehittänyt ja ylläpitää Impierce Technologies B.V. ("me", "meitä" tai "meidän"). Nämä käyttöehdot ("Ehdot") säätelevät pääsyäsi UniMe-mobiilisovellukseen (”Palvelu”) ja sen käyttöä, olipa sovellus ladattu Apple App Storesta, Google Play Storesta tai muualta. Asentamalla, käyttämällä tai pääsemällä Palveluun hyväksyt lukeneesi, ymmärtäneesi ja sitoutuneesi näihin Ehtoihin ja tietosuojakäytäntöömme. Jos et hyväksy mitään näistä ehdoista, älä käytä Palvelua. Jos käytät Palvelua organisaation puolesta, vakuutat ja takaat, että sinulla on valtuudet hyväksyä nämä Ehdot kyseisen organisaation puolesta.',
+              'Kiitos, että valitsit OIDwalletn, EU:n digitaalisen henkilöllisyyslompakon (mobiilisovellus), jonka on kehittänyt ja ylläpitää Impierce Technologies B.V. ("me", "meitä" tai "meidän"). Nämä käyttöehdot ("Ehdot") säätelevät pääsyäsi OIDwallet-mobiilisovellukseen (”Palvelu”) ja sen käyttöä, olipa sovellus ladattu Apple App Storesta, Google Play Storesta tai muualta. Asentamalla, käyttämällä tai pääsemällä Palveluun hyväksyt lukeneesi, ymmärtäneesi ja sitoutuneesi näihin Ehtoihin ja tietosuojakäytäntöömme. Jos et hyväksy mitään näistä ehdoista, älä käytä Palvelua. Jos käytät Palvelua organisaation puolesta, vakuutat ja takaat, että sinulla on valtuudet hyväksyä nämä Ehdot kyseisen organisaation puolesta.',
           },
           DEFINITIONS: {
             TITLE: 'Määritelmät',
             DESCRIPTION:
-              'Palvelu tarkoittaa UniMe Identity Wallet -mobiilisovellusta ja sisältää kaikki sen tarjoamat toiminnot, sisällöt tai palvelut. Käyttäjätiedot tarkoittavat kaikkia tietoja, tunnuksia tai tietoja, jotka tallennat tai jaat Palvelua käyttäessäsi. Laite tarkoittaa mobiililaitetta tai laitteistoa, johon UniMe-sovellus on asennettu ja jota käytät.',
+              'Palvelu tarkoittaa ObjectID-wallet -mobiilisovellusta ja sisältää kaikki sen tarjoamat toiminnot, sisällöt tai palvelut. Käyttäjätiedot tarkoittavat kaikkia tietoja, tunnuksia tai tietoja, jotka tallennat tai jaat Palvelua käyttäessäsi. Laite tarkoittaa mobiililaitetta tai laitteistoa, johon OIDwallet-sovellus on asennettu ja jota käytät.',
           },
           USER_RESPONSIBILITIES: {
             TITLE: 'Käyttäjän vastuut',
@@ -61,17 +61,17 @@ const fi_FI = {
           DATA_OWNERSHIP: {
             TITLE: 'Tietojen omistajuus ja yksityisyys',
             DESCRIPTION:
-              'UniMe perustuu käyttäjän hallinnan ja tietosuojaamisen periaatteisiin. Arkkitehtuurimme on suunniteltu siten, ettemme pääse käsiksi käyttäjän tietoihin, kerää niitä, tallenna tai käsittele niitä sovelluksessa. Kaikki käyttäjätietosi tallennetaan paikallisesti ja turvallisesti laitteellesi. Käytämme sovelluksessa vahvoja turvatoimia tietojesi suojaamiseksi. Lopullinen suojaus riippuu kuitenkin myös sinusta, esimerkiksi käyttämällä vahvaa salasanaa ja välttämällä epäluotettavien lähteiden ohjelmien asentamista. Varmistaaksemme tunnistustietojesi eheyden, UniMe voi ajoittain tarkistaa niiden voimassaolon. Tämä tapahtuu ottamalla suoraan yhteyttä tunnistuksen myöntäjään laitteestasi varmistaaksesi, onko tunnistus peruutettu. Tämä prosessi tapahtuu automaattisesti laitteellasi eikä siihen osallistu Impierce Technologies B.V. Kun mahdollista, UniMe käyttää näissä tarkistuksissa hajautettuja menetelmiä.',
+              'OIDwallet perustuu käyttäjän hallinnan ja tietosuojaamisen periaatteisiin. Arkkitehtuurimme on suunniteltu siten, ettemme pääse käsiksi käyttäjän tietoihin, kerää niitä, tallenna tai käsittele niitä sovelluksessa. Kaikki käyttäjätietosi tallennetaan paikallisesti ja turvallisesti laitteellesi. Käytämme sovelluksessa vahvoja turvatoimia tietojesi suojaamiseksi. Lopullinen suojaus riippuu kuitenkin myös sinusta, esimerkiksi käyttämällä vahvaa salasanaa ja välttämällä epäluotettavien lähteiden ohjelmien asentamista. Varmistaaksemme tunnistustietojesi eheyden, OIDwallet voi ajoittain tarkistaa niiden voimassaolon. Tämä tapahtuu ottamalla suoraan yhteyttä tunnistuksen myöntäjään laitteestasi varmistaaksesi, onko tunnistus peruutettu. Tämä prosessi tapahtuu automaattisesti laitteellasi eikä siihen osallistu Impierce Technologies B.V. Kun mahdollista, OIDwallet käyttää näissä tarkistuksissa hajautettuja menetelmiä.',
           },
           DATA_VISIBILITY: {
             TITLE: 'Sovellusalustojen tietojen näkyvyys',
             DESCRIPTION:
-              'Kun lataat tai käytät UniMea virallisen sovelluskaupan, kuten Apple App Storen tai Google Playn kautta, alusta voi kerätä rajoitettuja teknisiä ja käyttöön liittyviä tietoja. Näitä voivat olla esimerkiksi laitteesi tyyppi, sovelluksen asennus- tai kaatumistapahtumat sekä laitteesi alue- ja kieliasetukset. Tiedot kerätään kyseisen sovelluskaupan omien käytäntöjen mukaisesti. Impierce ei kerää lisätietoja suoraan laitteestasi.',
+              'Kun lataat tai käytät OIDwalleta virallisen sovelluskaupan, kuten Apple App Storen tai Google Playn kautta, alusta voi kerätä rajoitettuja teknisiä ja käyttöön liittyviä tietoja. Näitä voivat olla esimerkiksi laitteesi tyyppi, sovelluksen asennus- tai kaatumistapahtumat sekä laitteesi alue- ja kieliasetukset. Tiedot kerätään kyseisen sovelluskaupan omien käytäntöjen mukaisesti. Impierce ei kerää lisätietoja suoraan laitteestasi.',
           },
           INTELLECTUAL_PROPERTY_RIGHTS: {
             TITLE: 'Immateriaalioikeudet',
             DESCRIPTION:
-              'Kaikki UniMen ja siihen liittyvien materiaalien immateriaalioikeudet kuuluvat Impierce Technologies B.V:lle tai sen lisenssinantajille. UniMea tarjotaan Apache 2.0 -lisenssin alaisena, mikä tarkoittaa, että voit käyttää, muokata ja jakaa ohjelmistoa lisenssin ehtojen mukaisesti. Lisätietoja löytyy täydellisestä Apache 2.0 -lisenssistä.',
+              'Kaikki OIDwalletn ja siihen liittyvien materiaalien immateriaalioikeudet kuuluvat Impierce Technologies B.V:lle tai sen lisenssinantajille. OIDwalleta tarjotaan Apache 2.0 -lisenssin alaisena, mikä tarkoittaa, että voit käyttää, muokata ja jakaa ohjelmistoa lisenssin ehtojen mukaisesti. Lisätietoja löytyy täydellisestä Apache 2.0 -lisenssistä.',
           },
           PROHIBITED_ACTIVITIES: {
             TITLE: 'Kielletyt toiminnot',
@@ -116,12 +116,12 @@ const fi_FI = {
           ENTIRE_AGREEMENT: {
             TITLE: 'Koko sopimus',
             DESCRIPTION:
-              'Nämä Käyttöehdot yhdessä Tietosuojakäytäntömme kanssa muodostavat täydellisen sopimuksen sinun ja Impierce Technologies B.V:n välillä UniMen käytöstä.',
+              'Nämä Käyttöehdot yhdessä Tietosuojakäytäntömme kanssa muodostavat täydellisen sopimuksen sinun ja Impierce Technologies B.V:n välillä OIDwalletn käytöstä.',
           },
           CONTACT: {
             TITLE: 'Ota yhteyttä',
             DESCRIPTION:
-              'Onko sinulla palautetta tai kysymyksiä? Haluamme aina kehittyä. Jos jokin on epäselvää tai voisi ilmaista paremmin, ota rohkeasti yhteyttä osoitteeseen contact@impierce.com. Käyttämällä UniMea vahvistat, että olet lukenut, ymmärtänyt ja hyväksynyt nämä Käyttöehdot. Sitoudumme edelleen tarjoamaan turvallisia, yksityisyyskeskeisiä digitaalisia työkaluja, jotka antavat sinulle vallan.',
+              'Onko sinulla palautetta tai kysymyksiä? Haluamme aina kehittyä. Jos jokin on epäselvää tai voisi ilmaista paremmin, ota rohkeasti yhteyttä osoitteeseen contact@impierce.com. Käyttämällä OIDwalleta vahvistat, että olet lukenut, ymmärtänyt ja hyväksynyt nämä Käyttöehdot. Sitoudumme edelleen tarjoamaan turvallisia, yksityisyyskeskeisiä digitaalisia työkaluja, jotka antavat sinulle vallan.',
           },
         },
       },
@@ -167,7 +167,7 @@ const fi_FI = {
       },
       COMPLETED: {
         NAVBAR_TITLE: 'Salasana asetettu',
-        TITLE_1: 'UniMe-profiilisi on nyt',
+        TITLE_1: 'OIDwallet-profiilisi on nyt',
         TITLE_2: 'suojattu',
         MESSAGE_1: 'Turvallinen & suojattu.',
         MESSAGE_2: 'Hienoa työtä',
@@ -277,8 +277,8 @@ const fi_FI = {
     SUPPORT: {
       TITLE: 'Tuki',
       ABOUT: {
-        TITLE: 'Tietoja UniMesta',
-        NAVBAR_TITLE: 'Tietoja UniMesta',
+        TITLE: 'Tietoja OIDwalletsta',
+        NAVBAR_TITLE: 'Tietoja OIDwalletsta',
         SPECIFICATIONS: 'Tekniset tiedot',
         VERSION: 'Versio',
         LICENSE: 'Lisenssi',
@@ -504,12 +504,12 @@ const fi_FI = {
       DESCRIPTION: 'Lisää tietoja itsestäsi',
       INFO: {
         NAVBAR_TITLE: 'Profiilisi',
-        TITLE: 'UniMe-profiili',
+        TITLE: 'OIDwallet-profiili',
         DESCRIPTION: 'Ennen kuin aloitat',
         ITEM_0: {
           TITLE: 'Ohita tylsät lomakkeet',
           DESCRIPTION:
-            'UniMe-profiilisi toimii kuin digitaalinen henkilöllisyystodistus. Käytä sitä täyttämään tietosi automaattisesti tuetuilla sivustoilla ja karsi turha sekavuus verkkoelämästäsi.',
+            'OIDwallet-profiilisi toimii kuin digitaalinen henkilöllisyystodistus. Käytä sitä täyttämään tietosi automaattisesti tuetuilla sivustoilla ja karsi turha sekavuus verkkoelämästäsi.',
         },
         ITEM_1: {
           TITLE: 'Välitön jakaminen',
@@ -559,9 +559,9 @@ const fi_FI = {
   },
   DOMAIN_LINKAGE: {
     TITLE: 'Varmennettu sivusto',
-    SUCCESS: 'UniMe varmisti identiteetin turvallista kirjautumista varten.',
-    FAILURE: 'UniMe ei voinut varmentaa identiteetin ja domainin yhteyttä.',
-    UNKNOWN: 'UniMe ei löytänyt näyttöä domainin identiteetistä.',
+    SUCCESS: 'OIDwallet varmisti identiteetin turvallista kirjautumista varten.',
+    FAILURE: 'OIDwallet ei voinut varmentaa identiteetin ja domainin yhteyttä.',
+    UNKNOWN: 'OIDwallet ei löytänyt näyttöä domainin identiteetistä.',
     CAUTION: 'Toimi varoen!',
   },
   ERROR: {

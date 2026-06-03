@@ -1,9 +1,9 @@
 <script lang="ts">
-  import UniMeLogo from '$lib/static/svg/logo/UniMeLogo.svelte';
+  import OIDwalletLogo from '$lib/static/svg/logo/OIDwalletLogo.svelte';
 </script>
 
 <div class="content-height flex items-center justify-center bg-silver dark:bg-navy">
-  <UniMeLogo class="text-blue dark:text-silver" />
+  <OIDwalletLogo class="text-blue dark:text-silver" />
 </div>
 
 <style>

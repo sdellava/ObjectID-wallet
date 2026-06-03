@@ -1,17 +1,17 @@
 [package]
-name = "unime"
+name = "oidwallet"
 version = "0.13.2"
 description = "Identity Wallet for people to manage Decentralized Identities and Verifiable Credentials"
 homepage = "https://www.impierce.com/"
 authors = ["Impierce Technologies"]
 keywords = ["identity", "did", "ssi", "wallet", "siopv2"]
 license = "Apache-2.0"
-repository = "https://github.com/impierce/identity-wallet"
+repository = "https://github.com/sdellava/ObjectID-wallet"
 edition = "2021"
 rust-version.workspace = true
 
 [lib]
-name = "unime"
+name = "oidwallet"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
@@ -39,7 +39,7 @@ tauri-plugin-shell = { version = "2" }
 
 [dev-dependencies]
 tauri = { workspace = true, features = ["test"] }
-unime = { path = ".", features = ["test_utils"] }
+oidwallet = { path = ".", features = ["test_utils"] }
 
 did_manager.workspace = true
 identity-wallet = { path = "../../identity-wallet", features = ["test_utils"] }

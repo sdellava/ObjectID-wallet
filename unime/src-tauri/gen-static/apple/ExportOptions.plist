@@ -9,7 +9,7 @@
     <key>provisioningProfiles</key>
 	<dict>
 		<key>com.impierce.identity-wallet</key>
-		<string>UniMe - Development Profile</string>
+		<string>OIDwallet - Development Profile</string>
 	</dict> -->
 
     <key>method</key>
@@ -17,7 +17,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.impierce.identity-wallet</key>
-		<string>UniMe - Distribution Profile</string>
+		<string>OIDwallet - Distribution Profile</string>
 	</dict>
 </dict>
 </plist>

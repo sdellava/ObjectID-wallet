@@ -11,7 +11,7 @@ import { debug, info, warn } from '@tauri-apps/plugin-log';
 import { platform } from '@tauri-apps/plugin-os';
 
 /**
- * Get an image asset URL from the UniMe backend.
+ * Get an image asset URL from the OIDwallet backend.
  *
  * @param id The identifier of the asset (e.g. the credential_id)
  * @param tmp Specify whether to look in the `tmp` folder (e.g. during a offer), default: `false`

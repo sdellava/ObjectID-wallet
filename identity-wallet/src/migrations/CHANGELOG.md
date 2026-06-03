@@ -1,8 +1,8 @@
 # App State and Data Migrations
 
-Since UniMe is not semantically versioned, the following overview of migrations can be helpful for debugging and testing backwards compatibility.
+Since OIDwallet is not semantically versioned, the following overview of migrations can be helpful for debugging and testing backwards compatibility.
 
-| UniMe Version | `AppState` Version | Git commit | Description                                |
+| OIDwallet Version | `AppState` Version | Git commit | Description                                |
 | ------------- | -----------------: | ---------- | ------------------------------------------ |
 | `0.8.2`       |                `1` | `ae1b555`  | Initial version, introduce `version` field |
 

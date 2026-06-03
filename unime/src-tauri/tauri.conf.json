@@ -1,6 +1,6 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "UniMe",
+  "productName": "OIDwallet",
   "version": "0.13.2",
   "identifier": "com.impierce.identity-wallet",
   "app": {
@@ -22,7 +22,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "UniMe - Identity Wallet",
+        "title": "ObjectID-wallet",
         "width": 390,
         "height": 844
       }
@@ -48,7 +48,7 @@
     },
     "linux": {
       "deb": {
-        "desktopTemplate": "../UniMe.desktop"
+        "desktopTemplate": "../OIDwallet.desktop"
       }
     },
     "resources": [
@@ -58,13 +58,13 @@
   "plugins": {
     "deep-link": {
       "mobile": [
-        { "scheme": [ "unime" ] },
+        { "scheme": [ "oidwallet" ] },
         { "scheme": [ "openid" ] },
         { "scheme": [ "openid4vp" ] },
         { "scheme": [ "openid-credential-offer" ] }
       ],
       "desktop": {
-        "schemes": ["unime", "openid", "openid4vp", "openid-credential-offer"]
+        "schemes": ["oidwallet", "openid", "openid4vp", "openid-credential-offer"]
       }
     }
   }

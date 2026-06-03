@@ -4,13 +4,13 @@ const nl_NL = {
   ONBOARDING: {
     WELCOME: {
       GREETING: 'Welkom bij',
-      WHAT_IS_UNIME_1: 'UniMe verbindt je digitale wereld, veilig en beschermd.',
-      WHAT_IS_UNIME_2: 'Maak een gloednieuw profiel aan om te beginnen.',
+      WHAT_IS_OIDWALLET_1: 'OIDwallet verbindt je digitale wereld, veilig en beschermd.',
+      WHAT_IS_OIDWALLET_2: 'Maak een gloednieuw profiel aan om te beginnen.',
       CREATE_NEW_PROFILE: 'Maak nieuw profiel aan',
       SELECT_LANGUAGE: 'Selecteer taal',
     },
     PLEDGE: {
-      NAVBAR_TITLE: 'UniMe Belofte',
+      NAVBAR_TITLE: 'OIDwallet Belofte',
       TITLE_1: 'Geen rare',
       TITLE_2: 'toestanden',
       SUBTITLE: 'Hier is onze belofte aan jou',
@@ -37,10 +37,10 @@ const nl_NL = {
       T_AND_C: {
         TITLE: 'Algemene voorwaarden',
         DESCRIPTION: 'Ik ga akkoord met de algemene voorwaarden',
-        DIALOG_TITLE: 'UniMe Gebruiksvoorwaarden',
+        DIALOG_TITLE: 'OIDwallet Gebruiksvoorwaarden',
         LAST_UPDATED: 'Laatst bijgewerkt: 10 september 2025',
         TL_DR:
-          'Zoals elke app-aanbieder zijn wij wettelijk verplicht om je enkele belangrijke voorwaarden mee te geven. We hebben ons best gedaan om dit zo duidelijk en beknopt mogelijk te houden. Hier is de korte versie: UniMe geeft jou de controle. Het verzamelt je gegevens niet, respecteert je privacy en laat jou beslissen welke informatie je opslaat en deelt. Je identiteit en gegevens blijven van jou, en daarmee ook de verantwoordelijkheid om ze te beheren. Wij slaan je gegevens niet op en hebben er geen toegang toe. Gegevensverlies door verlies van je apparaat of toegang tot de app is daarom ook jouw verantwoordelijkheid. Met grote macht komt grote verantwoordelijkheid. Hier is alles wat je moet weten:',
+          'Zoals elke app-aanbieder zijn wij wettelijk verplicht om je enkele belangrijke voorwaarden mee te geven. We hebben ons best gedaan om dit zo duidelijk en beknopt mogelijk te houden. Hier is de korte versie: OIDwallet geeft jou de controle. Het verzamelt je gegevens niet, respecteert je privacy en laat jou beslissen welke informatie je opslaat en deelt. Je identiteit en gegevens blijven van jou, en daarmee ook de verantwoordelijkheid om ze te beheren. Wij slaan je gegevens niet op en hebben er geen toegang toe. Gegevensverlies door verlies van je apparaat of toegang tot de app is daarom ook jouw verantwoordelijkheid. Met grote macht komt grote verantwoordelijkheid. Hier is alles wat je moet weten:',
         FULL: {
           AGREEMENT: {
             TITLE: 'Aanvaarding van de voorwaarden',
@@ -50,7 +50,7 @@ const nl_NL = {
           DEFINITIONS: {
             TITLE: 'Definities',
             DESCRIPTION:
-              'De term Service verwijst naar de mobiele applicatie UniMe Identity Wallet en omvat alle functies, inhoud of diensten die daarin worden aangeboden. Gebruikersgegevens betekent alle gegevens, inloggegevens of informatie die je opslaat of deelt met behulp van de Service. De term Apparaat verwijst naar de mobiele telefoon of hardware waarop de UniMe-app is geïnstalleerd en wordt gebruikt.',
+              'De term Service verwijst naar de mobiele applicatie ObjectID-wallet en omvat alle functies, inhoud of diensten die daarin worden aangeboden. Gebruikersgegevens betekent alle gegevens, inloggegevens of informatie die je opslaat of deelt met behulp van de Service. De term Apparaat verwijst naar de mobiele telefoon of hardware waarop de OIDwallet-app is geïnstalleerd en wordt gebruikt.',
           },
           USER_RESPONSIBILITIES: {
             TITLE: 'Verantwoordelijkheden van de gebruiker',
@@ -60,17 +60,17 @@ const nl_NL = {
           DATA_OWNERSHIP: {
             TITLE: 'Eigendom van gegevens en privacy',
             DESCRIPTION:
-              'UniMe is gebouwd op de kernprincipes van gebruikerscontrole en gegevensprivacy. Onze architectuur is zo ontworpen dat wij geen toegang hebben tot de Gebruikersgegevens die je in de app beheert, noch deze kunnen verzamelen, opslaan of verwerken. Al je Gebruikersgegevens worden lokaal en veilig op je Apparaat opgeslagen. Wij maken gebruik van sterke beveiligingsmaatregelen binnen de applicatie om je gegevens te beschermen. De uiteindelijke bescherming van je gegevens hangt echter ook af van jou, bijvoorbeeld door een sterk wachtwoord te gebruiken en geen software van onbetrouwbare bronnen te installeren. Om de integriteit van je inloggegevens te behouden, kan UniMe periodiek hun geldigheid controleren. Dit gebeurt door rechtstreeks vanaf je Apparaat contact op te nemen met de uitgever van de inloggegevens om te bevestigen of een inloggegeven is ingetrokken. Dit proces gebeurt automatisch op je Apparaat en omvat geen tussenkomst van Impierce Technologies B.V. Waar mogelijk gebruikt UniMe gedecentraliseerde methoden voor deze controles.',
+              'OIDwallet is gebouwd op de kernprincipes van gebruikerscontrole en gegevensprivacy. Onze architectuur is zo ontworpen dat wij geen toegang hebben tot de Gebruikersgegevens die je in de app beheert, noch deze kunnen verzamelen, opslaan of verwerken. Al je Gebruikersgegevens worden lokaal en veilig op je Apparaat opgeslagen. Wij maken gebruik van sterke beveiligingsmaatregelen binnen de applicatie om je gegevens te beschermen. De uiteindelijke bescherming van je gegevens hangt echter ook af van jou, bijvoorbeeld door een sterk wachtwoord te gebruiken en geen software van onbetrouwbare bronnen te installeren. Om de integriteit van je inloggegevens te behouden, kan OIDwallet periodiek hun geldigheid controleren. Dit gebeurt door rechtstreeks vanaf je Apparaat contact op te nemen met de uitgever van de inloggegevens om te bevestigen of een inloggegeven is ingetrokken. Dit proces gebeurt automatisch op je Apparaat en omvat geen tussenkomst van Impierce Technologies B.V. Waar mogelijk gebruikt OIDwallet gedecentraliseerde methoden voor deze controles.',
           },
           DATA_VISIBILITY: {
             TITLE: 'Gegevensinzage door app-platforms',
             DESCRIPTION:
-              'Wanneer je UniMe downloadt of gebruikt via een officiële App Store, zoals de Apple App Store of Google Play, kan het platform beperkte technische en gebruiksgegevens verzamelen. Dit kan details omvatten zoals je apparaattype, app-installatie of crashmeldingen, en de regio- of taalinstellingen van je apparaat. Deze informatie wordt verzameld onder de eigen voorwaarden van de App Store. Impierce verzamelt geen aanvullende gebruiksgegevens van je Apparaat.',
+              'Wanneer je OIDwallet downloadt of gebruikt via een officiële App Store, zoals de Apple App Store of Google Play, kan het platform beperkte technische en gebruiksgegevens verzamelen. Dit kan details omvatten zoals je apparaattype, app-installatie of crashmeldingen, en de regio- of taalinstellingen van je apparaat. Deze informatie wordt verzameld onder de eigen voorwaarden van de App Store. Impierce verzamelt geen aanvullende gebruiksgegevens van je Apparaat.',
           },
           INTELLECTUAL_PROPERTY_RIGHTS: {
             TITLE: 'Intellectuele eigendomsrechten',
             DESCRIPTION:
-              'Alle intellectuele eigendomsrechten van UniMe en gerelateerde materialen zijn eigendom van Impierce Technologies B.V. of onze licentiegevers. UniMe wordt aangeboden onder de Apache 2.0-licentie, wat betekent dat je de software mag gebruiken, aanpassen en verspreiden zolang je je houdt aan de voorwaarden van die licentie. Voor meer informatie verwijzen we naar de volledige Apache 2.0-licentie.',
+              'Alle intellectuele eigendomsrechten van OIDwallet en gerelateerde materialen zijn eigendom van Impierce Technologies B.V. of onze licentiegevers. OIDwallet wordt aangeboden onder de Apache 2.0-licentie, wat betekent dat je de software mag gebruiken, aanpassen en verspreiden zolang je je houdt aan de voorwaarden van die licentie. Voor meer informatie verwijzen we naar de volledige Apache 2.0-licentie.',
           },
           PROHIBITED_ACTIVITIES: {
             TITLE: 'Verboden activiteiten',
@@ -115,12 +115,12 @@ const nl_NL = {
           ENTIRE_AGREEMENT: {
             TITLE: 'Volledige Overeenkomst',
             DESCRIPTION:
-              'Deze Gebruiksvoorwaarden vormen samen met ons Privacybeleid de volledige overeenkomst tussen jou en Impierce Technologies B.V. met betrekking tot het gebruik van UniMe.',
+              'Deze Gebruiksvoorwaarden vormen samen met ons Privacybeleid de volledige overeenkomst tussen jou en Impierce Technologies B.V. met betrekking tot het gebruik van OIDwallet.',
           },
           CONTACT: {
             TITLE: 'Contactgegevens',
             DESCRIPTION:
-              'Heb je feedback of een vraag? We streven er altijd naar om te verbeteren. Als iets onduidelijk is of beter geformuleerd kan worden, neem gerust contact met ons via contact@impierce.com. Door UniMe te gebruiken, bevestig je dat je deze Gebruiksvoorwaarden hebt gelezen, begrepen en ermee instemt. Wij blijven ons inzetten voor het leveren van veilige, privacygerichte digitale tools die jou sterker maken.',
+              'Heb je feedback of een vraag? We streven er altijd naar om te verbeteren. Als iets onduidelijk is of beter geformuleerd kan worden, neem gerust contact met ons via contact@impierce.com. Door OIDwallet te gebruiken, bevestig je dat je deze Gebruiksvoorwaarden hebt gelezen, begrepen en ermee instemt. Wij blijven ons inzetten voor het leveren van veilige, privacygerichte digitale tools die jou sterker maken.',
           },
         },
       },
@@ -166,7 +166,7 @@ const nl_NL = {
       },
       COMPLETED: {
         NAVBAR_TITLE: 'Wachtwoord Instellen',
-        TITLE_1: 'Je UniMe profiel is nu',
+        TITLE_1: 'Je OIDwallet profiel is nu',
         TITLE_2: 'beschermd',
         MESSAGE_1: 'Veilig & Beveiligd',
         MESSAGE_2: 'Goed Gedaan',
@@ -276,8 +276,8 @@ const nl_NL = {
     SUPPORT: {
       TITLE: 'Support',
       ABOUT: {
-        TITLE: 'Over UniMe',
-        NAVBAR_TITLE: 'Over UniMe',
+        TITLE: 'Over OIDwallet',
+        NAVBAR_TITLE: 'Over OIDwallet',
         SPECIFICATIONS: 'Specificaties',
         VERSION: 'Versie',
         LICENSE: 'Licentie',
@@ -505,12 +505,12 @@ const nl_NL = {
       DESCRIPTION: 'Voeg informatie over jezelf toe',
       INFO: {
         NAVBAR_TITLE: 'Jouw profiel',
-        TITLE: 'UniMe Profiel',
+        TITLE: 'OIDwallet Profiel',
         DESCRIPTION: 'Voordat je begint',
         ITEM_0: {
           TITLE: 'Sla saaie formulieren over',
           DESCRIPTION:
-            'Je UniMe-profiel werkt als een digitale ID. Gebruik het om gegevens direct automatisch in te vullen op ondersteunde sites en houd je online leven overzichtelijk.',
+            'Je OIDwallet-profiel werkt als een digitale ID. Gebruik het om gegevens direct automatisch in te vullen op ondersteunde sites en houd je online leven overzichtelijk.',
         },
         ITEM_1: {
           TITLE: 'Direct delen',
@@ -560,9 +560,9 @@ const nl_NL = {
   },
   DOMAIN_LINKAGE: {
     TITLE: 'Geverifieerde website',
-    SUCCESS: 'UniMe heeft de identiteit met succes geverifieerd om u een veilige login te geven.',
-    FAILURE: 'UniMe kon de koppeling van de identiteit aan het domein niet verifiëren.',
-    UNKNOWN: 'UniMe kon geen bewijs vinden van de bijbehorende identiteit van het domein.',
+    SUCCESS: 'OIDwallet heeft de identiteit met succes geverifieerd om u een veilige login te geven.',
+    FAILURE: 'OIDwallet kon de koppeling van de identiteit aan het domein niet verifiëren.',
+    UNKNOWN: 'OIDwallet kon geen bewijs vinden van de bijbehorende identiteit van het domein.',
     CAUTION: 'Ga voorzichtig te werk!',
   },
   ERROR: {

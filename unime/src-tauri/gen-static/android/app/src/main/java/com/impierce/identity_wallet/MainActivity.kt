@@ -5,7 +5,7 @@ import android.os.Bundle
 class MainActivity : TauriActivity() {
     companion object {
         init {
-            System.loadLibrary("unime")
+            System.loadLibrary("oidwallet")
         }
     }
 

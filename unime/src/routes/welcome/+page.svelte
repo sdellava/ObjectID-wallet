@@ -5,7 +5,7 @@
 
   import { Button } from '$lib/components';
   import MeLarge from '$lib/static/svg/logo/MeLarge.svelte';
-  import UniMeText from '$lib/static/svg/logo/UniMeText.svelte';
+  import OIDwalletText from '$lib/static/svg/logo/OIDwalletText.svelte';
   import { onboarding_state } from '$lib/stores';
 
   import LanguageSelect from './LanguageSelect.svelte';
@@ -18,13 +18,13 @@
         <p class=" pb-[10px] text-[36px]/[44px] font-bold text-blue dark:text-silver">
           {$LL.ONBOARDING.WELCOME.GREETING()}
         </p>
-        <UniMeText class="text-blue dark:text-silver" />
+        <OIDwalletText class="text-blue dark:text-silver" />
       </div>
 
       <p class="text-[14px]/[22px] font-medium text-ex-grey-2 dark:text-grey">
-        {$LL.ONBOARDING.WELCOME.WHAT_IS_UNIME_1()}
+        {$LL.ONBOARDING.WELCOME.WHAT_IS_OIDWALLET_1()}
         <br /><br />
-        {$LL.ONBOARDING.WELCOME.WHAT_IS_UNIME_2()}
+        {$LL.ONBOARDING.WELCOME.WHAT_IS_OIDWALLET_2()}
       </p>
     </div>
 

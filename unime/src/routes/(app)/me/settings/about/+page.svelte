@@ -8,7 +8,7 @@
   import TermsAndConditionsContent from '$lib/components/TermsAndConditionsContent.svelte';
   import { dispatch } from '$lib/dispatcher';
   import { HeartFillIcon, XBoldIcon } from '$lib/icons';
-  import UniMeLogo from '$lib/static/svg/logo/UniMeLogo.svelte';
+  import OIDwalletLogo from '$lib/static/svg/logo/OIDwalletLogo.svelte';
   import { state as appState } from '$lib/stores';
 
   import type { PageProps } from './$types';
@@ -16,7 +16,7 @@
   let { data }: PageProps = $props();
 
   // In order to show the developer mode in the app settings,
-  // the user has to tap the UniMe logo 7 times in a row.
+  // the user has to tap the OIDwallet logo 7 times in a row.
   const REQUIRED_CLICKS = 7;
 
   let counter = $state(0);
@@ -57,7 +57,7 @@
   <h1 class="sr-only">{$LL.SETTINGS.SUPPORT.ABOUT.TITLE()}</h1>
   <div class="flex w-full scale-75 justify-center">
     <button onclick={handleClick}>
-      <UniMeLogo class="text-blue dark:text-silver" />
+      <OIDwalletLogo class="text-blue dark:text-silver" />
     </button>
   </div>
   <div

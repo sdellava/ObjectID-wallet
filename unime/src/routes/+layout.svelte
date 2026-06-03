@@ -51,7 +51,7 @@
 
     switch (url.protocol) {
       // TODO: support App/Universal Links
-      case 'unime:': {
+      case 'oidwallet:': {
         const code = url.searchParams.get('code') ?? '';
         const state = url.searchParams.get('state') ?? '';
         await dispatch({

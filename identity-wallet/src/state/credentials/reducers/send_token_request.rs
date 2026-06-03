@@ -14,7 +14,7 @@ use crate::{
             VerifiableCredentialRecord,
         },
         user_prompt::CurrentUserPrompt,
-        AppState, UNIME_CLIENT_ID, UNIME_REDIRECT_URI,
+        AppState, OIDWALLET_CLIENT_ID, OIDWALLET_REDIRECT_URI,
     },
 };
 use log::{info, warn};
@@ -146,10 +146,10 @@ pub async fn send_token_request(state: AppState, action: Action) -> Result<AppSt
                 .ok_or(AppError::Error("Missing code verifier".to_string()))?;
 
             TokenRequest::AuthorizationCode {
-                client_id: UNIME_CLIENT_ID.to_string(),
+                client_id: OIDWALLET_CLIENT_ID.to_string(),
                 code,
                 code_verifier: Some(code_verifier),
-                redirect_uri: Some(UNIME_REDIRECT_URI.parse().unwrap()),
+                redirect_uri: Some(OIDWALLET_REDIRECT_URI.parse().unwrap()),
                 authorization_details: None,
             }
         };

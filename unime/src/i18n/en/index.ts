@@ -4,13 +4,13 @@ const en = {
   ONBOARDING: {
     WELCOME: {
       GREETING: 'Welcome to',
-      WHAT_IS_UNIME_1: 'UniMe connects your digital world, safely and securely.',
-      WHAT_IS_UNIME_2: 'Create a brand new identity profile to get started.',
+      WHAT_IS_OIDWALLET_1: 'OIDwallet connects your digital world, safely and securely.',
+      WHAT_IS_OIDWALLET_2: 'Create a brand new identity profile to get started.',
       CREATE_NEW_PROFILE: 'Create new profile',
       SELECT_LANGUAGE: 'Select language',
     },
     PLEDGE: {
-      NAVBAR_TITLE: 'UniMe Pledge',
+      NAVBAR_TITLE: 'OIDwallet Pledge',
       TITLE_1: 'No funny',
       TITLE_2: 'business',
       SUBTITLE: "Here's our pledge to you.",
@@ -37,20 +37,20 @@ const en = {
       T_AND_C: {
         TITLE: 'Terms & Conditions',
         DESCRIPTION: 'I have read and agree to the Terms & Conditions.',
-        DIALOG_TITLE: 'UniMe Terms of Use',
+        DIALOG_TITLE: 'OIDwallet Terms of Use',
         LAST_UPDATED: 'Last Updated: September 10, 2025',
         TL_DR:
-          'Like any app provider, we’re legally required to give you some important terms and conditions. We’ve done our best to keep things clear and to the point. Here’s the short version: UniMe puts you in control. It doesn’t collect your data, respects your privacy, and lets you decide what information to store and share. Your identity and data stay with you, and so does the responsibility for managing them. We don’t store nor can access your data, so any data loss caused by losing your device or access to the app is also your responsibility. With great power comes great responsibility. Here’s everything you should know:',
+          'Like any app provider, we’re legally required to give you some important terms and conditions. We’ve done our best to keep things clear and to the point. Here’s the short version: OIDwallet puts you in control. It doesn’t collect your data, respects your privacy, and lets you decide what information to store and share. Your identity and data stay with you, and so does the responsibility for managing them. We don’t store nor can access your data, so any data loss caused by losing your device or access to the app is also your responsibility. With great power comes great responsibility. Here’s everything you should know:',
         FULL: {
           AGREEMENT: {
             TITLE: 'Acceptance of Terms',
             DESCRIPTION:
-              'Thank you for choosing UniMe, an EU Digital Identity Wallet (mobile application) developed and maintained by Impierce Technologies B.V. ("we," "us," or "our"). These Terms of Use ("Terms") govern your access to and use of the UniMe mobile application (the "Service"), whether downloaded from the Apple App Store, Google Play Store, or any other platform. By installing, accessing, or using the Service, you acknowledge that you have read, understood, and agreed to be bound by these Terms and our Privacy Policy. If you do not agree to any part of these Terms, please do not use the Service. If you are using the Service on behalf of an organization, you represent and warrant that you are authorized to accept these Terms on that organization’s behalf.',
+              'Thank you for choosing OIDwallet, an EU Digital Identity Wallet (mobile application) developed and maintained by Impierce Technologies B.V. ("we," "us," or "our"). These Terms of Use ("Terms") govern your access to and use of the OIDwallet mobile application (the "Service"), whether downloaded from the Apple App Store, Google Play Store, or any other platform. By installing, accessing, or using the Service, you acknowledge that you have read, understood, and agreed to be bound by these Terms and our Privacy Policy. If you do not agree to any part of these Terms, please do not use the Service. If you are using the Service on behalf of an organization, you represent and warrant that you are authorized to accept these Terms on that organization’s behalf.',
           },
           DEFINITIONS: {
             TITLE: 'Definitions',
             DESCRIPTION:
-              'The term Service refers to the UniMe Identity Wallet mobile application and includes any features, content, or services provided within it. User Data means any data, credentials, or information that you store or share using the Service. The term Device refers to the mobile phone or hardware on which the UniMe app is installed and used.',
+              'The term Service refers to the ObjectID-wallet mobile application and includes any features, content, or services provided within it. User Data means any data, credentials, or information that you store or share using the Service. The term Device refers to the mobile phone or hardware on which the OIDwallet app is installed and used.',
           },
           USER_RESPONSIBILITIES: {
             TITLE: 'User Responsibilities',
@@ -60,17 +60,17 @@ const en = {
           DATA_OWNERSHIP: {
             TITLE: 'Data Ownership and Privacy',
             DESCRIPTION:
-              'UniMe is built on the core principles of user control and data privacy. Our architecture is designed so that we cannot access, collect, store, or process the User Data you manage within the app. All of your User Data is stored locally and securely on your Device. We employ robust security measures within the application to protect your data. However, the ultimate protection of your data also depends on you maintaining the overall security of your personal Device, for example by using a strong passcode and not installing software from untrusted sources. To maintain the integrity of your credentials, UniMe may periodically check their validity. This is done by contacting the credential issuer directly from your Device to confirm whether a credential has been revoked, by the issuer. This process happens automatically on your Device and does not involve Impierce Technologies B.V. Where available, UniMe prioritizes using decentralized methods for these checks.',
+              'OIDwallet is built on the core principles of user control and data privacy. Our architecture is designed so that we cannot access, collect, store, or process the User Data you manage within the app. All of your User Data is stored locally and securely on your Device. We employ robust security measures within the application to protect your data. However, the ultimate protection of your data also depends on you maintaining the overall security of your personal Device, for example by using a strong passcode and not installing software from untrusted sources. To maintain the integrity of your credentials, OIDwallet may periodically check their validity. This is done by contacting the credential issuer directly from your Device to confirm whether a credential has been revoked, by the issuer. This process happens automatically on your Device and does not involve Impierce Technologies B.V. Where available, OIDwallet prioritizes using decentralized methods for these checks.',
           },
           DATA_VISIBILITY: {
             TITLE: 'Data Visibility by App Platforms',
             DESCRIPTION:
-              'When you download or use UniMe through an official App Store, such as the Apple App Store or Google Play, the platform may collect limited technical and usage data. This can include details like your device type, app installation or crash events, and the region or language settings of your device. This information is collected under the App Store’s own policies. Impierce does not collect any additional usage data from the device itself.',
+              'When you download or use OIDwallet through an official App Store, such as the Apple App Store or Google Play, the platform may collect limited technical and usage data. This can include details like your device type, app installation or crash events, and the region or language settings of your device. This information is collected under the App Store’s own policies. Impierce does not collect any additional usage data from the device itself.',
           },
           INTELLECTUAL_PROPERTY_RIGHTS: {
             TITLE: 'Intellectual Property Rights',
             DESCRIPTION:
-              'All intellectual property rights in UniMe and related materials are owned by Impierce Technologies B.V. or our licensors. UniMe is provided under the Apache 2.0 license, which means you can use, modify, and distribute the software as long as you comply with the terms of that license. For more information, please refer to the full Apache 2.0 License.',
+              'All intellectual property rights in OIDwallet and related materials are owned by Impierce Technologies B.V. or our licensors. OIDwallet is provided under the Apache 2.0 license, which means you can use, modify, and distribute the software as long as you comply with the terms of that license. For more information, please refer to the full Apache 2.0 License.',
           },
           PROHIBITED_ACTIVITIES: {
             TITLE: 'Prohibited Activities',
@@ -114,12 +114,12 @@ const en = {
           ENTIRE_AGREEMENT: {
             TITLE: 'Entire Agreement',
             DESCRIPTION:
-              'These Terms of Use, along with our Privacy Policy, form the complete agreement between you and Impierce Technologies B.V. regarding the use of UniMe.',
+              'These Terms of Use, along with our Privacy Policy, form the complete agreement between you and Impierce Technologies B.V. regarding the use of OIDwallet.',
           },
           CONTACT: {
             TITLE: 'Contact Us',
             DESCRIPTION:
-              'Got feedback or a question? We’re always looking to improve. If anything’s unclear or could be said better, feel free to reach out to contact@impierce.com. By using UniMe, you confirm that you’ve read, understood, and agree to these Terms of Use. We remain committed to delivering secure, privacy-centric digital tools that empower you.',
+              'Got feedback or a question? We’re always looking to improve. If anything’s unclear or could be said better, feel free to reach out to contact@impierce.com. By using OIDwallet, you confirm that you’ve read, understood, and agree to these Terms of Use. We remain committed to delivering secure, privacy-centric digital tools that empower you.',
           },
         },
       },
@@ -165,7 +165,7 @@ const en = {
       },
       COMPLETED: {
         NAVBAR_TITLE: 'Password Set',
-        TITLE_1: 'Your UniMe profile is now',
+        TITLE_1: 'Your OIDwallet profile is now',
         TITLE_2: 'protected',
         MESSAGE_1: 'Safe & Secure.',
         MESSAGE_2: 'Nice Job',
@@ -275,8 +275,8 @@ const en = {
     SUPPORT: {
       TITLE: 'Support',
       ABOUT: {
-        TITLE: 'About UniMe',
-        NAVBAR_TITLE: 'About UniMe',
+        TITLE: 'About OIDwallet',
+        NAVBAR_TITLE: 'About OIDwallet',
         SPECIFICATIONS: 'Specifications',
         VERSION: 'Version',
         LICENSE: 'License',
@@ -503,12 +503,12 @@ const en = {
       DESCRIPTION: 'Add information about yourself',
       INFO: {
         NAVBAR_TITLE: 'Your profile',
-        TITLE: 'UniMe Profile',
+        TITLE: 'OIDwallet Profile',
         DESCRIPTION: 'Before you start',
         ITEM_0: {
           TITLE: 'Skip tedious forms',
           DESCRIPTION:
-            'Your UniMe profile acts like a digital ID. Use it to auto-fill details instantly on supported sites, cutting the clutter from your online life.',
+            'Your OIDwallet profile acts like a digital ID. Use it to auto-fill details instantly on supported sites, cutting the clutter from your online life.',
         },
         ITEM_1: {
           TITLE: 'Instant, sharing',
@@ -558,9 +558,9 @@ const en = {
   },
   DOMAIN_LINKAGE: {
     TITLE: 'Verified website',
-    SUCCESS: 'UniMe successfully verified the identity to provide you with a secure login.',
-    FAILURE: 'UniMe could not verify the linkage of the identity to the domain.',
-    UNKNOWN: "UniMe could not find any proof of the domain's associated identity.",
+    SUCCESS: 'OIDwallet successfully verified the identity to provide you with a secure login.',
+    FAILURE: 'OIDwallet could not verify the linkage of the identity to the domain.',
+    UNKNOWN: "OIDwallet could not find any proof of the domain's associated identity.",
     CAUTION: 'Proceed with caution!',
   },
   ERROR: {
