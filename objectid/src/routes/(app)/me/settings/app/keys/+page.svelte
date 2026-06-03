@@ -85,7 +85,7 @@
   {#if $state.iota_wallet.did}
     <section class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-600 dark:bg-dark">
       <div>
-        <p class="text-base font-semibold text-slate-800 dark:text-grey">European Verifiable Identity</p>
+        <p class="text-base font-semibold text-slate-800 dark:text-grey">Distributed Identity</p>
         <p class="text-[12px]/[18px] font-medium text-slate-500 dark:text-slate-300">
           Created on IOTA and controlled by this wallet address.
         </p>

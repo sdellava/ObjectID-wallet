@@ -86,14 +86,14 @@
   $: didDocument = $state.iota_wallet.did_document ?? 'DID document not loaded yet.';
 </script>
 
-<TopNavBar on:back={() => history.back()} title="European Verifiable Identity" class="sticky top-0 z-10" />
+<TopNavBar on:back={() => history.back()} title="Distributed Identity" class="sticky top-0 z-10" />
 
 <div class="flex min-h-full flex-col gap-4 bg-silver px-4 py-5 dark:bg-navy">
   {#if !$state.iota_wallet.did}
     <section class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-600 dark:bg-dark">
       <p class="text-base font-semibold text-slate-800 dark:text-grey">No identity created</p>
       <p class="mt-1 text-[12px]/[18px] font-medium text-slate-500 dark:text-slate-300">
-        Create your European Verifiable Identity from the Add page.
+        Create your Distributed Identity during wallet setup.
       </p>
       <button
         class="mt-4 rounded-lg bg-primary px-3 py-2 text-[12px]/[16px] font-semibold text-white dark:text-dark"

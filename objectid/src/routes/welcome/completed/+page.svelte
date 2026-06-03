@@ -6,7 +6,7 @@
 
   import LL from '$i18n/i18n-svelte';
 
-  import { Button, TopNavBar } from '$lib/components';
+  import { Button, ProgressBar, TopNavBar } from '$lib/components';
   import { dispatch } from '$lib/dispatcher';
   import { ShieldFillIcon } from '$lib/icons';
   import { onboarding_state } from '$lib/stores';
@@ -15,6 +15,7 @@
   let loadingIdentity = false;
   let loadingImport = false;
   let statusMessage = '';
+  let progress = 0;
 
   const createProfile = () =>
     dispatch({
@@ -32,18 +33,22 @@
     if (loadingIdentity || loadingImport) return;
 
     loadingIdentity = true;
+    progress = 10;
     statusMessage = 'Creating your profile...';
     await createProfile();
 
+    progress = 35;
     statusMessage = 'Configuring your IOTA wallet...';
     await dispatch({
       type: '[IOTA Wallet] Create or load',
       payload: { network: 'testnet' },
     });
 
-    statusMessage = 'Creating your European Verifiable Identity...';
+    progress = 65;
+    statusMessage = 'Creating your Distributed Identity...';
     await dispatch({ type: '[IOTA Wallet] Create identity', payload: {} });
 
+    progress = 100;
     statusMessage = 'Opening your distributed identity...';
     await goto('/me/iota-identity');
   };
@@ -52,9 +57,11 @@
     if (loadingIdentity || loadingImport) return;
 
     loadingImport = true;
+    progress = 35;
     statusMessage = 'Creating your profile...';
     await createProfile();
 
+    progress = 100;
     statusMessage = 'Opening the scanner...';
     setTimeout(() => goto('/scan'), 100);
   };
@@ -99,7 +106,10 @@
       Choose how you want to set up your ObjectID wallet.
     </p>
     {#if statusMessage}
-      <p class="text-center text-[12px]/[18px] font-semibold text-primary">{statusMessage}</p>
+      <div class="w-full space-y-3">
+        <ProgressBar value={progress} />
+        <p class="text-center text-[12px]/[18px] font-semibold text-primary">{statusMessage}</p>
+      </div>
     {/if}
     <!-- Hint: backup -->
     <!-- <div class="bg-slate-100 p-4 rounded-2xl w-full">
