@@ -1,22 +1,23 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { fade } from 'svelte/transition';
 
   import '@lottiefiles/lottie-player';
 
   import LL from '$i18n/i18n-svelte';
 
-  import { Button, TopNavBar } from '$lib/components';
+  import { TopNavBar } from '$lib/components';
   import { dispatch } from '$lib/dispatcher';
   import { ShieldFillIcon } from '$lib/icons';
   import { onboarding_state } from '$lib/stores';
   import { calculateInitials } from '$lib/utils';
 
   let loading = false;
-  let walletMode: 'initialize' | 'import_seed' = 'initialize';
-  let seed = '';
+  let loadingMode: 'initialize' | 'import_seed' | null = null;
 
-  function createProfile() {
-    dispatch({
+  async function createProfile(iotaWallet?: { mode: 'initialize' }) {
+    loading = true;
+    await dispatch({
       type: '[DID] Create new',
       payload: {
         name: $onboarding_state.name ?? '',
@@ -24,16 +25,20 @@
         theme: 'system',
         password: $onboarding_state.password ?? '',
         biometrics_enabled: $onboarding_state.biometrics_enabled ?? false,
-        iota_wallet:
-          walletMode === 'initialize'
-            ? { mode: 'initialize' }
-            : {
-                mode: 'import_seed',
-                seed: seed.trim(),
-              },
+        iota_wallet: iotaWallet ?? null,
       },
     });
-    loading = true;
+  }
+
+  async function initializeWallet() {
+    loadingMode = 'initialize';
+    await createProfile({ mode: 'initialize' });
+  }
+
+  async function importSeed() {
+    loadingMode = 'import_seed';
+    await createProfile();
+    await goto('/scan');
   }
 </script>
 
@@ -77,44 +82,26 @@
       <p class="pt-1 text-[12px]/[18px] font-medium text-slate-500 dark:text-slate-300">
         Initialize a new secure wallet or import the seed you created on dapp.objectid.io.
       </p>
-      <div class="mt-4 grid grid-cols-2 gap-2">
+      <div class="mt-4 grid grid-cols-1 gap-2">
         <button
-          class="rounded-lg border px-3 py-2 text-[12px]/[18px] font-semibold {walletMode === 'initialize'
-            ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black'
-            : 'border-slate-200 bg-white text-slate-800 dark:border-slate-600 dark:bg-dark dark:text-grey'}"
-          on:click={() => (walletMode = 'initialize')}
+          class="rounded-lg border border-black bg-black px-3 py-3 text-[12px]/[18px] font-semibold text-white disabled:opacity-50 dark:border-white dark:bg-white dark:text-black"
+          on:click={initializeWallet}
+          disabled={loading}
         >
-          Initialize
+          {loadingMode === 'initialize' ? 'Initializing wallet...' : 'Initialize wallet and DID'}
         </button>
         <button
-          class="rounded-lg border px-3 py-2 text-[12px]/[18px] font-semibold {walletMode === 'import_seed'
-            ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black'
-            : 'border-slate-200 bg-white text-slate-800 dark:border-slate-600 dark:bg-dark dark:text-grey'}"
-          on:click={() => (walletMode = 'import_seed')}
+          class="rounded-lg border border-slate-200 bg-white px-3 py-3 text-[12px]/[18px] font-semibold text-slate-800 disabled:opacity-50 dark:border-slate-600 dark:bg-dark dark:text-grey"
+          on:click={importSeed}
+          disabled={loading}
         >
-          Import seed
+          {loadingMode === 'import_seed' ? 'Opening scanner...' : 'Import seed from dapp.objectid.io'}
         </button>
       </div>
-      {#if walletMode === 'import_seed'}
-        <textarea
-          class="mt-3 h-24 w-full resize-none rounded-lg border border-slate-200 bg-white p-3 text-[12px]/[18px] text-slate-900 outline-none focus:border-black dark:border-slate-600 dark:bg-dark dark:text-grey"
-          placeholder="Paste your dapp.objectid.io seed"
-          bind:value={seed}
-        ></textarea>
-      {/if}
     </div>
     <!-- Hint: backup -->
     <!-- <div class="bg-slate-100 p-4 rounded-2xl w-full">
       <p class="text-sm text-slate-800">Let's create a quick backup.</p>
     </div> -->
   </div>
-</div>
-
-<div class="rounded-t-3xl bg-white p-6 dark:bg-dark" in:fade={{ delay: 200 }}>
-  <Button
-    label={$LL.CONTINUE()}
-    on:click={createProfile}
-    disabled={walletMode === 'import_seed' && seed.trim().length === 0}
-    {loading}
-  />
 </div>

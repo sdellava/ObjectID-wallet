@@ -28,6 +28,10 @@ use oid4vc::oid4vc_core::Subject as _;
 use oid4vc::oid4vc_manager::ProviderManager;
 use oid4vc::oid4vci::Wallet;
 use std::sync::Arc;
+use std::time::Duration;
+use tokio::time::timeout;
+
+const IOTA_ONBOARDING_DID_TIMEOUT: Duration = Duration::from_secs(60);
 
 /// Creates a new profile, produces (deterministic) DIDs and redirects to the main page.
 pub async fn create_identity(state: AppState, action: Action) -> Result<AppState, AppError> {
@@ -121,8 +125,24 @@ pub async fn create_identity(state: AppState, action: Action) -> Result<AppState
                 iota_wallet: IotaWalletState::from(&wallet),
                 ..next_state
             };
-            next_state =
-                iota_identity_reducer::create_identity(next_state, Arc::new(CreateIotaIdentity {}) as Action).await?;
+            next_state = match timeout(
+                IOTA_ONBOARDING_DID_TIMEOUT,
+                iota_identity_reducer::create_identity(next_state.clone(), Arc::new(CreateIotaIdentity {}) as Action),
+            )
+            .await
+            {
+                Ok(result) => result?,
+                Err(_) => AppState {
+                    iota_wallet: IotaWalletState {
+                        last_error: Some(
+                            "IOTA DID publication timed out. The wallet was created; try publishing the DID again later."
+                                .to_string(),
+                        ),
+                        ..next_state.iota_wallet
+                    },
+                    ..next_state
+                },
+            };
             if let Some(did) = next_state.iota_wallet.did.clone() {
                 next_state.dids.insert("did:iota".to_string(), did);
             }
