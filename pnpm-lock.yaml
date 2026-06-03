@@ -189,8 +189,8 @@ importers:
         specifier: ^4.0.18
         version: 4.0.18(@types/node@25.3.2)(jiti@2.6.1)(jsdom@27.4.0)(lightningcss@1.31.1)(yaml@2.5.0)
       zod:
-        specifier: ^4.3.6
-        version: 4.3.6
+        specifier: ^4.4.3
+        version: 4.4.3
 
 packages:
 
@@ -2651,8 +2651,8 @@ packages:
     peerDependencies:
       zod: ^3.25 || ^4.0.14
 
-  zod@4.3.6:
-    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
 snapshots:
 
@@ -4679,8 +4679,8 @@ snapshots:
       typebox: 1.1.5
       valibot: 1.2.0(typescript@5.9.3)
       yup: 1.7.1
-      zod: 4.3.6
-      zod-v3-to-json-schema: 4.0.0(zod@4.3.6)
+      zod: 4.4.3
+      zod-v3-to-json-schema: 4.0.0(zod@4.4.3)
     transitivePeerDependencies:
       - '@types/json-schema'
       - typescript
@@ -4942,9 +4942,9 @@ snapshots:
 
   zimmerframe@1.1.4: {}
 
-  zod-v3-to-json-schema@4.0.0(zod@4.3.6):
+  zod-v3-to-json-schema@4.0.0(zod@4.4.3):
     dependencies:
-      zod: 4.3.6
+      zod: 4.4.3
     optional: true
 
-  zod@4.3.6: {}
+  zod@4.4.3: {}
