@@ -57,7 +57,7 @@ pub fn run() {
         .expect("error while running tauri application");
 }
 
-#[cfg(desktop)]
+#[cfg(all(not(feature = "test_utils"), desktop))]
 fn setup_desktop_plugins(
     builder: tauri::Builder<identity_wallet::command::Runtime>,
 ) -> tauri::Builder<identity_wallet::command::Runtime> {
@@ -66,7 +66,7 @@ fn setup_desktop_plugins(
     }))
 }
 
-#[cfg(not(desktop))]
+#[cfg(all(not(feature = "test_utils"), not(desktop)))]
 fn setup_desktop_plugins(
     builder: tauri::Builder<identity_wallet::command::Runtime>,
 ) -> tauri::Builder<identity_wallet::command::Runtime> {
