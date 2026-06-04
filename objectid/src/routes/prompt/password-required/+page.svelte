@@ -16,6 +16,7 @@
   let showPassword = false;
   let biometricsUnlocking = false;
   let biometricsError: string | undefined;
+  let biometricsAttempted = false;
 
   let password: string;
 
@@ -35,6 +36,7 @@
       return;
     }
 
+    biometricsAttempted = true;
     biometricsUnlocking = true;
     biometricsError = undefined;
 
@@ -62,6 +64,12 @@
       setTimeout(() => {
         dispatch({ type: '[Storage] Unlock', payload: { password: 'sup3rSecr3t' } });
       }, 500);
+    }
+
+    if ($state?.profile_settings.biometrics_enabled && !biometricsAttempted) {
+      setTimeout(() => {
+        void unlockWithBiometrics();
+      }, 300);
     }
   });
 </script>

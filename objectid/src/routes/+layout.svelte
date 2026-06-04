@@ -37,6 +37,7 @@
   let unlistenStateChanged: UnlistenFn = () => {};
   let unlistenDeepLink: UnlistenFn = () => {};
   let hasLoadedInitialState = false;
+  let refreshStateInFlight = false;
 
   const PUBLIC_DEV_MODE_MENU_EXPANDED = env.PUBLIC_DEV_MODE_MENU_EXPANDED;
   const PUBLIC_DEV_SHOW_CURRENT_ROUTE = env.PUBLIC_DEV_SHOW_CURRENT_ROUTE;
@@ -120,6 +121,7 @@
     } catch (e) {
       void error(`Failed to load app state: ${e}`);
       errorState.set(`${e}`);
+      hasLoadedInitialState = true;
     }
 
     // If the app is launched with a deep link, it is stored for later processing via the `state-changed` listener.
@@ -147,7 +149,27 @@
     } catch (e) {
       void error(`Failed to listen for deep links: ${e}`);
     }
+
+    document.addEventListener('visibilitychange', refreshStateOnForeground);
+    window.addEventListener('focus', refreshStateOnForeground);
   });
+
+  async function refreshStateOnForeground() {
+    if (document.visibilityState === 'hidden' || refreshStateInFlight) {
+      return;
+    }
+
+    refreshStateInFlight = true;
+
+    try {
+      await dispatch({ type: '[App] Get state' });
+    } catch (e) {
+      void error(`Failed to refresh app state: ${e}`);
+      errorState.set(`${e}`);
+    } finally {
+      refreshStateInFlight = false;
+    }
+  }
 
   async function handleStateChanged(nextState: AppState) {
     try {
@@ -176,6 +198,14 @@
         }
       }
 
+      if (
+        !redirectPath &&
+        $appState.is_unlocked &&
+        (page.url.pathname === '/' || page.url.pathname.startsWith('/prompt'))
+      ) {
+        redirectPath = '/me';
+      }
+
       // DEV: uncommenting this helps local development by always redirecting to the page you're working on
       // redirectPath = '/me/settings/about';
 
@@ -192,6 +222,9 @@
   }
 
   onDestroy(() => {
+    window.removeEventListener('focus', refreshStateOnForeground);
+    document.removeEventListener('visibilitychange', refreshStateOnForeground);
+
     // Destroy in reverse order.
     unlistenDeepLink();
     unlistenStateChanged();
