@@ -11,7 +11,8 @@ pub fn run() {
         persistence::{clear_assets_tmp_folder, initialize_storage},
         state::AppStateContainer,
     };
-    use log::{info, LevelFilter};
+    use log::{info, warn, LevelFilter};
+    use tauri::Emitter;
     use tauri_plugin_log::{fern::colors::Color, fern::colors::ColoredLevelConfig, Target, TargetKind};
 
     #[cfg_attr(not(desktop), allow(unused_mut))]
@@ -64,8 +65,16 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application")
+        .run(|app_handle, event| {
+            if matches!(event, tauri::RunEvent::Resumed) {
+                info!("application resumed");
+                if let Err(error) = app_handle.emit("objectid-resumed", ()) {
+                    warn!("failed to emit resume event: {error}");
+                }
+            }
+        });
 }
 
 pub mod tauri_command {

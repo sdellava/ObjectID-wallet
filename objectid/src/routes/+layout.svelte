@@ -36,6 +36,7 @@
   let unlistenError: UnlistenFn = () => {};
   let unlistenStateChanged: UnlistenFn = () => {};
   let unlistenDeepLink: UnlistenFn = () => {};
+  let unlistenAppResumed: UnlistenFn = () => {};
   let hasLoadedInitialState = false;
   let refreshStateInFlight = false;
 
@@ -150,7 +151,16 @@
       void error(`Failed to listen for deep links: ${e}`);
     }
 
+    try {
+      unlistenAppResumed = await listen('objectid-resumed', () => {
+        void refreshStateOnForeground();
+      });
+    } catch (e) {
+      void error(`Failed to listen for native resume events: ${e}`);
+    }
+
     document.addEventListener('visibilitychange', refreshStateOnForeground);
+    window.addEventListener('pageshow', refreshStateOnForeground);
     window.addEventListener('focus', refreshStateOnForeground);
   });
 
@@ -162,7 +172,11 @@
     refreshStateInFlight = true;
 
     try {
-      await dispatch({ type: '[App] Get state' });
+      if (hasLoadedInitialState && $appState) {
+        await handleStateChanged($appState);
+      } else {
+        await dispatch({ type: '[App] Get state' });
+      }
     } catch (e) {
       void error(`Failed to refresh app state: ${e}`);
       errorState.set(`${e}`);
@@ -223,9 +237,11 @@
 
   onDestroy(() => {
     window.removeEventListener('focus', refreshStateOnForeground);
+    window.removeEventListener('pageshow', refreshStateOnForeground);
     document.removeEventListener('visibilitychange', refreshStateOnForeground);
 
     // Destroy in reverse order.
+    unlistenAppResumed();
     unlistenDeepLink();
     unlistenStateChanged();
     unlistenError();
