@@ -90,6 +90,16 @@ if [[ ! -d node_modules || ! -x node_modules/.bin/tauri ]]; then
   CI=true corepack pnpm install --frozen-lockfile
 fi
 
+if [[ ! -d objectid/src-tauri/gen/android ]]; then
+  echo "==> Initializing Tauri Android project"
+  corepack pnpm --filter objectid tauri android init --ci --skip-targets-install
+fi
+
+if [[ -f objectid/src-tauri/gen-static/apply.sh ]]; then
+  echo "==> Applying tracked Tauri generated project overrides"
+  (cd objectid/src-tauri/gen-static && bash ./apply.sh)
+fi
+
 echo "==> Building Android debug APK"
 corepack pnpm --filter objectid tauri android build --debug --target "$TAURI_ANDROID_TARGET" --apk true --aab false
 

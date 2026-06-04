@@ -83,15 +83,26 @@
     }
   }
 
-  async function navigateIfNeeded(path: string) {
+  async function navigateIfNeeded(path: string, replaceState = false) {
     if (page.url.pathname === path) {
       return;
     }
 
-    await goto(path);
+    await goto(path, { replaceState });
+  }
+
+  function isPrivateRoute(path: string) {
+    return (
+      path.startsWith('/me') ||
+      path.startsWith('/credentials') ||
+      path.startsWith('/scan') ||
+      path.startsWith('/activity')
+    );
   }
 
   onMount(async () => {
+    document.documentElement.dataset.objectidReady = 'true';
+
     try {
       detachConsole = await attachConsole();
     } catch (e) {
@@ -212,6 +223,10 @@
         }
       }
 
+      if (!redirectPath && !$appState.is_unlocked && isPrivateRoute(page.url.pathname)) {
+        redirectPath = '/prompt/password-required';
+      }
+
       if (
         !redirectPath &&
         $appState.is_unlocked &&
@@ -225,7 +240,7 @@
 
       if (redirectPath) {
         info(`Redirecting to: ${redirectPath}.`);
-        await navigateIfNeeded(redirectPath);
+        await navigateIfNeeded(redirectPath, true);
       }
       hasLoadedInitialState = true;
     } catch (e) {

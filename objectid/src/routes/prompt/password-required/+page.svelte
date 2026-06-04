@@ -1,6 +1,11 @@
+<script module lang="ts">
+  let unlockInFlight = false;
+</script>
+
 <script lang="ts">
   import { onMount } from 'svelte';
 
+  import { goto } from '$app/navigation';
   import LL from '$i18n/i18n-svelte';
 
   import { retrieve } from '@impierce/tauri-plugin-keystore';
@@ -32,18 +37,20 @@
     ]);
 
   const unlockWithBiometrics = async () => {
-    if (biometricsUnlocking) {
+    if (biometricsUnlocking || unlockInFlight) {
       return;
     }
 
     biometricsAttempted = true;
     biometricsUnlocking = true;
+    unlockInFlight = true;
     biometricsError = undefined;
 
     try {
       const password = await withTimeout(retrieve(SERVICE, USER), 20_000);
       if (password) {
         await dispatch({ type: '[Storage] Unlock', payload: { password } });
+        await goto('/me', { replaceState: true });
       } else {
         biometricsError = 'No biometric secret was found. Enter your password to continue.';
       }
@@ -53,6 +60,21 @@
       warn(message);
     } finally {
       biometricsUnlocking = false;
+      unlockInFlight = false;
+    }
+  };
+
+  const unlockWithPassword = async () => {
+    if (!password || unlockInFlight) {
+      return;
+    }
+
+    unlockInFlight = true;
+
+    try {
+      await dispatch({ type: '[Storage] Unlock', payload: { password } });
+    } finally {
+      unlockInFlight = false;
     }
   };
 
@@ -119,8 +141,8 @@
     </div>
     <Button
       label={$LL.LOCK_SCREEN.BUTTON_TEXT()}
-      on:click={() => dispatch({ type: '[Storage] Unlock', payload: { password } })}
-      disabled={!password}
+      on:click={unlockWithPassword}
+      disabled={!password || unlockInFlight}
     />
 
     <!-- Forgot password? Reset app -->
