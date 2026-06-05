@@ -280,6 +280,47 @@ export const loadObjectIDProduct = async (id: string, network: string): Promise<
   );
 };
 
+export const updateObjectGeolocation = async (args: {
+  did: string;
+  seed: string;
+  network: string;
+  objectId: string;
+  geolocation: string;
+}) => {
+  const did = args.did.trim();
+  const seed = args.seed.trim();
+  const network = args.network.trim() || 'testnet';
+  const objectId = args.objectId.trim();
+  const geolocation = args.geolocation.trim();
+
+  if (!did) throw new Error('Distributed Identity is missing.');
+  if (!seed) throw new Error('Wallet seed is missing.');
+  if (!objectId) throw new Error('Object ID is missing.');
+  if (!geolocation) throw new Error('Device location is unavailable.');
+
+  await oid.connect({ did, seed, network });
+
+  const creditToken = oid.session.creditToken();
+  const controllerCap = oid.session.oidControllerCap;
+
+  if (!creditToken) throw new Error('No ObjectID credit token is available for this wallet.');
+  if (!controllerCap) throw new Error('ObjectID controller cap is not available for this identity.');
+
+  const result = await oid.update_geolocation({
+    creditToken,
+    controllerCap,
+    object: objectId,
+    new_location: geolocation,
+  });
+
+  if (!result?.success) {
+    const errorValue = result?.error ?? result?.status?.error ?? 'Update geolocation transaction failed.';
+    throw new Error(errorValue instanceof Error ? errorValue.message : String(errorValue));
+  }
+
+  return result;
+};
+
 export const formatProductFieldLabel = (key: string) =>
   key
     .replace(/_/g, ' ')

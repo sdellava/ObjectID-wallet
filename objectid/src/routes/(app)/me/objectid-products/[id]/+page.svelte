@@ -4,16 +4,21 @@
   import { page } from '$app/state';
 
   import { TopNavBar } from '$lib/components';
+  import { state as appState } from '$lib/stores';
   import {
     formatProductFieldLabel,
     loadObjectIDProduct,
     normalizeProductImageUrl,
     type ObjectIDProduct,
+    updateObjectGeolocation,
   } from '$lib/objectid-items';
 
   let loading = true;
   let error = '';
   let product: ObjectIDProduct | null = null;
+  let updatingGeolocation = false;
+  let updateError = '';
+  let updateSuccess = '';
 
   const stringifyValue = (value: unknown) => {
     if (value === null || value === undefined || value === '') return '—';
@@ -47,6 +52,56 @@
       product = null;
     } finally {
       loading = false;
+    }
+  };
+
+  const getDeviceGeolocation = () =>
+    new Promise<string>((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error('Device geolocation is not available.'));
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude.toFixed(7);
+          const longitude = position.coords.longitude.toFixed(7);
+          resolve(`${latitude},${longitude}`);
+        },
+        () => reject(new Error('Unable to read the device location.')),
+        {
+          enableHighAccuracy: true,
+          maximumAge: 30_000,
+          timeout: 20_000,
+        },
+      );
+    });
+
+  const updateGeolocation = async () => {
+    if (!product || updatingGeolocation) return;
+
+    updatingGeolocation = true;
+    updateError = '';
+    updateSuccess = '';
+
+    try {
+      const wallet = $appState.iota_wallet;
+      const geolocation = await getDeviceGeolocation();
+
+      await updateObjectGeolocation({
+        did: wallet.did ?? '',
+        seed: wallet.seed_phrase ?? '',
+        network: wallet.network ?? product.network,
+        objectId: product.id,
+        geolocation,
+      });
+
+      updateSuccess = 'Object geolocation updated.';
+      await loadProduct();
+    } catch (err) {
+      updateError = err instanceof Error ? err.message : String(err);
+    } finally {
+      updatingGeolocation = false;
     }
   };
 
@@ -106,6 +161,19 @@
           <p class="text-[11px]/[16px] font-semibold text-slate-500 dark:text-slate-300">Object ID</p>
           <p class="mt-1 font-mono text-[11px]/[16px] break-all text-slate-800 dark:text-grey">{product.id}</p>
         </div>
+
+        <button
+          class="mt-4 w-full rounded-lg bg-primary px-4 py-3 text-[13px]/[18px] font-semibold text-white disabled:opacity-60 dark:text-dark"
+          disabled={updatingGeolocation}
+          onclick={updateGeolocation}
+        >
+          Update Object Geolocation
+        </button>
+        {#if updateError}
+          <p class="mt-2 text-[12px]/[18px] font-medium text-rose-500">{updateError}</p>
+        {:else if updateSuccess}
+          <p class="mt-2 text-[12px]/[18px] font-medium text-primary">{updateSuccess}</p>
+        {/if}
       </div>
     </section>
 
@@ -132,3 +200,14 @@
     </section>
   {/if}
 </div>
+
+{#if updatingGeolocation}
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-6">
+    <section class="w-full max-w-[320px] rounded-xl bg-white p-5 shadow-xl dark:bg-dark">
+      <p class="text-base font-semibold text-slate-800 dark:text-grey">Updating object geolocation</p>
+      <div class="mt-4 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+        <div class="h-full w-1/2 animate-pulse rounded-full bg-primary"></div>
+      </div>
+    </section>
+  </div>
+{/if}
