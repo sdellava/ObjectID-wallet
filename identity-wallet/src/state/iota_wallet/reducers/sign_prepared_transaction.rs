@@ -165,7 +165,30 @@ pub async fn sign_prepared_transaction(state: AppState, action: Action) -> Resul
     }
 
     let digest = if payload.submit {
-        Some(execute_prepared_transaction_with_gas_station(&keystore, expected_sender, tx_data, wallet.network).await?)
+        match execute_prepared_transaction_with_gas_station(&keystore, expected_sender, tx_data, wallet.network).await {
+            Ok(digest) => Some(digest),
+            Err(error) => {
+                return Ok(AppState {
+                    iota_wallet: IotaWalletState {
+                        network: wallet.network,
+                        address: Some(wallet.address),
+                        public_key: wallet.public_key,
+                        seed_phrase: Some(wallet.mnemonic),
+                        did: wallet.did,
+                        did_document: wallet.did_document,
+                        identity_controller_cap: wallet.identity_controller_cap,
+                        identity_validation_status: state.iota_wallet.identity_validation_status,
+                        identity_validation_error: state.iota_wallet.identity_validation_error,
+                        identity_rotation_status: state.iota_wallet.identity_rotation_status,
+                        identity_destruction_status: state.iota_wallet.identity_destruction_status,
+                        faucet_status: state.iota_wallet.faucet_status,
+                        last_transaction_digest: state.iota_wallet.last_transaction_digest,
+                        last_error: Some(error.to_string()),
+                    },
+                    ..state
+                });
+            }
+        }
     } else {
         keystore
             .sign_secure(&expected_sender, &tx_data, Intent::iota_transaction())

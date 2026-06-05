@@ -54,7 +54,8 @@
 <div class="relative isolate flex flex-col bg-white dark:bg-dark">
   <div class="sticky top-0 z-10 w-full bg-white px-[20px] py-4 dark:bg-dark">
     <!-- Top Bar -->
-    <div class="flex items-center justify-end">
+    <div class="flex items-center justify-between gap-4">
+      <img class="h-12 max-w-[260px] object-contain object-left" src="/brand/objectid-logo-large.png" alt="OID:ObjectID" />
       <button
         onclick={() => goto('/me/search')}
         class="-mr-3 flex h-11 w-11 items-center justify-center rounded-2xl text-black dark:text-white"
