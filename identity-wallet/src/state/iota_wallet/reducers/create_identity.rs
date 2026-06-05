@@ -208,14 +208,25 @@ pub(crate) async fn identity_client_for_wallet(
     wallet: &crate::state::iota_wallet::StoredIotaWallet,
 ) -> Result<IdentityClient<WalletSigner>, AppError> {
     let mut keystore = InMemKeystore::default();
-    let address = keystore
-        .import_from_mnemonic(
-            &wallet.mnemonic,
-            SignatureScheme::ED25519,
-            None,
-            Some("objectid-iota".to_string()),
-        )
-        .map_err(|e| AppError::Error(format!("Failed to restore IOTA key from mnemonic: {e}")))?;
+    let address = if let Some(seed_bytes) = imported_seed_bytes(&wallet.mnemonic) {
+        keystore
+            .import_from_seed(
+                &seed_bytes,
+                SignatureScheme::ED25519,
+                None,
+                Some("objectid-iota".to_string()),
+            )
+            .map_err(|e| AppError::Error(format!("Failed to restore IOTA key from imported seed: {e}")))?
+    } else {
+        keystore
+            .import_from_mnemonic(
+                &wallet.mnemonic,
+                SignatureScheme::ED25519,
+                None,
+                Some("objectid-iota".to_string()),
+            )
+            .map_err(|e| AppError::Error(format!("Failed to restore IOTA key from mnemonic: {e}")))?
+    };
 
     if address.to_string() != wallet.address {
         return Err(AppError::Error(
@@ -243,7 +254,25 @@ pub(crate) async fn identity_client_for_wallet(
         .map_err(|e| AppError::Error(format!("Failed to attach IOTA Identity signer: {e}")))
 }
 
-fn hex_lower(bytes: &[u8]) -> String {
+pub(crate) fn imported_seed_bytes(value: &str) -> Option<Vec<u8>> {
+    let seed = value
+        .trim()
+        .strip_prefix("0x")
+        .or_else(|| value.trim().strip_prefix("0X"))
+        .unwrap_or_else(|| value.trim());
+    if !matches!(seed.len(), 64 | 128) || !seed.chars().all(|c| c.is_ascii_hexdigit()) {
+        return None;
+    }
+
+    let mut bytes = Vec::with_capacity(seed.len() / 2);
+    for i in (0..seed.len()).step_by(2) {
+        let byte = u8::from_str_radix(&seed[i..i + 2], 16).ok()?;
+        bytes.push(byte);
+    }
+    Some(bytes)
+}
+
+pub(crate) fn hex_lower(bytes: &[u8]) -> String {
     const HEX: &[u8; 16] = b"0123456789abcdef";
     let mut output = String::with_capacity(bytes.len() * 2);
     for byte in bytes {
@@ -262,6 +291,12 @@ fn encode_public_ed25519_jwk(public_key: &[u8]) -> Jwk {
     let mut jwk = Jwk::from_params(params);
     jwk.set_alg(JwsAlgorithm::EdDSA.name());
     jwk
+}
+
+pub(crate) fn public_ed25519_jwk_json(public_key: &[u8]) -> Result<String, AppError> {
+    let jwk = encode_public_ed25519_jwk(public_key);
+    serde_json::to_string(&jwk)
+        .map_err(|e| AppError::Error(format!("Failed to serialize IOTA identity controller public key: {e}")))
 }
 
 fn generate_identity_controller_jwk(wallet: &mut crate::state::iota_wallet::StoredIotaWallet) -> Result<Jwk, AppError> {

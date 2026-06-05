@@ -67,8 +67,6 @@ pub async fn validate_identity(state: AppState, action: Action) -> Result<AppSta
     wallet.identity_controller_cap = identity_controller_cap;
     let validation_error = if wallet.identity_controller_cap.is_none() {
         Some("Controller cap not found for this identity.".to_string())
-    } else if document.controller().next().is_none() {
-        Some("DID document has no controller.".to_string())
     } else if document.methods(Some(MethodScope::VerificationMethod)).is_empty() {
         Some("DID document has no verification method/public key.".to_string())
     } else {

@@ -4,20 +4,10 @@
   import { goto } from '$app/navigation';
   import { writable } from 'svelte/store';
 
-  import { open } from '@tauri-apps/plugin-shell';
-
   import { ActionSheet, TopNavBar } from '$lib/components';
   import { dispatch } from '$lib/dispatcher';
-  import {
-    ArrowCounterClockwiseBoldIcon,
-    ArrowSquareOutBoldIcon,
-    CodeRegularIcon,
-    TrashRegularIcon,
-    WarningCircleFillIcon,
-  } from '$lib/icons';
+  import { ArrowCounterClockwiseBoldIcon, CodeRegularIcon, TrashRegularIcon, WarningCircleFillIcon } from '$lib/icons';
   import { state } from '$lib/stores';
-
-  import { buildIotaExplorerSearchLink } from '../../activity/utils';
 
   let rotating = false;
   let destroying = false;
@@ -80,11 +70,6 @@
     showDocument = true;
   };
 
-  const openExplorer = async () => {
-    if (!$state.iota_wallet.did) return;
-    await open(buildIotaExplorerSearchLink($state.iota_wallet.did));
-  };
-
   $: didDocument = $state.iota_wallet.did_document ?? 'DID document not loaded yet.';
 </script>
 
@@ -113,14 +98,6 @@
             {$state.iota_wallet.network}
           </p>
         </div>
-        <button
-          class="flex size-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 dark:border-slate-600 dark:text-grey"
-          aria-label="Open in IOTA explorer"
-          title="Open in IOTA explorer"
-          onclick={openExplorer}
-        >
-          <ArrowSquareOutBoldIcon class="size-5" />
-        </button>
       </div>
       <p class="mt-4 font-mono text-[11px]/[16px] break-all text-slate-800 dark:text-grey">
         {$state.iota_wallet.did}

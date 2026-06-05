@@ -18,6 +18,7 @@
   import { onboarding_state, state } from '$lib/stores';
   import { calculateInitials } from '$lib/utils';
 
+  import ObjectProducts from './ObjectProducts.svelte';
   import SortingSheet from './SortingSheet.svelte';
   import UserJourney from './UserJourney.svelte';
   import WelcomeMessage from './WelcomeMessage.svelte';
@@ -93,6 +94,7 @@
           {shortDid($state.iota_wallet.did)}
         </p>
       </button>
+      <ObjectProducts />
     {/if}
     {#if $state?.user_journey}
       <div class="pt-4">

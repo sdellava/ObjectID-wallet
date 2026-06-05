@@ -4,6 +4,7 @@
   import { beforeNavigate, goto } from '$app/navigation';
   import LL from '$i18n/i18n-svelte';
 
+  import type { Action } from '@bindings/actions/Action';
   import {
     cancel,
     checkPermissions,
@@ -16,13 +17,34 @@
   } from '@tauri-apps/plugin-barcode-scanner';
   import { debug, info, warn } from '@tauri-apps/plugin-log';
 
-  import { BottomNavBar, Button, LoadingSpinner } from '$lib/components';
+  import { BottomNavBar, Button, LoadingSpinner, ProgressBar } from '$lib/components';
   import { dispatch } from '$lib/dispatcher';
   import { CameraSlashRegularIcon } from '$lib/icons';
+  import {
+    decryptObjectIDSeedShare,
+    parseObjectIDSeedShareQr,
+    type ObjectIDSeedSharePayload,
+  } from '$lib/objectid-seed-share';
   import { state } from '$lib/stores';
 
   let scanning = false;
   let loading = false;
+  let seedSharePayload: ObjectIDSeedSharePayload | null = null;
+  let seedSharePassword = '';
+  let seedShareError = '';
+  let seedShareProgress = 0;
+  let seedShareStatus = '';
+  let importingSeedShare = false;
+
+  type ImportSeedIdentityAction = Action & {
+    type: '[IOTA Wallet] Import seed identity';
+    payload: {
+      seed_hex: string;
+      did: string;
+      network: ObjectIDSeedSharePayload['network'];
+      expected_address: string | null;
+    };
+  };
 
   // We temporarily introduce this type that extends `PermissionState` to handle a possible error when checking for permissions.
   let permissions_nullable: PermissionState | null;
@@ -31,8 +53,65 @@
 
   function onMessage(scanned: Scanned) {
     debug(`Scanned: ${scanned.content}`);
+    try {
+      const payload = parseObjectIDSeedShareQr(scanned.content);
+      if (payload) {
+        seedSharePayload = payload;
+        seedSharePassword = '';
+        seedShareError = '';
+        seedShareProgress = 0;
+        seedShareStatus = '';
+        loading = false;
+        return;
+      }
+    } catch (error) {
+      seedShareError = String((error as Error)?.message ?? error);
+      loading = false;
+      return;
+    }
+
     loading = true;
     dispatch({ type: '[QR Code] Scanned', payload: { form_urlencoded: scanned.content } });
+  }
+
+  async function importSeedShare() {
+    if (!seedSharePayload || importingSeedShare) return;
+
+    try {
+      seedShareError = '';
+      importingSeedShare = true;
+      seedShareProgress = 20;
+      seedShareStatus = 'Decrypting ObjectID seed...';
+      const seedHex = await decryptObjectIDSeedShare(seedSharePayload, seedSharePassword);
+
+      seedShareProgress = 60;
+      seedShareStatus = 'Saving wallet and Distributed Identity...';
+      await dispatch({
+        type: '[IOTA Wallet] Import seed identity',
+        payload: {
+          seed_hex: seedHex,
+          did: seedSharePayload.did,
+          network: seedSharePayload.network,
+          expected_address: seedSharePayload.address ?? null,
+        },
+      } as ImportSeedIdentityAction);
+
+      seedShareProgress = 100;
+      seedShareStatus = 'Opening your wallet home...';
+      await goto('/me');
+    } catch (error) {
+      seedShareError = String((error as Error)?.message ?? error ?? 'Failed to import ObjectID wallet.');
+    } finally {
+      importingSeedShare = false;
+    }
+  }
+
+  function resetSeedShare() {
+    seedSharePayload = null;
+    seedSharePassword = '';
+    seedShareError = '';
+    seedShareProgress = 0;
+    seedShareStatus = '';
   }
 
   // from example in plugin-barcode-scanner repo
@@ -104,7 +183,78 @@
 <div class="content-height isolate flex flex-col items-stretch">
   <div class="hide-scrollbar grow overflow-x-hidden overflow-y-scroll">
     <div class="flex h-full w-full flex-col">
-      {#if !scanning && !loading}
+      {#if seedSharePayload}
+        <div class="flex h-full flex-col justify-center space-y-5 bg-silver p-6 dark:bg-navy">
+          <div class="rounded-3xl bg-white p-5 shadow-sm dark:bg-dark">
+            <p class="text-[22px]/[30px] font-semibold text-primary">Import ObjectID wallet</p>
+            <p class="mt-3 text-[13px]/[20px] font-medium text-slate-500 dark:text-slate-300">
+              Enter the password used on dapp.objectid.io to decrypt the SEED and configure this wallet.
+            </p>
+
+            <div class="mt-5 space-y-2">
+              <p class="text-[12px]/[18px] font-semibold text-slate-500 dark:text-slate-300">DID</p>
+              <p
+                class="rounded-2xl bg-slate-50 p-3 text-[12px]/[18px] font-medium break-all text-slate-700 dark:bg-navy dark:text-grey"
+              >
+                {seedSharePayload.did}
+              </p>
+            </div>
+
+            <div class="mt-4 space-y-2">
+              <p class="text-[12px]/[18px] font-semibold text-slate-500 dark:text-slate-300">Network</p>
+              <p
+                class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[12px]/[18px] font-semibold text-slate-700 dark:bg-navy dark:text-grey"
+              >
+                {seedSharePayload.network}
+              </p>
+            </div>
+
+            <input
+              bind:value={seedSharePassword}
+              disabled={importingSeedShare}
+              type="password"
+              inputmode="text"
+              autocomplete="current-password"
+              class="mt-5 h-12 w-full rounded-xl border border-slate-200 px-3 text-[15px]/[22px] text-secondary dark:border-slate-600 dark:bg-dark"
+              placeholder="Password"
+              on:keydown={(event) => {
+                if (event.key === 'Enter') importSeedShare();
+              }}
+            />
+
+            {#if seedShareStatus}
+              <div class="mt-5 space-y-3">
+                <ProgressBar value={seedShareProgress} />
+                <p class="text-center text-[12px]/[18px] font-semibold text-primary">{seedShareStatus}</p>
+              </div>
+            {/if}
+
+            {#if seedShareError}
+              <p class="mt-4 rounded-2xl bg-rose-50 p-3 text-[13px]/[20px] font-semibold text-rose-500">
+                {seedShareError}
+              </p>
+            {/if}
+
+            <div class="mt-6 flex flex-col gap-3">
+              <Button
+                label="Import wallet"
+                on:click={importSeedShare}
+                loading={importingSeedShare}
+                disabled={!seedSharePassword || importingSeedShare}
+              />
+              <Button
+                label="Scan another QR"
+                variant="secondary"
+                on:click={() => {
+                  resetSeedShare();
+                  startScan();
+                }}
+                disabled={importingSeedShare}
+              />
+            </div>
+          </div>
+        </div>
+      {:else if !scanning && !loading}
         <!-- This part is only visible when no scanning or loading is happening.
           Only visible when user has not granted permissions to the camera. -->
         <div class="relative flex h-full flex-col items-center justify-center space-y-4 bg-silver p-8 dark:bg-navy">

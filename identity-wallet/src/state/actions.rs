@@ -79,9 +79,10 @@ mod bindings {
         did::actions::{set_preferred_keytype::SetPreferredKeyType, set_preferred_method::SetPreferredDidMethod},
         iota_wallet::actions::{
             create_identity::CreateIotaIdentity, create_or_load_wallet::CreateOrLoadIotaWallet,
-            destroy_identity::DestroyIotaIdentity, request_faucet_funds::RequestIotaFaucetFunds,
-            rotate_identity_keys::RotateIotaIdentityKeys, sign_prepared_transaction::SignPreparedIotaTransaction,
-            submit_wallet_login::SubmitWalletLogin, validate_identity::ValidateIotaIdentity,
+            destroy_identity::DestroyIotaIdentity, import_seed_identity::ImportIotaSeedIdentity,
+            request_faucet_funds::RequestIotaFaucetFunds, rotate_identity_keys::RotateIotaIdentityKeys,
+            sign_prepared_transaction::SignPreparedIotaTransaction, submit_wallet_login::SubmitWalletLogin,
+            validate_identity::ValidateIotaIdentity,
         },
         profile_settings::actions::{
             create_new::CreateNew, enable_biometrics::EnableBiometrics, set_locale::SetLocale,
@@ -195,6 +196,8 @@ mod bindings {
         RequestIotaFaucetFunds { payload: RequestIotaFaucetFunds },
         #[serde(rename = "[IOTA Wallet] Create identity")]
         CreateIotaIdentity { payload: CreateIotaIdentity },
+        #[serde(rename = "[IOTA Wallet] Import seed identity")]
+        ImportIotaSeedIdentity { payload: ImportIotaSeedIdentity },
         #[serde(rename = "[IOTA Wallet] Rotate identity keys")]
         RotateIotaIdentityKeys { payload: RotateIotaIdentityKeys },
         #[serde(rename = "[IOTA Wallet] Validate identity")]

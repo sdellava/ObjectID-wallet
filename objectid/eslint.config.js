@@ -39,8 +39,15 @@ export default ts.config(
   },
   {
     rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_', varsIgnorePattern: '^state$' },
+      ],
       'no-console': 'error',
+      'svelte/no-navigation-without-resolve': 'off',
       'svelte/no-at-html-tags': 'warn', // TODO: security risk even applicable for context of Tauri app?
+      'svelte/no-useless-mustaches': 'off',
+      'svelte/require-each-key': 'off',
     },
   },
 );
