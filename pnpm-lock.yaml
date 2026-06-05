@@ -44,6 +44,12 @@ importers:
 
   objectid:
     dependencies:
+      '@iota/bcs':
+        specifier: 1.5.0
+        version: 1.5.0
+      '@iota/iota-sdk':
+        specifier: 1.11.0
+        version: 1.11.0(typescript@5.9.3)
       '@objectid/oid-provider':
         specifier: ^1.10.16
         version: 1.10.16(@iota/identity-wasm@1.8.0-beta.3(@iota/iota-sdk@1.14.0(typescript@5.9.3)))(typescript@5.9.3)

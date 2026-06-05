@@ -1,16 +1,18 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
 
   import { page } from '$app/state';
 
+  import type { Action } from '@bindings/actions/Action';
   import { TopNavBar } from '$lib/components';
+  import { dispatch } from '$lib/dispatcher';
   import { state as appState } from '$lib/stores';
   import {
     formatProductFieldLabel,
     loadObjectIDProduct,
     normalizeProductImageUrl,
     type ObjectIDProduct,
-    updateObjectGeolocation,
+    prepareObjectGeolocationUpdate,
   } from '$lib/objectid-items';
 
   let loading = true;
@@ -88,13 +90,22 @@
       const wallet = $appState.iota_wallet;
       const geolocation = await getDeviceGeolocation();
 
-      await updateObjectGeolocation({
+      const payload = await prepareObjectGeolocationUpdate({
         did: wallet.did ?? '',
         seed: wallet.seed_phrase ?? '',
         network: wallet.network ?? product.network,
         objectId: product.id,
+        objectType: product.typeRepr,
         geolocation,
       });
+      await dispatch({
+        type: '[IOTA Wallet] Sign prepared transaction',
+        payload,
+      } as Action);
+      await tick();
+
+      const walletError = $appState.iota_wallet.last_error;
+      if (walletError) throw new Error(walletError);
 
       updateSuccess = 'Object geolocation updated.';
       await loadProduct();

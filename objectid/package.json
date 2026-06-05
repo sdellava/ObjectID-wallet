@@ -16,6 +16,8 @@
     "typesafe-i18n": "typesafe-i18n --no-watch"
   },
   "dependencies": {
+    "@iota/bcs": "1.5.0",
+    "@iota/iota-sdk": "1.11.0",
     "@objectid/oid-provider": "^1.10.16"
   },
   "devDependencies": {

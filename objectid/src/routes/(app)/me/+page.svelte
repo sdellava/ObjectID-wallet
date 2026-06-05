@@ -3,7 +3,7 @@
   import { page } from '$app/state';
   import { fly } from 'svelte/transition';
 
-  import { ActionSheet, Avatar } from '$lib/components';
+  import { ActionSheet } from '$lib/components';
 
   import '@lottiefiles/lottie-player';
 
@@ -16,14 +16,11 @@
   import { dispatch } from '$lib/dispatcher';
   import { GhostFillIcon, MagnifyingGlassIcon, PlusCircleIcon, RocketLaunchFillIcon } from '$lib/icons';
   import { onboarding_state, state } from '$lib/stores';
-  import { calculateInitials } from '$lib/utils';
 
   import ObjectProducts from './ObjectProducts.svelte';
   import SortingSheet from './SortingSheet.svelte';
   import UserJourney from './UserJourney.svelte';
   import WelcomeMessage from './WelcomeMessage.svelte';
-
-  let initials: string | undefined;
 
   let triggers = [$LL.ME.CREDENTIAL_TABS.ALL(), $LL.ME.CREDENTIAL_TABS.DATA(), $LL.ME.CREDENTIAL_TABS.BADGES()];
   let activeTab: Writable<string> = writable(page.state.tab || triggers[0]);
@@ -43,13 +40,6 @@
     dispatch({ type: '[Credential] Refresh all statuses' });
   });
 
-  $: {
-    // TODO: needs to be called at least once to trigger subscribers --> better way to do this?
-    if ($state?.profile_settings.profile?.name) {
-      initials = calculateInitials($state?.profile_settings.profile?.name);
-    }
-  }
-
   const shortDid = (did: string) => {
     const [prefix, address] = did.match(/^(did:iota:[^:]+:)(.+)$/)?.slice(1) ?? ['', did];
     return address.length > 8 ? `${prefix}${address.slice(0, 8)}...` : did;
@@ -64,10 +54,7 @@
 <div class="relative isolate flex flex-col bg-white dark:bg-dark">
   <div class="sticky top-0 z-10 w-full bg-white px-[20px] py-4 dark:bg-dark">
     <!-- Top Bar -->
-    <div class="flex items-center justify-between">
-      <button onclick={() => goto('/me/settings')}>
-        <Avatar {initials} picture={$state.profile_settings.profile?.picture} />
-      </button>
+    <div class="flex items-center justify-end">
       <button
         onclick={() => goto('/me/search')}
         class="-mr-3 flex h-11 w-11 items-center justify-center rounded-2xl text-black dark:text-white"

@@ -1,4 +1,6 @@
 import { createOid } from '@objectid/oid-provider/oid';
+import { Transaction } from '@iota/iota-sdk/transactions';
+import { toBase64 } from '@iota/bcs';
 
 export type ObjectIDMoveEdge = {
   node: {
@@ -280,17 +282,24 @@ export const loadObjectIDProduct = async (id: string, network: string): Promise<
   );
 };
 
-export const updateObjectGeolocation = async (args: {
+const packageIdFromType = (typeRepr: string) => {
+  const match = typeRepr.trim().match(/^(0x[0-9a-fA-F]+)::/);
+  return match?.[1] ?? '';
+};
+
+export const prepareObjectGeolocationUpdate = async (args: {
   did: string;
   seed: string;
   network: string;
   objectId: string;
+  objectType?: string;
   geolocation: string;
 }) => {
   const did = args.did.trim();
   const seed = args.seed.trim();
   const network = args.network.trim() || 'testnet';
   const objectId = args.objectId.trim();
+  const objectType = String(args.objectType ?? '').trim();
   const geolocation = args.geolocation.trim();
 
   if (!did) throw new Error('Distributed Identity is missing.');
@@ -306,19 +315,36 @@ export const updateObjectGeolocation = async (args: {
   if (!creditToken) throw new Error('No ObjectID credit token is available for this wallet.');
   if (!controllerCap) throw new Error('ObjectID controller cap is not available for this identity.');
 
-  const result = await oid.update_geolocation({
-    creditToken,
-    controllerCap,
-    object: objectId,
-    new_location: geolocation,
+  const env = await oid.env();
+  const tx = new Transaction();
+  const packageId = packageIdFromType(objectType) || env.objectPackageID;
+
+  tx.moveCall({
+    arguments: [
+      tx.object(creditToken),
+      tx.object(env.policy),
+      tx.object(controllerCap),
+      tx.object(objectId),
+      tx.pure.string(geolocation),
+      tx.object('0x6'),
+    ],
+    target: `${packageId}::oid_object::update_geolocation`,
   });
+  tx.setGasBudget(10_000_000);
+  tx.setSender(env.sender);
 
-  if (!result?.success) {
-    const errorValue = result?.error ?? result?.status?.error ?? 'Update geolocation transaction failed.';
-    throw new Error(errorValue instanceof Error ? errorValue.message : String(errorValue));
-  }
+  const [txKindBytes, gasPrice] = await Promise.all([
+    tx.build({ client: env.client, onlyTransactionKind: true }),
+    env.client.getReferenceGasPrice(),
+  ]);
 
-  return result;
+  return {
+    tx_kind_bcs_base64: toBase64(txKindBytes),
+    gas_budget: 10_000_000,
+    gas_price: Number(gasPrice),
+    network,
+    submit: true,
+  };
 };
 
 export const formatProductFieldLabel = (key: string) =>

@@ -18,7 +18,7 @@
     return `${value.slice(0, left)}...${value.slice(-right)}`;
   };
 
-  const refreshProducts = async () => {
+  const refreshProducts = async (force = false) => {
     const did = $state.iota_wallet.did ?? '';
     const address = $state.iota_wallet.address ?? '';
     const network = $state.iota_wallet.network ?? 'testnet';
@@ -32,7 +32,7 @@
       return;
     }
 
-    if (did === lastDid && address === lastAddress && network === lastNetwork && products.length) return;
+    if (!force && did === lastDid && address === lastAddress && network === lastNetwork && products.length) return;
 
     loading = true;
     error = '';
@@ -70,7 +70,7 @@
       </div>
       <button
         class="rounded-lg border border-slate-200 px-3 py-2 text-[11px]/[14px] font-semibold text-slate-700 disabled:opacity-50 dark:border-slate-600 dark:text-grey"
-        onclick={refreshProducts}
+        onclick={() => refreshProducts(true)}
         disabled={loading}
       >
         {loading ? 'Loading' : 'Refresh'}
