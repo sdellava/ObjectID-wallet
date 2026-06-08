@@ -2,6 +2,7 @@
   import { onDestroy, onMount } from 'svelte';
 
   import { beforeNavigate, goto } from '$app/navigation';
+  import { page } from '$app/state';
   import LL from '$i18n/i18n-svelte';
 
   import type { Action } from '@bindings/actions/Action';
@@ -25,6 +26,7 @@
     parseObjectIDSeedShareQr,
     type ObjectIDSeedSharePayload,
   } from '$lib/objectid-seed-share';
+  import { parseObjectIDDIDShareQr } from '$lib/objectid-did-share';
   import { state } from '$lib/stores';
 
   let scanning = false;
@@ -51,8 +53,32 @@
 
   let mockQrCodeValue = '';
 
+  const isOwnerTransferScan = () => page.url.searchParams.get('ownerTransfer') === '1';
+
+  const ownerTransferReturnPath = (did: string) => {
+    const fallback = '/me';
+    const returnTo = page.url.searchParams.get('return') || fallback;
+    const target = new URL(returnTo.startsWith('/') ? returnTo : fallback, window.location.origin);
+    target.searchParams.set('ownerDid', did);
+    return `${target.pathname}${target.search}${target.hash}`;
+  };
+
   function onMessage(scanned: Scanned) {
     debug(`Scanned: ${scanned.content}`);
+
+    if (isOwnerTransferScan()) {
+      const did = parseObjectIDDIDShareQr(scanned.content);
+      if (did) {
+        loading = true;
+        goto(ownerTransferReturnPath(did));
+        return;
+      }
+
+      seedShareError = 'The QR code does not contain a valid ObjectID DID.';
+      loading = false;
+      return;
+    }
+
     try {
       const payload = parseObjectIDSeedShareQr(scanned.content);
       if (payload) {

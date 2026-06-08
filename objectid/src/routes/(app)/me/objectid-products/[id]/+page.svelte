@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { onDestroy, onMount, tick } from 'svelte';
+  import { onMount, tick } from 'svelte';
 
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
-  import { cancel, checkPermissions, Format, requestPermissions, scan } from '@tauri-apps/plugin-barcode-scanner';
   import jsQR from 'jsqr';
 
   import type { Action } from '@bindings/actions/Action';
@@ -31,7 +30,6 @@
   let newOwnerDid = '';
   let ownerTransferError = '';
   let ownerTransferStatus = '';
-  let scanningOwnerDid = false;
   let importingOwnerDidImage = false;
   let transferringOwner = false;
 
@@ -129,14 +127,6 @@
     }
   };
 
-  const setNewOwnerDidFromQr = (value: string) => {
-    const did = parseObjectIDDIDShareQr(value);
-    if (!did) throw new Error('The QR code does not contain a valid ObjectID DID.');
-
-    newOwnerDid = did;
-    ownerTransferError = '';
-  };
-
   const openOwnerTransferDialog = () => {
     newOwnerDid = '';
     ownerTransferError = '';
@@ -145,30 +135,15 @@
   };
 
   const scanNewOwnerDid = async () => {
-    if (scanningOwnerDid || transferringOwner) return;
+    if (transferringOwner) return;
 
-    try {
-      ownerTransferError = '';
-      ownerTransferStatus = 'Opening scanner...';
-      let permissions = await checkPermissions().catch(() => null);
-      if (permissions === 'prompt') permissions = await requestPermissions();
-      if (permissions !== 'granted') {
-        throw new Error('Camera permission is required to scan the new owner DID.');
-      }
+    const returnSearch = Array.from(page.url.searchParams.entries())
+      .filter(([key]) => key !== 'ownerDid')
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      .join('&');
+    const returnTo = `${page.url.pathname}${returnSearch ? `?${returnSearch}` : ''}`;
 
-      scanningOwnerDid = true;
-      ownerTransferOpen = false;
-      const scanned = await scan({ formats: [Format.QRCode], windowed: true });
-      setNewOwnerDidFromQr(scanned.content);
-      ownerTransferStatus = 'New owner DID loaded.';
-      ownerTransferOpen = true;
-    } catch (err) {
-      ownerTransferError = err instanceof Error ? err.message : String(err);
-      ownerTransferStatus = '';
-      ownerTransferOpen = true;
-    } finally {
-      scanningOwnerDid = false;
-    }
+    await goto(`/scan?ownerTransfer=1&return=${encodeURIComponent(returnTo)}`);
   };
 
   const decodeDidFromImage = (file: File) =>
@@ -261,18 +236,15 @@
     }
   };
 
-  const cancelOwnerScan = async () => {
-    if (!scanningOwnerDid) return;
-    await cancel().catch(() => {});
-    scanningOwnerDid = false;
-  };
-
   onMount(() => {
-    void loadProduct();
-  });
+    const scannedOwnerDid = page.url.searchParams.get('ownerDid');
+    if (scannedOwnerDid) {
+      newOwnerDid = scannedOwnerDid;
+      ownerTransferOpen = true;
+      ownerTransferStatus = 'New owner DID loaded.';
+    }
 
-  onDestroy(() => {
-    void cancelOwnerScan();
+    void loadProduct();
   });
 
   $: fieldEntries = Object.entries(product?.fields ?? {}).filter(([key]) => {
@@ -386,32 +358,6 @@
   </div>
 {/if}
 
-{#if scanningOwnerDid}
-  <div class="fixed inset-0 z-50 flex flex-col bg-white dark:bg-dark">
-    <div class="shrink-0 bg-white px-5 pb-4 pt-[calc(20px+var(--safe-area-inset-top))] dark:bg-dark">
-      <p class="text-[22px]/[30px] font-semibold text-slate-800 dark:text-grey">Scan new owner DID</p>
-      <p class="mt-2 text-[13px]/[20px] font-medium text-slate-500 dark:text-slate-300">
-        Point the camera at the ObjectID Distributed Identity QR code.
-      </p>
-    </div>
-
-    <div class="scanner-container relative grow">
-      <div class="barcode-scanner--area--container">
-        <div class="square surround-cover">
-          <div class="barcode-scanner--area--outer surround-cover">
-            <div class="barcode-scanner--area--inner surround-cover border-2 border-white"></div>
-          </div>
-        </div>
-      </div>
-      <div class="fixed bottom-[calc(28px+var(--safe-area-inset-bottom))] z-10 flex w-full justify-center">
-        <button class="rounded-lg bg-rose-100 px-4 py-3 font-semibold text-rose-500" onclick={cancelOwnerScan}>
-          Cancel
-        </button>
-      </div>
-    </div>
-  </div>
-{/if}
-
 {#if ownerTransferOpen}
   <div class="fixed inset-0 z-50 flex items-end justify-center bg-black/40 px-4 pb-[calc(16px+var(--safe-area-inset-bottom))]">
     <section class="max-h-[90vh] w-full max-w-[420px] overflow-y-auto rounded-2xl bg-white p-5 shadow-xl dark:bg-dark">
@@ -424,7 +370,7 @@
         </div>
         <button
           class="rounded-lg px-2 py-1 text-[12px]/[16px] font-semibold text-slate-500 disabled:opacity-50"
-          disabled={transferringOwner || scanningOwnerDid}
+          disabled={transferringOwner}
           onclick={() => (ownerTransferOpen = false)}
         >
           Close
@@ -434,10 +380,10 @@
       <div class="mt-5 grid grid-cols-2 gap-3">
         <button
           class="h-12 rounded-xl bg-primary px-3 py-2 text-[12px]/[18px] font-semibold text-white disabled:opacity-60 dark:text-dark"
-          disabled={scanningOwnerDid || transferringOwner}
+          disabled={transferringOwner}
           onclick={scanNewOwnerDid}
         >
-          {scanningOwnerDid ? 'Scanning' : 'Scan DID QR'}
+          Scan DID QR
         </button>
         <button
           class="h-12 rounded-xl border border-slate-200 bg-white px-3 py-2 text-[12px]/[18px] font-semibold text-slate-800 disabled:opacity-60 dark:border-slate-600 dark:bg-dark dark:text-grey"
@@ -487,7 +433,7 @@
 
       <button
         class="mt-5 h-12 w-full rounded-xl bg-rose-500 px-4 py-2 text-[13px]/[24px] font-semibold text-white disabled:opacity-50"
-        disabled={!newOwnerDid || transferringOwner || scanningOwnerDid}
+        disabled={!newOwnerDid || transferringOwner}
         onclick={transferObjectOwner}
       >
         {transferringOwner ? 'Transferring ownership' : 'Confirm transfer'}
@@ -495,52 +441,3 @@
     </section>
   </div>
 {/if}
-
-<style>
-  .scanner-container {
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-  }
-
-  .square {
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    transition: 0.3s;
-  }
-
-  .square:after {
-    content: '';
-    top: 0;
-    display: block;
-    padding-bottom: 100%;
-  }
-
-  .square > div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  }
-
-  .surround-cover {
-    box-shadow: 0 0 0 99999px rgba(0, 0, 0, 0.5);
-  }
-
-  .barcode-scanner--area--container {
-    width: 75%;
-    max-width: min(500px, 80vh);
-    margin: auto;
-  }
-
-  .barcode-scanner--area--outer {
-    display: flex;
-  }
-
-  .barcode-scanner--area--inner {
-    width: 100%;
-    border-radius: 20px;
-  }
-</style>
