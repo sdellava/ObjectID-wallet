@@ -157,12 +157,15 @@
       }
 
       scanningOwnerDid = true;
+      ownerTransferOpen = false;
       const scanned = await scan({ formats: [Format.QRCode], windowed: true });
       setNewOwnerDidFromQr(scanned.content);
       ownerTransferStatus = 'New owner DID loaded.';
+      ownerTransferOpen = true;
     } catch (err) {
       ownerTransferError = err instanceof Error ? err.message : String(err);
       ownerTransferStatus = '';
+      ownerTransferOpen = true;
     } finally {
       scanningOwnerDid = false;
     }
@@ -383,6 +386,32 @@
   </div>
 {/if}
 
+{#if scanningOwnerDid}
+  <div class="fixed inset-0 z-50 flex flex-col bg-white dark:bg-dark">
+    <div class="shrink-0 bg-white px-5 pb-4 pt-[calc(20px+var(--safe-area-inset-top))] dark:bg-dark">
+      <p class="text-[22px]/[30px] font-semibold text-slate-800 dark:text-grey">Scan new owner DID</p>
+      <p class="mt-2 text-[13px]/[20px] font-medium text-slate-500 dark:text-slate-300">
+        Point the camera at the ObjectID Distributed Identity QR code.
+      </p>
+    </div>
+
+    <div class="scanner-container relative grow">
+      <div class="barcode-scanner--area--container">
+        <div class="square surround-cover">
+          <div class="barcode-scanner--area--outer surround-cover">
+            <div class="barcode-scanner--area--inner surround-cover border-2 border-white"></div>
+          </div>
+        </div>
+      </div>
+      <div class="fixed bottom-[calc(28px+var(--safe-area-inset-bottom))] z-10 flex w-full justify-center">
+        <button class="rounded-lg bg-rose-100 px-4 py-3 font-semibold text-rose-500" onclick={cancelOwnerScan}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+{/if}
+
 {#if ownerTransferOpen}
   <div class="fixed inset-0 z-50 flex items-end justify-center bg-black/40 px-4 pb-[calc(16px+var(--safe-area-inset-bottom))]">
     <section class="max-h-[90vh] w-full max-w-[420px] overflow-y-auto rounded-2xl bg-white p-5 shadow-xl dark:bg-dark">
@@ -466,3 +495,52 @@
     </section>
   </div>
 {/if}
+
+<style>
+  .scanner-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .square {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+
+  .square:after {
+    content: '';
+    top: 0;
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  .square > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .surround-cover {
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, 0.5);
+  }
+
+  .barcode-scanner--area--container {
+    width: 75%;
+    max-width: min(500px, 80vh);
+    margin: auto;
+  }
+
+  .barcode-scanner--area--outer {
+    display: flex;
+  }
+
+  .barcode-scanner--area--inner {
+    width: 100%;
+    border-radius: 20px;
+  }
+</style>
