@@ -292,11 +292,7 @@ pub mod tauri_command {
 
 #[cfg(target_os = "android")]
 #[no_mangle]
-pub extern "C" fn Java_com_objectid_wallet_MainActivity_java_1init(
-    mut env: JNIEnv,
-    _class: JClass,
-    context: JObject,
-) {
+pub extern "C" fn Java_com_objectid_wallet_MainActivity_java_1init(mut env: JNIEnv, _class: JClass, context: JObject) {
     let context_for_current_verifier = env
         .new_local_ref(&context)
         .expect("Failed to create Android context local reference");

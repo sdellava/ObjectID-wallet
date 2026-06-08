@@ -2,3 +2,7 @@ packages:
   - 'objectid'
 allowBuilds:
   esbuild: true
+overrides:
+  cookie: 0.7.2
+  picomatch: 4.0.4
+  yaml: 2.8.3
