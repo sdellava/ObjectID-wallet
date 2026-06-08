@@ -309,10 +309,8 @@ export const prepareObjectGeolocationUpdate = async (args: {
 
   await oid.connect({ did, seed, network });
 
-  const creditToken = oid.session.creditToken();
   const controllerCap = oid.session.oidControllerCap;
 
-  if (!creditToken) throw new Error('No ObjectID credit token is available for this wallet.');
   if (!controllerCap) throw new Error('ObjectID controller cap is not available for this identity.');
 
   const env = await oid.env();
@@ -321,8 +319,6 @@ export const prepareObjectGeolocationUpdate = async (args: {
 
   tx.moveCall({
     arguments: [
-      tx.object(creditToken),
-      tx.object(env.policy),
       tx.object(controllerCap),
       tx.object(objectId),
       tx.pure.string(geolocation),
