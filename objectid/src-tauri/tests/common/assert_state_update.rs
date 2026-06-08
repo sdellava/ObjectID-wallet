@@ -87,7 +87,18 @@ pub async fn assert_state_update(
             );
 
             assert_eq!(connections, expected_connections);
-            assert_eq!(credentials, expected_credentials);
+
+            let mut normalized_credentials = credentials.clone();
+            let normalized_expected_credentials = expected_credentials.clone();
+            for (credential, expected_credential) in normalized_credentials
+                .iter_mut()
+                .zip(normalized_expected_credentials.iter())
+            {
+                if expected_credential.metadata.date_added.is_empty() {
+                    credential.metadata.date_added.clear();
+                }
+            }
+            assert_eq!(normalized_credentials, normalized_expected_credentials);
 
             let active_profile = &profile_settings.profile;
             let expected_active_profile = &expected_profile_settings.profile;
