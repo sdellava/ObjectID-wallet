@@ -5,6 +5,7 @@ use crate::{
         iota_wallet::{
             actions::sign_prepared_transaction::SignPreparedIotaTransaction,
             reducers::{
+                create_identity::imported_seed_bytes,
                 create_identity::{gas_stations_for_network, IotaGasStation},
                 create_or_load_wallet::load_stored_wallet,
             },
@@ -95,14 +96,25 @@ pub async fn sign_prepared_transaction(state: AppState, action: Action) -> Resul
     }
 
     let mut keystore = InMemKeystore::default();
-    let address = keystore
-        .import_from_mnemonic(
-            &wallet.mnemonic,
-            SignatureScheme::ED25519,
-            None,
-            Some("objectid-iota".to_string()),
-        )
-        .map_err(|e| AppError::Error(format!("Failed to restore IOTA key from mnemonic: {e}")))?;
+    let address = if let Some(seed_bytes) = imported_seed_bytes(&wallet.mnemonic) {
+        keystore
+            .import_from_seed(
+                &seed_bytes,
+                SignatureScheme::ED25519,
+                None,
+                Some("objectid-iota".to_string()),
+            )
+            .map_err(|e| AppError::Error(format!("Failed to restore IOTA key from imported seed: {e}")))?
+    } else {
+        keystore
+            .import_from_mnemonic(
+                &wallet.mnemonic,
+                SignatureScheme::ED25519,
+                None,
+                Some("objectid-iota".to_string()),
+            )
+            .map_err(|e| AppError::Error(format!("Failed to restore IOTA key from mnemonic: {e}")))?
+    };
 
     let expected_sender = IotaAddress::from_str(&wallet.address)
         .map_err(|e| AppError::Error(format!("Stored IOTA address is invalid: {e}")))?;
@@ -283,7 +295,7 @@ async fn execute_prepared_transaction_with_one_gas_station(
             reservation_id: reservation.reservation_id,
             tx_bytes: STANDARD.encode(tx_bytes),
             user_sig: signature.encode_base64(),
-            request_type: "WaitForLocalExecution",
+            request_type: "waitForLocalExecution",
         })
         .send()
         .await
