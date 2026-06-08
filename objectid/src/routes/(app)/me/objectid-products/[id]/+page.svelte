@@ -6,18 +6,19 @@
   import jsQR from 'jsqr';
 
   import type { Action } from '@bindings/actions/Action';
+
   import { TopNavBar } from '$lib/components';
   import { dispatch } from '$lib/dispatcher';
   import { parseObjectIDDIDShareQr } from '$lib/objectid-did-share';
-  import { state as appState } from '$lib/stores';
   import {
     formatProductFieldLabel,
     loadObjectIDProduct,
     normalizeProductImageUrl,
-    type ObjectIDProduct,
     prepareObjectGeolocationUpdate,
     prepareObjectOwnerDidUpdate,
+    type ObjectIDProduct,
   } from '$lib/objectid-items';
+  import { state as appState } from '$lib/stores';
 
   let loading = true;
   let error = '';
@@ -359,7 +360,9 @@
 {/if}
 
 {#if ownerTransferOpen}
-  <div class="fixed inset-0 z-50 flex items-end justify-center bg-black/40 px-4 pb-[calc(16px+var(--safe-area-inset-bottom))]">
+  <div
+    class="fixed inset-0 z-50 flex items-end justify-center bg-black/40 px-4 pb-[calc(16px+var(--safe-area-inset-bottom))]"
+  >
     <section class="max-h-[90vh] w-full max-w-[420px] overflow-y-auto rounded-2xl bg-white p-5 shadow-xl dark:bg-dark">
       <div class="flex items-start justify-between gap-3">
         <div>

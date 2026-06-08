@@ -1,6 +1,6 @@
-import { createOid } from '@objectid/oid-provider/oid';
-import { Transaction } from '@iota/iota-sdk/transactions';
 import { toBase64 } from '@iota/bcs';
+import { Transaction } from '@iota/iota-sdk/transactions';
+import { createOid } from '@objectid/oid-provider/oid';
 
 export type ObjectIDMoveEdge = {
   node: {
@@ -318,12 +318,7 @@ export const prepareObjectGeolocationUpdate = async (args: {
   const packageId = packageIdFromType(objectType) || env.objectPackageID;
 
   tx.moveCall({
-    arguments: [
-      tx.object(controllerCap),
-      tx.object(objectId),
-      tx.pure.string(geolocation),
-      tx.object('0x6'),
-    ],
+    arguments: [tx.object(controllerCap), tx.object(objectId), tx.pure.string(geolocation), tx.object('0x6')],
     target: `${packageId}::oid_object::update_geolocation`,
   });
   tx.setGasBudget(10_000_000);
@@ -374,12 +369,7 @@ export const prepareObjectOwnerDidUpdate = async (args: {
   const packageId = packageIdFromType(objectType) || env.objectPackageID;
 
   tx.moveCall({
-    arguments: [
-      tx.object(controllerCap),
-      tx.object(objectId),
-      tx.pure.string(newOwnerDid),
-      tx.object('0x6'),
-    ],
+    arguments: [tx.object(controllerCap), tx.object(objectId), tx.pure.string(newOwnerDid), tx.object('0x6')],
     target: `${packageId}::oid_object::update_owner_did`,
   });
   tx.setGasBudget(10_000_000);

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { beforeNavigate, goto, replaceState } from '$app/navigation';
   import { page } from '$app/state';
-  import { fly } from 'svelte/transition';
   import QRCode from 'qrcode';
+  import { fly } from 'svelte/transition';
 
   import { ActionSheet } from '$lib/components';
 
@@ -15,8 +15,8 @@
 
   import { Button, CredentialList, Favorites, IconMessage, PaddedIcon, Tabs } from '$lib/components';
   import { dispatch } from '$lib/dispatcher';
-  import { createObjectIDDIDSharePayload } from '$lib/objectid-did-share';
   import { GhostFillIcon, MagnifyingGlassIcon, PlusCircleIcon, RocketLaunchFillIcon } from '$lib/icons';
+  import { createObjectIDDIDSharePayload } from '$lib/objectid-did-share';
   import { onboarding_state, state } from '$lib/stores';
 
   import ObjectProducts from './ObjectProducts.svelte';
@@ -110,7 +110,11 @@
   <div class="sticky top-0 z-10 w-full bg-white px-[20px] py-4 dark:bg-dark">
     <!-- Top Bar -->
     <div class="flex items-center justify-between gap-4">
-      <img class="h-12 max-w-[260px] object-contain object-left" src="/brand/objectid-logo-large.png" alt="OID:ObjectID" />
+      <img
+        class="h-12 max-w-[260px] object-contain object-left"
+        src="/brand/objectid-logo-large.png"
+        alt="OID:ObjectID"
+      />
       <button
         onclick={() => goto('/me/search')}
         class="-mr-3 flex h-11 w-11 items-center justify-center rounded-2xl text-black dark:text-white"
@@ -250,14 +254,24 @@
   </button>
 </div>
 
-<ActionSheet titleText="Share Distributed Identity" descriptionText="Share this DID with another ObjectID wallet." open={identityQrOpen}>
+<ActionSheet
+  titleText="Share Distributed Identity"
+  descriptionText="Share this DID with another ObjectID wallet."
+  open={identityQrOpen}
+>
   <div slot="content" class="flex w-full flex-col gap-4 pt-5">
     {#if identityQrDataUrl}
       <div class="flex justify-center">
-        <img class="h-[260px] w-[260px] rounded-xl bg-white p-3" src={identityQrDataUrl} alt="Distributed Identity QR code" />
+        <img
+          class="h-[260px] w-[260px] rounded-xl bg-white p-3"
+          src={identityQrDataUrl}
+          alt="Distributed Identity QR code"
+        />
       </div>
     {/if}
-    <p class="rounded-xl bg-silver p-3 font-mono text-[11px]/[16px] break-all text-slate-800 dark:bg-navy dark:text-grey">
+    <p
+      class="rounded-xl bg-silver p-3 font-mono text-[11px]/[16px] break-all text-slate-800 dark:bg-navy dark:text-grey"
+    >
       {$state.iota_wallet.did}
     </p>
     {#if identityShareStatus}

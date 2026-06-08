@@ -21,12 +21,12 @@
   import { BottomNavBar, Button, LoadingSpinner, ProgressBar } from '$lib/components';
   import { dispatch } from '$lib/dispatcher';
   import { CameraSlashRegularIcon } from '$lib/icons';
+  import { parseObjectIDDIDShareQr } from '$lib/objectid-did-share';
   import {
     decryptObjectIDSeedShare,
     parseObjectIDSeedShareQr,
     type ObjectIDSeedSharePayload,
   } from '$lib/objectid-seed-share';
-  import { parseObjectIDDIDShareQr } from '$lib/objectid-did-share';
   import { state } from '$lib/stores';
 
   let scanning = false;

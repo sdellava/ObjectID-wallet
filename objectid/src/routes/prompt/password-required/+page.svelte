@@ -8,8 +8,8 @@
   import { goto } from '$app/navigation';
   import LL from '$i18n/i18n-svelte';
 
-  import { retrieve } from '@objectid/tauri-plugin-keystore';
   import { melt } from '@melt-ui/svelte';
+  import { retrieve } from '@objectid/tauri-plugin-keystore';
   import { warn } from '@tauri-apps/plugin-log';
 
   import { ActionSheet, Button } from '$lib/components';
