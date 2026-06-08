@@ -8,7 +8,7 @@ interface Specification {
 }
 
 export const load = (async () => {
-  // https://github.com/impierce/openid4vc?tab=readme-ov-file#rust-library-for-openid-for-verifiable-credentials
+  // https://github.com/openwallet-foundation-labs/openid4vc?tab=readme-ov-file#rust-library-for-openid-for-verifiable-credentials
 
   const specifications: Specification[] = [
     {

@@ -8,7 +8,7 @@
   import { goto } from '$app/navigation';
   import LL from '$i18n/i18n-svelte';
 
-  import { retrieve } from '@impierce/tauri-plugin-keystore';
+  import { retrieve } from '@objectid/tauri-plugin-keystore';
   import { melt } from '@melt-ui/svelte';
   import { warn } from '@tauri-apps/plugin-log';
 
@@ -25,7 +25,7 @@
 
   let password: string;
 
-  const SERVICE = 'com.impierce.identity-wallet';
+  const SERVICE = 'com.objectid.wallet';
   const USER = 'objectid'; // TODO: rename to "ACCOUNT" to reflect Keychain Access item?
 
   const withTimeout = <T,>(promise: Promise<T>, timeoutMs: number) =>

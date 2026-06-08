@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "ObjectID",
   "version": "0.13.2",
-  "identifier": "com.impierce.identity-wallet",
+  "identifier": "com.objectid.wallet",
   "app": {
     "security": {
       "csp": {
@@ -45,7 +45,7 @@
       "icons/icon.ico"
     ],
     "iOS": {
-      "developmentTeam": "Impierce Technologies B.V."
+      "developmentTeam": "ObjectID"
     },
     "android": {
       "minSdkVersion": 28

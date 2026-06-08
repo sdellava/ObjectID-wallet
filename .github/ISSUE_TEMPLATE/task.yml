@@ -3,12 +3,12 @@ description: Add a task (Only use if you are a maintainer)
 labels: []
 body:
   - type: markdown
-    attributes: 
+    attributes:
       value: |
         You are writing a task for the maintainers of this repository. If you are not a maintainer yourself, instead submit a bug report or suggestion.
   - type: textarea
     id: description
-    attributes: 
+    attributes:
       label: Description
       description: Describe the task, this may be scoped beyond a single PR.
     validations:
@@ -27,7 +27,7 @@ body:
       description: Link to any resources relevant for the task such as issues, PRs, reference implementations, or specifications.
       placeholder: |
         Depends on \#1 and \#2
-        [Link to relevant resources](www.impierce.com)
+        [Link to relevant resources](objectid.io)
     validations:
       required: false
   - type: textarea

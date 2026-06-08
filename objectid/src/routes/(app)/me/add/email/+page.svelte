@@ -329,7 +329,7 @@
     {/if}
 
     <!-- <div class="pt-4 text-sm text-slate-400 dark:text-slate-500">
-      <span>Verified by</span> <span class="font-semibold">Impierce Technologies B.V.</span>
+      <span>Verified by</span> <span class="font-semibold">ObjectID</span>
     </div> -->
   </div>
 

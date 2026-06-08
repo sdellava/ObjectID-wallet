@@ -2,11 +2,11 @@
 name = "objectid"
 version = "0.13.2"
 description = "Identity Wallet for people to manage Decentralized Identities and Verifiable Credentials"
-homepage = "https://www.impierce.com/"
-authors = ["Impierce Technologies"]
+homepage = "https://objectid.io/"
+authors = ["ObjectID"]
 keywords = ["identity", "did", "ssi", "wallet", "siopv2"]
 license = "Apache-2.0"
-repository = "https://github.com/impierce/identity-wallet"
+repository = "https://github.com/sdellava/ObjectID-wallet"
 edition = "2021"
 rust-version.workspace = true
 

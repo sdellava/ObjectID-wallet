@@ -55,22 +55,22 @@ const nl_NL = {
           USER_RESPONSIBILITIES: {
             TITLE: 'Verantwoordelijkheden van de gebruiker',
             DESCRIPTION:
-              'Je bent verantwoordelijk voor het vertrouwelijk en veilig houden van je Apparaat en alle inloggegevens die binnen de Service zijn opgeslagen, en ervoor te zorgen dat de informatie die je opslaat of deelt via de Service correct en actueel is. Je stemt ermee in de Service te gebruiken in overeenstemming met alle toepasselijke wetten en regelgeving. Impierce Technologies B.V. is niet aansprakelijk voor gegevensverlies door verlies van je Apparaat of ongeautoriseerde toegang.',
+              'Je bent verantwoordelijk voor het vertrouwelijk en veilig houden van je Apparaat en alle inloggegevens die binnen de Service zijn opgeslagen, en ervoor te zorgen dat de informatie die je opslaat of deelt via de Service correct en actueel is. Je stemt ermee in de Service te gebruiken in overeenstemming met alle toepasselijke wetten en regelgeving. ObjectID is niet aansprakelijk voor gegevensverlies door verlies van je Apparaat of ongeautoriseerde toegang.',
           },
           DATA_OWNERSHIP: {
             TITLE: 'Eigendom van gegevens en privacy',
             DESCRIPTION:
-              'ObjectID is gebouwd op de kernprincipes van gebruikerscontrole en gegevensprivacy. Onze architectuur is zo ontworpen dat wij geen toegang hebben tot de Gebruikersgegevens die je in de app beheert, noch deze kunnen verzamelen, opslaan of verwerken. Al je Gebruikersgegevens worden lokaal en veilig op je Apparaat opgeslagen. Wij maken gebruik van sterke beveiligingsmaatregelen binnen de applicatie om je gegevens te beschermen. De uiteindelijke bescherming van je gegevens hangt echter ook af van jou, bijvoorbeeld door een sterk wachtwoord te gebruiken en geen software van onbetrouwbare bronnen te installeren. Om de integriteit van je inloggegevens te behouden, kan ObjectID periodiek hun geldigheid controleren. Dit gebeurt door rechtstreeks vanaf je Apparaat contact op te nemen met de uitgever van de inloggegevens om te bevestigen of een inloggegeven is ingetrokken. Dit proces gebeurt automatisch op je Apparaat en omvat geen tussenkomst van Impierce Technologies B.V. Waar mogelijk gebruikt ObjectID gedecentraliseerde methoden voor deze controles.',
+              'ObjectID is gebouwd op de kernprincipes van gebruikerscontrole en gegevensprivacy. Onze architectuur is zo ontworpen dat wij geen toegang hebben tot de Gebruikersgegevens die je in de app beheert, noch deze kunnen verzamelen, opslaan of verwerken. Al je Gebruikersgegevens worden lokaal en veilig op je Apparaat opgeslagen. Wij maken gebruik van sterke beveiligingsmaatregelen binnen de applicatie om je gegevens te beschermen. De uiteindelijke bescherming van je gegevens hangt echter ook af van jou, bijvoorbeeld door een sterk wachtwoord te gebruiken en geen software van onbetrouwbare bronnen te installeren. Om de integriteit van je inloggegevens te behouden, kan ObjectID periodiek hun geldigheid controleren. Dit gebeurt door rechtstreeks vanaf je Apparaat contact op te nemen met de uitgever van de inloggegevens om te bevestigen of een inloggegeven is ingetrokken. Dit proces gebeurt automatisch op je Apparaat en omvat geen tussenkomst van ObjectID Waar mogelijk gebruikt ObjectID gedecentraliseerde methoden voor deze controles.',
           },
           DATA_VISIBILITY: {
             TITLE: 'Gegevensinzage door app-platforms',
             DESCRIPTION:
-              'Wanneer je ObjectID downloadt of gebruikt via een officiële App Store, zoals de Apple App Store of Google Play, kan het platform beperkte technische en gebruiksgegevens verzamelen. Dit kan details omvatten zoals je apparaattype, app-installatie of crashmeldingen, en de regio- of taalinstellingen van je apparaat. Deze informatie wordt verzameld onder de eigen voorwaarden van de App Store. Impierce verzamelt geen aanvullende gebruiksgegevens van je Apparaat.',
+              'Wanneer je ObjectID downloadt of gebruikt via een officiële App Store, zoals de Apple App Store of Google Play, kan het platform beperkte technische en gebruiksgegevens verzamelen. Dit kan details omvatten zoals je apparaattype, app-installatie of crashmeldingen, en de regio- of taalinstellingen van je apparaat. Deze informatie wordt verzameld onder de eigen voorwaarden van de App Store. ObjectID verzamelt geen aanvullende gebruiksgegevens van je Apparaat.',
           },
           INTELLECTUAL_PROPERTY_RIGHTS: {
             TITLE: 'Intellectuele eigendomsrechten',
             DESCRIPTION:
-              'Alle intellectuele eigendomsrechten van ObjectID en gerelateerde materialen zijn eigendom van Impierce Technologies B.V. of onze licentiegevers. ObjectID wordt aangeboden onder de Apache 2.0-licentie, wat betekent dat je de software mag gebruiken, aanpassen en verspreiden zolang je je houdt aan de voorwaarden van die licentie. Voor meer informatie verwijzen we naar de volledige Apache 2.0-licentie.',
+              'Alle intellectuele eigendomsrechten van ObjectID en gerelateerde materialen zijn eigendom van ObjectID of onze licentiegevers. ObjectID wordt aangeboden onder de Apache 2.0-licentie, wat betekent dat je de software mag gebruiken, aanpassen en verspreiden zolang je je houdt aan de voorwaarden van die licentie. Voor meer informatie verwijzen we naar de volledige Apache 2.0-licentie.',
           },
           PROHIBITED_ACTIVITIES: {
             TITLE: 'Verboden activiteiten',
@@ -85,12 +85,12 @@ const nl_NL = {
           LIABILITY: {
             TITLE: 'Beperking van aansprakelijkheid',
             DESCRIPTION:
-              'Voor zover wettelijk toegestaan is Impierce Technologies B.V. niet aansprakelijk voor indirecte, incidentele, bijzondere of gevolgschade. Dit omvat, maar is niet beperkt tot, verlies van gegevens, winst, zakelijke kansen of goodwill voortvloeiend uit je gebruik of onvermogen tot gebruik van de Service gedragingen, inhoud of fouten van derden; diensten, inhoud of acties van platforms van derden die via de Service toegankelijk zijn; of enige inhoud verkregen van of via de Service.',
+              'Voor zover wettelijk toegestaan is ObjectID niet aansprakelijk voor indirecte, incidentele, bijzondere of gevolgschade. Dit omvat, maar is niet beperkt tot, verlies van gegevens, winst, zakelijke kansen of goodwill voortvloeiend uit je gebruik of onvermogen tot gebruik van de Service gedragingen, inhoud of fouten van derden; diensten, inhoud of acties van platforms van derden die via de Service toegankelijk zijn; of enige inhoud verkregen van of via de Service.',
           },
           INDEMNIFICATION: {
             TITLE: 'Schadeloosstelling',
             DESCRIPTION:
-              'Je stemt ermee in Impierce Technologies B.V. en haar gelieerde ondernemingen te vrijwaren van claims, verliezen of kosten die voortvloeien uit je gebruik van de Service, je schending van deze Gebruiksvoorwaarden of je schending van de rechten van een andere persoon of entiteit.',
+              'Je stemt ermee in ObjectID en haar gelieerde ondernemingen te vrijwaren van claims, verliezen of kosten die voortvloeien uit je gebruik van de Service, je schending van deze Gebruiksvoorwaarden of je schending van de rechten van een andere persoon of entiteit.',
           },
           MODIFICATIONS: {
             TITLE: 'Wijzigingen in de gebruiksvoorwaarden',
@@ -115,12 +115,12 @@ const nl_NL = {
           ENTIRE_AGREEMENT: {
             TITLE: 'Volledige Overeenkomst',
             DESCRIPTION:
-              'Deze Gebruiksvoorwaarden vormen samen met ons Privacybeleid de volledige overeenkomst tussen jou en Impierce Technologies B.V. met betrekking tot het gebruik van ObjectID.',
+              'Deze Gebruiksvoorwaarden vormen samen met ons Privacybeleid de volledige overeenkomst tussen jou en ObjectID met betrekking tot het gebruik van ObjectID.',
           },
           CONTACT: {
             TITLE: 'Contactgegevens',
             DESCRIPTION:
-              'Heb je feedback of een vraag? We streven er altijd naar om te verbeteren. Als iets onduidelijk is of beter geformuleerd kan worden, neem gerust contact met ons via contact@impierce.com. Door ObjectID te gebruiken, bevestig je dat je deze Gebruiksvoorwaarden hebt gelezen, begrepen en ermee instemt. Wij blijven ons inzetten voor het leveren van veilige, privacygerichte digitale tools die jou sterker maken.',
+              'Heb je feedback of een vraag? We streven er altijd naar om te verbeteren. Als iets onduidelijk is of beter geformuleerd kan worden, neem gerust contact met ons via contact@objectid.io. Door ObjectID te gebruiken, bevestig je dat je deze Gebruiksvoorwaarden hebt gelezen, begrepen en ermee instemt. Wij blijven ons inzetten voor het leveren van veilige, privacygerichte digitale tools die jou sterker maken.',
           },
         },
       },

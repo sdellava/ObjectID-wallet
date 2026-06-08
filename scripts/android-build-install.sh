@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_ID="com.impierce.identity_wallet"
+APP_ID="com.objectid.wallet"
 WORKDIR="${WORKDIR:-$HOME/dev/objectid-wallet-build}"
 NODE_DIR="${NODE_DIR:-$HOME/.local/node/node-v24.14.0-linux-x64}"
 ANDROID_HOME="${ANDROID_HOME:-$HOME/Android/Sdk}"
@@ -78,7 +78,7 @@ rsync -a --delete \
   --exclude "node_modules" \
   --exclude "target" \
   --exclude "debug" \
-  --exclude "objectid/src-tauri/gen/android/app/build" \
+  --exclude "objectid/src-tauri/gen" \
   --exclude "vendor/tauri-plugin-keystore/android/build" \
   --exclude "vendor/tauri-plugin-keystore/android/.tauri" \
   "$SOURCE_ROOT/" "$WORKDIR/"

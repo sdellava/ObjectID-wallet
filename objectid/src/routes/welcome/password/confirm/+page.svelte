@@ -5,7 +5,7 @@
   import LL from '$i18n/i18n-svelte';
   import { fade } from 'svelte/transition';
 
-  import { store } from '@impierce/tauri-plugin-keystore';
+  import { store } from '@objectid/tauri-plugin-keystore';
   import { authenticate, BiometryType, checkStatus, type Status } from '@tauri-apps/plugin-biometric';
 
   import { ActionSheet, Button, TopNavBar } from '$lib/components';

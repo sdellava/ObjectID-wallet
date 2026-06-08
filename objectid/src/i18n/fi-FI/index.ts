@@ -46,7 +46,7 @@ const fi_FI = {
           AGREEMENT: {
             TITLE: 'Ehtojen hyväksyminen',
             DESCRIPTION:
-              'Kiitos, että valitsit ObjectIDn, EU:n digitaalisen henkilöllisyyslompakon (mobiilisovellus), jonka on kehittänyt ja ylläpitää Impierce Technologies B.V. ("me", "meitä" tai "meidän"). Nämä käyttöehdot ("Ehdot") säätelevät pääsyäsi ObjectID-mobiilisovellukseen (”Palvelu”) ja sen käyttöä, olipa sovellus ladattu Apple App Storesta, Google Play Storesta tai muualta. Asentamalla, käyttämällä tai pääsemällä Palveluun hyväksyt lukeneesi, ymmärtäneesi ja sitoutuneesi näihin Ehtoihin ja tietosuojakäytäntöömme. Jos et hyväksy mitään näistä ehdoista, älä käytä Palvelua. Jos käytät Palvelua organisaation puolesta, vakuutat ja takaat, että sinulla on valtuudet hyväksyä nämä Ehdot kyseisen organisaation puolesta.',
+              'Kiitos, että valitsit ObjectIDn, EU:n digitaalisen henkilöllisyyslompakon (mobiilisovellus), jonka on kehittänyt ja ylläpitää ObjectID ("me", "meitä" tai "meidän"). Nämä käyttöehdot ("Ehdot") säätelevät pääsyäsi ObjectID-mobiilisovellukseen (”Palvelu”) ja sen käyttöä, olipa sovellus ladattu Apple App Storesta, Google Play Storesta tai muualta. Asentamalla, käyttämällä tai pääsemällä Palveluun hyväksyt lukeneesi, ymmärtäneesi ja sitoutuneesi näihin Ehtoihin ja tietosuojakäytäntöömme. Jos et hyväksy mitään näistä ehdoista, älä käytä Palvelua. Jos käytät Palvelua organisaation puolesta, vakuutat ja takaat, että sinulla on valtuudet hyväksyä nämä Ehdot kyseisen organisaation puolesta.',
           },
           DEFINITIONS: {
             TITLE: 'Määritelmät',
@@ -56,22 +56,22 @@ const fi_FI = {
           USER_RESPONSIBILITIES: {
             TITLE: 'Käyttäjän vastuut',
             DESCRIPTION:
-              'Olet vastuussa laitteen ja Palveluun tallennettujen tunnusten luottamuksellisuudesta ja turvallisuudesta sekä siitä, että kaikki Palveluun tallentamasi tai jakamasi tiedot ovat tarkkoja ja ajantasaisia. Hyväksyt käyttää Palvelua kaikkien sovellettavien lakien ja säädösten mukaisesti. Impierce Technologies B.V. ei ole vastuussa tietojen menetyksestä, joka johtuu laitteen katoamisesta tai luvattomasta käytöstä.',
+              'Olet vastuussa laitteen ja Palveluun tallennettujen tunnusten luottamuksellisuudesta ja turvallisuudesta sekä siitä, että kaikki Palveluun tallentamasi tai jakamasi tiedot ovat tarkkoja ja ajantasaisia. Hyväksyt käyttää Palvelua kaikkien sovellettavien lakien ja säädösten mukaisesti. ObjectID ei ole vastuussa tietojen menetyksestä, joka johtuu laitteen katoamisesta tai luvattomasta käytöstä.',
           },
           DATA_OWNERSHIP: {
             TITLE: 'Tietojen omistajuus ja yksityisyys',
             DESCRIPTION:
-              'ObjectID perustuu käyttäjän hallinnan ja tietosuojaamisen periaatteisiin. Arkkitehtuurimme on suunniteltu siten, ettemme pääse käsiksi käyttäjän tietoihin, kerää niitä, tallenna tai käsittele niitä sovelluksessa. Kaikki käyttäjätietosi tallennetaan paikallisesti ja turvallisesti laitteellesi. Käytämme sovelluksessa vahvoja turvatoimia tietojesi suojaamiseksi. Lopullinen suojaus riippuu kuitenkin myös sinusta, esimerkiksi käyttämällä vahvaa salasanaa ja välttämällä epäluotettavien lähteiden ohjelmien asentamista. Varmistaaksemme tunnistustietojesi eheyden, ObjectID voi ajoittain tarkistaa niiden voimassaolon. Tämä tapahtuu ottamalla suoraan yhteyttä tunnistuksen myöntäjään laitteestasi varmistaaksesi, onko tunnistus peruutettu. Tämä prosessi tapahtuu automaattisesti laitteellasi eikä siihen osallistu Impierce Technologies B.V. Kun mahdollista, ObjectID käyttää näissä tarkistuksissa hajautettuja menetelmiä.',
+              'ObjectID perustuu käyttäjän hallinnan ja tietosuojaamisen periaatteisiin. Arkkitehtuurimme on suunniteltu siten, ettemme pääse käsiksi käyttäjän tietoihin, kerää niitä, tallenna tai käsittele niitä sovelluksessa. Kaikki käyttäjätietosi tallennetaan paikallisesti ja turvallisesti laitteellesi. Käytämme sovelluksessa vahvoja turvatoimia tietojesi suojaamiseksi. Lopullinen suojaus riippuu kuitenkin myös sinusta, esimerkiksi käyttämällä vahvaa salasanaa ja välttämällä epäluotettavien lähteiden ohjelmien asentamista. Varmistaaksemme tunnistustietojesi eheyden, ObjectID voi ajoittain tarkistaa niiden voimassaolon. Tämä tapahtuu ottamalla suoraan yhteyttä tunnistuksen myöntäjään laitteestasi varmistaaksesi, onko tunnistus peruutettu. Tämä prosessi tapahtuu automaattisesti laitteellasi eikä siihen osallistu ObjectID Kun mahdollista, ObjectID käyttää näissä tarkistuksissa hajautettuja menetelmiä.',
           },
           DATA_VISIBILITY: {
             TITLE: 'Sovellusalustojen tietojen näkyvyys',
             DESCRIPTION:
-              'Kun lataat tai käytät ObjectIDa virallisen sovelluskaupan, kuten Apple App Storen tai Google Playn kautta, alusta voi kerätä rajoitettuja teknisiä ja käyttöön liittyviä tietoja. Näitä voivat olla esimerkiksi laitteesi tyyppi, sovelluksen asennus- tai kaatumistapahtumat sekä laitteesi alue- ja kieliasetukset. Tiedot kerätään kyseisen sovelluskaupan omien käytäntöjen mukaisesti. Impierce ei kerää lisätietoja suoraan laitteestasi.',
+              'Kun lataat tai käytät ObjectIDa virallisen sovelluskaupan, kuten Apple App Storen tai Google Playn kautta, alusta voi kerätä rajoitettuja teknisiä ja käyttöön liittyviä tietoja. Näitä voivat olla esimerkiksi laitteesi tyyppi, sovelluksen asennus- tai kaatumistapahtumat sekä laitteesi alue- ja kieliasetukset. Tiedot kerätään kyseisen sovelluskaupan omien käytäntöjen mukaisesti. ObjectID ei kerää lisätietoja suoraan laitteestasi.',
           },
           INTELLECTUAL_PROPERTY_RIGHTS: {
             TITLE: 'Immateriaalioikeudet',
             DESCRIPTION:
-              'Kaikki ObjectIDn ja siihen liittyvien materiaalien immateriaalioikeudet kuuluvat Impierce Technologies B.V:lle tai sen lisenssinantajille. ObjectIDa tarjotaan Apache 2.0 -lisenssin alaisena, mikä tarkoittaa, että voit käyttää, muokata ja jakaa ohjelmistoa lisenssin ehtojen mukaisesti. Lisätietoja löytyy täydellisestä Apache 2.0 -lisenssistä.',
+              'Kaikki ObjectIDn ja siihen liittyvien materiaalien immateriaalioikeudet kuuluvat ObjectID B.V:lle tai sen lisenssinantajille. ObjectIDa tarjotaan Apache 2.0 -lisenssin alaisena, mikä tarkoittaa, että voit käyttää, muokata ja jakaa ohjelmistoa lisenssin ehtojen mukaisesti. Lisätietoja löytyy täydellisestä Apache 2.0 -lisenssistä.',
           },
           PROHIBITED_ACTIVITIES: {
             TITLE: 'Kielletyt toiminnot',
@@ -86,12 +86,12 @@ const fi_FI = {
           LIABILITY: {
             TITLE: 'Vastuunrajoitus',
             DESCRIPTION:
-              'Täysin lain sallimassa laajuudessa Impierce Technologies B.V. ei ole vastuussa välillisistä, satunnaisista, erityisistä tai seurannaisvahingoista. Tämä sisältää mm. tietojen menetyksen, voittojen menetyksen, liiketoimintamahdollisuuksien tai maineen menetyksen, joka johtuu Palvelun käytöstä tai sen käyttämättömyydestä; kolmansien osapuolten sisällöstä tai virheistä; kolmansien osapuolien palveluista, sisällöstä tai toiminnoista, jotka saat Palvelun kautta; tai Palvelusta tai sen kautta saaduista sisällöistä.',
+              'Täysin lain sallimassa laajuudessa ObjectID ei ole vastuussa välillisistä, satunnaisista, erityisistä tai seurannaisvahingoista. Tämä sisältää mm. tietojen menetyksen, voittojen menetyksen, liiketoimintamahdollisuuksien tai maineen menetyksen, joka johtuu Palvelun käytöstä tai sen käyttämättömyydestä; kolmansien osapuolten sisällöstä tai virheistä; kolmansien osapuolien palveluista, sisällöstä tai toiminnoista, jotka saat Palvelun kautta; tai Palvelusta tai sen kautta saaduista sisällöistä.',
           },
           INDEMNIFICATION: {
             TITLE: 'Vahingonkorvaus',
             DESCRIPTION:
-              'Hyväksyt korvaavasi ja suojaavasi Impierce Technologies B.V:tä ja sen tytäryhtiöitä kaikilta vaatimuksilta, menetyksiltä tai kuluista, jotka johtuvat Palvelun käytöstäsi, näiden ehtojen rikkomisesta tai muiden henkilöiden tai tahojen oikeuksien loukkaamisesta.',
+              'Hyväksyt korvaavasi ja suojaavasi ObjectID B.V:tä ja sen tytäryhtiöitä kaikilta vaatimuksilta, menetyksiltä tai kuluista, jotka johtuvat Palvelun käytöstäsi, näiden ehtojen rikkomisesta tai muiden henkilöiden tai tahojen oikeuksien loukkaamisesta.',
           },
           MODIFICATIONS: {
             TITLE: 'Käyttöehtojen muutokset',
@@ -116,12 +116,12 @@ const fi_FI = {
           ENTIRE_AGREEMENT: {
             TITLE: 'Koko sopimus',
             DESCRIPTION:
-              'Nämä Käyttöehdot yhdessä Tietosuojakäytäntömme kanssa muodostavat täydellisen sopimuksen sinun ja Impierce Technologies B.V:n välillä ObjectIDn käytöstä.',
+              'Nämä Käyttöehdot yhdessä Tietosuojakäytäntömme kanssa muodostavat täydellisen sopimuksen sinun ja ObjectID B.V:n välillä ObjectIDn käytöstä.',
           },
           CONTACT: {
             TITLE: 'Ota yhteyttä',
             DESCRIPTION:
-              'Onko sinulla palautetta tai kysymyksiä? Haluamme aina kehittyä. Jos jokin on epäselvää tai voisi ilmaista paremmin, ota rohkeasti yhteyttä osoitteeseen contact@impierce.com. Käyttämällä ObjectIDa vahvistat, että olet lukenut, ymmärtänyt ja hyväksynyt nämä Käyttöehdot. Sitoudumme edelleen tarjoamaan turvallisia, yksityisyyskeskeisiä digitaalisia työkaluja, jotka antavat sinulle vallan.',
+              'Onko sinulla palautetta tai kysymyksiä? Haluamme aina kehittyä. Jos jokin on epäselvää tai voisi ilmaista paremmin, ota rohkeasti yhteyttä osoitteeseen contact@objectid.io. Käyttämällä ObjectIDa vahvistat, että olet lukenut, ymmärtänyt ja hyväksynyt nämä Käyttöehdot. Sitoudumme edelleen tarjoamaan turvallisia, yksityisyyskeskeisiä digitaalisia työkaluja, jotka antavat sinulle vallan.',
           },
         },
       },

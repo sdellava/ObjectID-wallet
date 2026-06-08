@@ -292,7 +292,7 @@ pub mod tauri_command {
 
 #[cfg(target_os = "android")]
 #[no_mangle]
-pub extern "C" fn Java_com_impierce_identity_1wallet_MainActivity_java_1init(
+pub extern "C" fn Java_com_objectid_wallet_MainActivity_java_1init(
     mut env: JNIEnv,
     _class: JClass,
     context: JObject,

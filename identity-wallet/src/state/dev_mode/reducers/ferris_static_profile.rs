@@ -230,8 +230,8 @@ pub async fn load_ferris_profile() -> Result<AppState, AppError> {
         },
         Connection {
             id: "424313e61e35ca4eeca44aac85dc4764c32d7cf9def83ba15f428c308bf1d181".to_string(),
-            name: "Impierce Demo Portal".to_string(),
-            url: "https://demo.impierce.com".to_string(),
+            name: "ObjectID Demo Portal".to_string(),
+            url: "https://dapp.objectid.io".to_string(),
             did: Some("did:iota:rms:0x42ad588322e58b3c07aa39e4948d021ee17ecb5747915e9e1f35f028d7ecaf90".to_string()),
             verified: true,
             first_interacted: "2024-01-09T07:36:41.382948+00:00".to_string(),
@@ -260,37 +260,37 @@ pub async fn load_ferris_profile() -> Result<AppState, AppError> {
     state.history = vec![
         HistoryEvent {
             connection_id: "424313e61e35ca4eeca44aac85dc4764c32d7cf9def83ba15f428c308bf1d181".to_string(),
-            connection_name: "Impierce Demo Portal".to_string(),
+            connection_name: "ObjectID Demo Portal".to_string(),
             event_type: EventType::ConnectionAdded,
             date: (chrono::Utc::now() - chrono::Duration::try_days(2).unwrap()).to_rfc3339(),
             credentials: vec![],
         },
         HistoryEvent {
             connection_id: "424313e61e35ca4eeca44aac85dc4764c32d7cf9def83ba15f428c308bf1d181".to_string(),
-            connection_name: "Impierce Demo Portal".to_string(),
+            connection_name: "ObjectID Demo Portal".to_string(),
             event_type: EventType::CredentialsAdded,
             date: (chrono::Utc::now() - chrono::Duration::try_hours(3).unwrap()).to_rfc3339(),
             credentials: vec![
                 HistoryCredential {
                     title: "PersonalInformation".to_string(),
-                    issuer_name: "Impierce Demo Portal".to_string(),
+                    issuer_name: "ObjectID Demo Portal".to_string(),
                     id: "62326539-3634-6536-6131-323731373463".to_string(),
                 },
                 HistoryCredential {
                     title: "Teamwork".to_string(),
-                    issuer_name: "Impierce Demo Portal".to_string(),
+                    issuer_name: "ObjectID Demo Portal".to_string(),
                     id: "65323136-6535-3737-6463-386531323361".to_string(),
                 },
             ],
         },
         HistoryEvent {
             connection_id: "424313e61e35ca4eeca44aac85dc4764c32d7cf9def83ba15f428c308bf1d181".to_string(),
-            connection_name: "Impierce Demo Portal".to_string(),
+            connection_name: "ObjectID Demo Portal".to_string(),
             event_type: EventType::CredentialsShared,
             date: (chrono::Utc::now() - chrono::Duration::try_minutes(5).unwrap()).to_rfc3339(),
             credentials: vec![HistoryCredential {
                 title: "Teamwork".to_string(),
-                issuer_name: "Impierce Demo Portal".to_string(),
+                issuer_name: "ObjectID Demo Portal".to_string(),
                 id: "65323136-6535-3737-6463-386531323361".to_string(),
             }],
         },
@@ -326,7 +326,7 @@ async fn load_predefined_images() -> Result<(), AppError> {
 
     // Connections
     write_bytes_to_file(
-        include_bytes!("../../../../resources/images/impierce_white.png"),
+        include_bytes!("../../../../resources/images/objectid_white.png"),
         "424313e61e35ca4eeca44aac85dc4764c32d7cf9def83ba15f428c308bf1d181.png",
     )?;
     write_bytes_to_file(

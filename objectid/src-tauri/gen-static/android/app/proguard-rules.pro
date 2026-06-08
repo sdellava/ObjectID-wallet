@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.impierce.identity_wallet.RustWebView {
+-keep class com.objectid.wallet.RustWebView {
     void evalScript(int, java.lang.String);
 }
 

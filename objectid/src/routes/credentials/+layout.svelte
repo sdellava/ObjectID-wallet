@@ -1,6 +1,6 @@
 <script lang="ts">
   // This layout is temporary and should be further up in the hierachy.
-  // TODO Consolidation of layouts: https://github.com/impierce/identity-wallet/issues/230
+  // TODO Consolidation of layouts: https://github.com/sdellava/ObjectID-wallet/issues/230
 
   import { pageTitleStore } from '$lib/stores';
 

@@ -5,7 +5,7 @@
   import { writable } from 'svelte/store';
   import { fly } from 'svelte/transition';
 
-  import { remove as remove_inner, store as store_inner } from '@impierce/tauri-plugin-keystore';
+  import { remove as remove_inner, store as store_inner } from '@objectid/tauri-plugin-keystore';
   import { authenticate, BiometryType, checkStatus, type Status } from '@tauri-apps/plugin-biometric';
   import { warn } from '@tauri-apps/plugin-log';
 
@@ -16,7 +16,7 @@
   import { state as appState, error as errorState, navigationDirection } from '$lib/stores';
   import { localizedBiometricsTypeString } from '$lib/utils';
 
-  const SERVICE = 'com.impierce.identity-wallet';
+  const SERVICE = 'com.objectid.wallet';
   const USER = 'objectid'; // TODO: rename to "ACCOUNT" to reflect Keychain Access item?
 
   let biometricsStatus: Status | undefined = $state();

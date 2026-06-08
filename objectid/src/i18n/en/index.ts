@@ -45,7 +45,7 @@ const en = {
           AGREEMENT: {
             TITLE: 'Acceptance of Terms',
             DESCRIPTION:
-              'Thank you for choosing ObjectID, an EU Digital Identity Wallet (mobile application) developed and maintained by Impierce Technologies B.V. ("we," "us," or "our"). These Terms of Use ("Terms") govern your access to and use of the ObjectID mobile application (the "Service"), whether downloaded from the Apple App Store, Google Play Store, or any other platform. By installing, accessing, or using the Service, you acknowledge that you have read, understood, and agreed to be bound by these Terms and our Privacy Policy. If you do not agree to any part of these Terms, please do not use the Service. If you are using the Service on behalf of an organization, you represent and warrant that you are authorized to accept these Terms on that organization’s behalf.',
+              'Thank you for choosing ObjectID, an EU Digital Identity Wallet (mobile application) developed and maintained by ObjectID ("we," "us," or "our"). These Terms of Use ("Terms") govern your access to and use of the ObjectID mobile application (the "Service"), whether downloaded from the Apple App Store, Google Play Store, or any other platform. By installing, accessing, or using the Service, you acknowledge that you have read, understood, and agreed to be bound by these Terms and our Privacy Policy. If you do not agree to any part of these Terms, please do not use the Service. If you are using the Service on behalf of an organization, you represent and warrant that you are authorized to accept these Terms on that organization’s behalf.',
           },
           DEFINITIONS: {
             TITLE: 'Definitions',
@@ -55,22 +55,22 @@ const en = {
           USER_RESPONSIBILITIES: {
             TITLE: 'User Responsibilities',
             DESCRIPTION:
-              'You are responsible for maintaining the confidentiality and security of your device and any credentials stored within the Service, and for ensuring that any information you store or share using the Service is accurate and up-to-date. You agree to use the Service in compliance with all applicable laws and regulations. Impierce Technologies B.V. is not liable for any data loss due to device loss or unauthorized access.',
+              'You are responsible for maintaining the confidentiality and security of your device and any credentials stored within the Service, and for ensuring that any information you store or share using the Service is accurate and up-to-date. You agree to use the Service in compliance with all applicable laws and regulations. ObjectID is not liable for any data loss due to device loss or unauthorized access.',
           },
           DATA_OWNERSHIP: {
             TITLE: 'Data Ownership and Privacy',
             DESCRIPTION:
-              'ObjectID is built on the core principles of user control and data privacy. Our architecture is designed so that we cannot access, collect, store, or process the User Data you manage within the app. All of your User Data is stored locally and securely on your Device. We employ robust security measures within the application to protect your data. However, the ultimate protection of your data also depends on you maintaining the overall security of your personal Device, for example by using a strong passcode and not installing software from untrusted sources. To maintain the integrity of your credentials, ObjectID may periodically check their validity. This is done by contacting the credential issuer directly from your Device to confirm whether a credential has been revoked, by the issuer. This process happens automatically on your Device and does not involve Impierce Technologies B.V. Where available, ObjectID prioritizes using decentralized methods for these checks.',
+              'ObjectID is built on the core principles of user control and data privacy. Our architecture is designed so that we cannot access, collect, store, or process the User Data you manage within the app. All of your User Data is stored locally and securely on your Device. We employ robust security measures within the application to protect your data. However, the ultimate protection of your data also depends on you maintaining the overall security of your personal Device, for example by using a strong passcode and not installing software from untrusted sources. To maintain the integrity of your credentials, ObjectID may periodically check their validity. This is done by contacting the credential issuer directly from your Device to confirm whether a credential has been revoked, by the issuer. This process happens automatically on your Device and does not involve ObjectID Where available, ObjectID prioritizes using decentralized methods for these checks.',
           },
           DATA_VISIBILITY: {
             TITLE: 'Data Visibility by App Platforms',
             DESCRIPTION:
-              'When you download or use ObjectID through an official App Store, such as the Apple App Store or Google Play, the platform may collect limited technical and usage data. This can include details like your device type, app installation or crash events, and the region or language settings of your device. This information is collected under the App Store’s own policies. Impierce does not collect any additional usage data from the device itself.',
+              'When you download or use ObjectID through an official App Store, such as the Apple App Store or Google Play, the platform may collect limited technical and usage data. This can include details like your device type, app installation or crash events, and the region or language settings of your device. This information is collected under the App Store’s own policies. ObjectID does not collect any additional usage data from the device itself.',
           },
           INTELLECTUAL_PROPERTY_RIGHTS: {
             TITLE: 'Intellectual Property Rights',
             DESCRIPTION:
-              'All intellectual property rights in ObjectID and related materials are owned by Impierce Technologies B.V. or our licensors. ObjectID is provided under the Apache 2.0 license, which means you can use, modify, and distribute the software as long as you comply with the terms of that license. For more information, please refer to the full Apache 2.0 License.',
+              'All intellectual property rights in ObjectID and related materials are owned by ObjectID or our licensors. ObjectID is provided under the Apache 2.0 license, which means you can use, modify, and distribute the software as long as you comply with the terms of that license. For more information, please refer to the full Apache 2.0 License.',
           },
           PROHIBITED_ACTIVITIES: {
             TITLE: 'Prohibited Activities',
@@ -85,12 +85,12 @@ const en = {
           LIABILITY: {
             TITLE: 'Limitation of Liability',
             DESCRIPTION:
-              'To the fullest extent permitted by law, Impierce Technologies B.V. is not liable for any indirect, incidental, special, or consequential damages. This includes, but is not limited to, loss of data, profits, business opportunities, or goodwill resulting from your use of or inability to use the Service; any conduct, content, or errors of third parties; any services, content, or actions of third-party platforms accessed through the Service; or any content obtained from or through the Service.',
+              'To the fullest extent permitted by law, ObjectID is not liable for any indirect, incidental, special, or consequential damages. This includes, but is not limited to, loss of data, profits, business opportunities, or goodwill resulting from your use of or inability to use the Service; any conduct, content, or errors of third parties; any services, content, or actions of third-party platforms accessed through the Service; or any content obtained from or through the Service.',
           },
           INDEMNIFICATION: {
             TITLE: 'Indemnification',
             DESCRIPTION:
-              'You agree to indemnify and hold harmless Impierce Technologies B.V. and its affiliates from any claims, losses, or expenses resulting from your use of the Service, your violation of these Terms of Use, or your violation of any rights of another person or entity.',
+              'You agree to indemnify and hold harmless ObjectID and its affiliates from any claims, losses, or expenses resulting from your use of the Service, your violation of these Terms of Use, or your violation of any rights of another person or entity.',
           },
           MODIFICATIONS: {
             TITLE: 'Modifications to the Terms of Use',
@@ -114,12 +114,12 @@ const en = {
           ENTIRE_AGREEMENT: {
             TITLE: 'Entire Agreement',
             DESCRIPTION:
-              'These Terms of Use, along with our Privacy Policy, form the complete agreement between you and Impierce Technologies B.V. regarding the use of ObjectID.',
+              'These Terms of Use, along with our Privacy Policy, form the complete agreement between you and ObjectID regarding the use of ObjectID.',
           },
           CONTACT: {
             TITLE: 'Contact Us',
             DESCRIPTION:
-              'Got feedback or a question? We’re always looking to improve. If anything’s unclear or could be said better, feel free to reach out to contact@impierce.com. By using ObjectID, you confirm that you’ve read, understood, and agree to these Terms of Use. We remain committed to delivering secure, privacy-centric digital tools that empower you.',
+              'Got feedback or a question? We’re always looking to improve. If anything’s unclear or could be said better, feel free to reach out to contact@objectid.io. By using ObjectID, you confirm that you’ve read, understood, and agree to these Terms of Use. We remain committed to delivering secure, privacy-centric digital tools that empower you.',
           },
         },
       },

@@ -1,4 +1,4 @@
-package com.impierce.identity_wallet
+package com.objectid.wallet
 
 import android.content.BroadcastReceiver
 import android.content.Context

@@ -1,4 +1,4 @@
-![banner.svg](https://github.com/impierce/identity-wallet/raw/HEAD/.github/banner.svg)
+![banner.svg](https://github.com/sdellava/ObjectID-wallet/raw/HEAD/.github/banner.svg)
 
 ---
 

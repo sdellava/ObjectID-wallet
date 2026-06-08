@@ -5,7 +5,7 @@ fn main() {
     println!("cargo:rerun-if-changed=.env");
 
     let email_verification_service_host = dotenvy::var("EMAIL_VERIFICATION_SERVICE_HOST")
-        .unwrap_or_else(|_| "https://email-verification.impierce.com".to_string());
+        .unwrap_or_else(|_| "https://email-verification.objectid.io".to_string());
     let email_verification_service_api_key =
         dotenvy::var("EMAIL_VERIFICATION_SERVICE_API_KEY").unwrap_or_else(|_| "".to_string());
 

@@ -53,9 +53,9 @@ mod tests {
         let mut state = AppState::default();
         let default_trust_list = TrustList {
             id: Uuid::new_v4().to_string(),
-            display_name: "impierce".to_string(),
+            display_name: "objectid".to_string(),
             custom: true,
-            entries: HashMap::from([(Url::parse("https://impierce.com").unwrap(), true)]),
+            entries: HashMap::from([(Url::parse("https://objectid.io").unwrap(), true)]),
         };
         state.trust_lists.insert(default_trust_list.clone());
 

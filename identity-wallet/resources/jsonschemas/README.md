@@ -1,7 +1,7 @@
 This folder contains the JSON Schemas of the digital credential data formats supported by ObjectID:
 
 - [Verifiable Credentials Data Model v1.1](https://www.w3.org/TR/vc-data-model-1.1)
-  JSON Schema source: Created by us, Impierce, based on the specification
+  JSON Schema source: Created by us, ObjectID, based on the specification
 - [Verifiable Credentials Data Model v2.0](https://www.w3.org/TR/vc-data-model/)
   JSON Schema source: https://github.com/w3c/vc-data-model/blob/main/schema/verifiable-credential/verifiable-credential-schema.json, commit = "e45b60c"
 - [Open Badges Specification 3.0](https://www.imsglobal.org/spec/ob/v3p0)

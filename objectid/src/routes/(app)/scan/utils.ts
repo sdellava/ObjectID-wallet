@@ -7,7 +7,7 @@ export const checkScanPrerequisites = async (): Promise<boolean> => {
     .then((permission: PermissionState) => {
       info(`App has permissions to access the camera: ${permission}`);
       if (permission === 'prompt') {
-        // TODO: ask user to open settings (https://github.com/impierce/identity-wallet/issues/23)
+        // TODO: ask user to open settings (https://github.com/sdellava/ObjectID-wallet/issues/23)
         warn('TODO: ask the user');
         return false;
       }

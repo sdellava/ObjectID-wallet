@@ -75,8 +75,8 @@ impl FeatTrait for Connections {}
 /// (OID4VC) context, a `Client` is often referred to as a `Relying Party` and an `Issuer` is often referred to as a
 /// `Credential Issuer`.
 /// More information can be found here:
-/// - [Relying Party](https://github.com/impierce/openid4vc/tree/dev/siopv2)
-/// - [Credential Issuer](https://github.com/impierce/openid4vc/tree/dev/oid4vci)
+/// - [Relying Party](https://github.com/openwallet-foundation-labs/openid4vc/tree/dev/siopv2)
+/// - [Credential Issuer](https://github.com/openwallet-foundation-labs/openid4vc/tree/dev/oid4vci)
 #[derive(Clone, Serialize, Debug, Deserialize, TS, Default)]
 #[ts(export, export_to = "bindings/connections/Connection.ts")]
 #[serde(default)]

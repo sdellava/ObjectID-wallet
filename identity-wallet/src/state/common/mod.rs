@@ -19,7 +19,7 @@ mod tests {
     #[tokio::test]
     async fn test_cancel_user_flow() {
         let current_user_prompt = Some(CurrentUserPrompt::ShareCredentials {
-            client_name: "Impierce Technologies".to_string(),
+            client_name: "ObjectID".to_string(),
             logo_uri: Some("logo.png".to_string()),
             options: vec![],
         });

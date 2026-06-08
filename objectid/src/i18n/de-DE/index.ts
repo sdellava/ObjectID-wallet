@@ -46,7 +46,7 @@ const de_DE = {
           AGREEMENT: {
             TITLE: 'Annahme der Bedingungen',
             DESCRIPTION:
-              'Danke, dass du dich für ObjectID entschieden hast, eine EU-Digital Identity Wallet (mobile Anwendung), entwickelt und betrieben von Impierce Technologies B.V. („wir“, „uns“ oder „unser“). Diese Nutzungsbedingungen („Bedingungen“) regeln deinen Zugriff auf und die Nutzung der ObjectID Mobile App (der „Dienst“), egal ob du sie aus dem Apple App Store, Google Play Store oder einer anderen Plattform heruntergeladen hast. Durch die Installation, den Zugriff oder die Nutzung des Dienstes bestätigst du, dass du diese Bedingungen sowie unsere Datenschutzrichtlinie gelesen, verstanden und akzeptiert hast. Wenn du mit einem Teil dieser Bedingungen nicht einverstanden bist, nutze den Dienst bitte nicht. Wenn du den Dienst im Namen einer Organisation nutzt, bestätigst und gewährleistest du, dass du berechtigt bist, diese Bedingungen im Namen dieser Organisation anzunehmen.',
+              'Danke, dass du dich für ObjectID entschieden hast, eine EU-Digital Identity Wallet (mobile Anwendung), entwickelt und betrieben von ObjectID („wir“, „uns“ oder „unser“). Diese Nutzungsbedingungen („Bedingungen“) regeln deinen Zugriff auf und die Nutzung der ObjectID Mobile App (der „Dienst“), egal ob du sie aus dem Apple App Store, Google Play Store oder einer anderen Plattform heruntergeladen hast. Durch die Installation, den Zugriff oder die Nutzung des Dienstes bestätigst du, dass du diese Bedingungen sowie unsere Datenschutzrichtlinie gelesen, verstanden und akzeptiert hast. Wenn du mit einem Teil dieser Bedingungen nicht einverstanden bist, nutze den Dienst bitte nicht. Wenn du den Dienst im Namen einer Organisation nutzt, bestätigst und gewährleistest du, dass du berechtigt bist, diese Bedingungen im Namen dieser Organisation anzunehmen.',
           },
           DEFINITIONS: {
             TITLE: 'Definitionen',
@@ -56,22 +56,22 @@ const de_DE = {
           USER_RESPONSIBILITIES: {
             TITLE: 'Verantwortlichkeiten des Nutzers',
             DESCRIPTION:
-              'Du bist dafür verantwortlich, die Vertraulichkeit und Sicherheit deines Geräts sowie aller im Dienst gespeicherten Zugangsdaten zu wahren und sicherzustellen, dass alle Informationen, die du über den Dienst speicherst oder teilst, korrekt und aktuell sind. Du verpflichtest dich, den Dienst in Übereinstimmung mit allen geltenden Gesetzen und Vorschriften zu nutzen. Impierce Technologies B.V. haftet nicht für Datenverluste durch Geräteverlust oder unbefugten Zugriff.',
+              'Du bist dafür verantwortlich, die Vertraulichkeit und Sicherheit deines Geräts sowie aller im Dienst gespeicherten Zugangsdaten zu wahren und sicherzustellen, dass alle Informationen, die du über den Dienst speicherst oder teilst, korrekt und aktuell sind. Du verpflichtest dich, den Dienst in Übereinstimmung mit allen geltenden Gesetzen und Vorschriften zu nutzen. ObjectID haftet nicht für Datenverluste durch Geräteverlust oder unbefugten Zugriff.',
           },
           DATA_OWNERSHIP: {
             TITLE: 'Dateneigentum und Datenschutz',
             DESCRIPTION:
-              'ObjectID basiert auf den Kernprinzipien der Benutzerkontrolle und Datensicherheit. Unsere Architektur ist so gestaltet, dass wir nicht auf die Benutzerdaten zugreifen, sie sammeln, speichern oder verarbeiten können. Alle deine Benutzerdaten werden lokal und sicher auf deinem Gerät gespeichert. Wir setzen robuste Sicherheitsmaßnahmen innerhalb der App ein, um deine Daten zu schützen. Der endgültige Schutz deiner Daten hängt jedoch auch von dir ab, z.B. durch die Verwendung eines starken Codes und das Vermeiden der Installation von Software aus nicht vertrauenswürdigen Quellen. Um die Integrität deiner Daten zu gewährleisten, kann ObjectID deren Gültigkeit regelmäßig überprüfen. Dies geschieht, indem dein Gerät direkt den Aussteller der Daten kontaktiert, um zu überprüfen, ob die Daten widerrufen wurden. Dieser Vorgang erfolgt automatisch auf deinem Gerät und ohne Beteiligung von Impierce Technologies B.V. Wenn verfügbar, verwendet ObjectID für diese Prüfungen dezentrale Methoden.',
+              'ObjectID basiert auf den Kernprinzipien der Benutzerkontrolle und Datensicherheit. Unsere Architektur ist so gestaltet, dass wir nicht auf die Benutzerdaten zugreifen, sie sammeln, speichern oder verarbeiten können. Alle deine Benutzerdaten werden lokal und sicher auf deinem Gerät gespeichert. Wir setzen robuste Sicherheitsmaßnahmen innerhalb der App ein, um deine Daten zu schützen. Der endgültige Schutz deiner Daten hängt jedoch auch von dir ab, z.B. durch die Verwendung eines starken Codes und das Vermeiden der Installation von Software aus nicht vertrauenswürdigen Quellen. Um die Integrität deiner Daten zu gewährleisten, kann ObjectID deren Gültigkeit regelmäßig überprüfen. Dies geschieht, indem dein Gerät direkt den Aussteller der Daten kontaktiert, um zu überprüfen, ob die Daten widerrufen wurden. Dieser Vorgang erfolgt automatisch auf deinem Gerät und ohne Beteiligung von ObjectID Wenn verfügbar, verwendet ObjectID für diese Prüfungen dezentrale Methoden.',
           },
           DATA_VISIBILITY: {
             TITLE: 'Datensichtbarkeit durch App-Plattformen',
             DESCRIPTION:
-              'Wenn du ObjectID über einen offiziellen App Store wie Apple App Store oder Google Play herunterlädst oder nutzt, kann die Plattform eingeschränkt technische Nutzungsdaten sammeln. Dazu gehören z.B. Gerätetyp, App-Installationen oder Absturzmeldungen, sowie Region oder Spracheinstellungen deines Geräts. Diese Informationen werden nach den Richtlinien des jeweiligen App Stores gesammelt. Impierce Technologies B.V. sammelt keine zusätzlichen Nutzungsdaten von deinem Gerät.',
+              'Wenn du ObjectID über einen offiziellen App Store wie Apple App Store oder Google Play herunterlädst oder nutzt, kann die Plattform eingeschränkt technische Nutzungsdaten sammeln. Dazu gehören z.B. Gerätetyp, App-Installationen oder Absturzmeldungen, sowie Region oder Spracheinstellungen deines Geräts. Diese Informationen werden nach den Richtlinien des jeweiligen App Stores gesammelt. ObjectID sammelt keine zusätzlichen Nutzungsdaten von deinem Gerät.',
           },
           INTELLECTUAL_PROPERTY_RIGHTS: {
             TITLE: 'Rechte an geistigem Eigentum',
             DESCRIPTION:
-              'Alle geistigen Eigentumsrechte an ObjectID und zugehörigen Materialien liegen bei Impierce Technologies B.V. oder unseren Lizenzgebern. ObjectID wird unter der Apache-2.0-Lizenz bereitgestellt, was bedeutet, dass du die Software nutzen, modifizieren und weitergeben darfst, solange du die Bedingungen dieser Lizenz einhältst. Weitere Informationen findest du in der vollständigen Apache-2.0-Lizenz.',
+              'Alle geistigen Eigentumsrechte an ObjectID und zugehörigen Materialien liegen bei ObjectID oder unseren Lizenzgebern. ObjectID wird unter der Apache-2.0-Lizenz bereitgestellt, was bedeutet, dass du die Software nutzen, modifizieren und weitergeben darfst, solange du die Bedingungen dieser Lizenz einhältst. Weitere Informationen findest du in der vollständigen Apache-2.0-Lizenz.',
           },
           PROHIBITED_ACTIVITIES: {
             TITLE: 'Verbotene Aktivitäten',
@@ -86,12 +86,12 @@ const de_DE = {
           LIABILITY: {
             TITLE: 'Haftungsbeschränkung',
             DESCRIPTION:
-              'Soweit gesetzlich zulässig, haftet Impierce Technologies B.V. nicht für indirekte, zufällige, besondere oder Folgeschäden. Dazu gehören unter anderem Datenverlust, entgangene Gewinne, Geschäftsmöglichkeiten oder Goodwill, die sich aus der Nutzung oder Nichtnutzung des Dienstes ergeben; das Verhalten, Inhalte oder Fehler Dritter; Dienste, Inhalte oder Handlungen Dritter, die über den Dienst genutzt werden; oder Inhalte, die über den Dienst erhalten werden.',
+              'Soweit gesetzlich zulässig, haftet ObjectID nicht für indirekte, zufällige, besondere oder Folgeschäden. Dazu gehören unter anderem Datenverlust, entgangene Gewinne, Geschäftsmöglichkeiten oder Goodwill, die sich aus der Nutzung oder Nichtnutzung des Dienstes ergeben; das Verhalten, Inhalte oder Fehler Dritter; Dienste, Inhalte oder Handlungen Dritter, die über den Dienst genutzt werden; oder Inhalte, die über den Dienst erhalten werden.',
           },
           INDEMNIFICATION: {
             TITLE: 'Entschädigung',
             DESCRIPTION:
-              'Du erklärst dich damit einverstanden, Impierce Technologies B.V. und deren Tochtergesellschaften von allen Ansprüchen, Verlusten oder Kosten freizustellen, die sich aus deiner Nutzung des Dienstes, deiner Verletzung dieser Nutzungsbedingungen oder der Rechte anderer Personen oder Organisationen ergeben.',
+              'Du erklärst dich damit einverstanden, ObjectID und deren Tochtergesellschaften von allen Ansprüchen, Verlusten oder Kosten freizustellen, die sich aus deiner Nutzung des Dienstes, deiner Verletzung dieser Nutzungsbedingungen oder der Rechte anderer Personen oder Organisationen ergeben.',
           },
           MODIFICATIONS: {
             TITLE: 'Änderungen der Nutzungsbedingungen',
@@ -115,12 +115,12 @@ const de_DE = {
           ENTIRE_AGREEMENT: {
             TITLE: 'Gesamte Vereinbarung',
             DESCRIPTION:
-              'Diese Nutzungsbedingungen bilden zusammen mit unserer Datenschutzrichtlinie die vollständige Vereinbarung zwischen dir und Impierce Technologies B.V. über die Nutzung von ObjectID.',
+              'Diese Nutzungsbedingungen bilden zusammen mit unserer Datenschutzrichtlinie die vollständige Vereinbarung zwischen dir und ObjectID über die Nutzung von ObjectID.',
           },
           CONTACT: {
             TITLE: 'Kontaktinformationen',
             DESCRIPTION:
-              'Hast du Feedback oder Fragen? Wir wollen uns stetig verbessern. Wenn etwas unklar ist oder besser formuliert werden könnte, melde dich gern unter contact@impierce.com. Durch die Nutzung von ObjectID bestätigst du, dass du diese Nutzungsbedingungen gelesen, verstanden und akzeptiert hast. Wir verpflichten uns, sichere, datenschutzfreundliche digitale Tools bereitzustellen, die dir immer die volle Kontrolle geben.',
+              'Hast du Feedback oder Fragen? Wir wollen uns stetig verbessern. Wenn etwas unklar ist oder besser formuliert werden könnte, melde dich gern unter contact@objectid.io. Durch die Nutzung von ObjectID bestätigst du, dass du diese Nutzungsbedingungen gelesen, verstanden und akzeptiert hast. Wir verpflichten uns, sichere, datenschutzfreundliche digitale Tools bereitzustellen, die dir immer die volle Kontrolle geben.',
           },
         },
       },

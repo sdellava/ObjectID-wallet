@@ -99,7 +99,7 @@
     <section class="mb-4 flex flex-col items-center">
       <h2 class="font-bold">{$LL.SETTINGS.SUPPORT.ABOUT.LICENSE()}</h2>
       <div class="mb-3">Apache License 2.0</div>
-      <div>{`${new Date().getFullYear()} Impierce Technologies B.V.`}</div>
+      <div>{`${new Date().getFullYear()} ObjectID`}</div>
     </section>
   </div>
 </div>
