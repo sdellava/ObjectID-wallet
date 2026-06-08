@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
 
   import { goto } from '$app/navigation';
+  import { page } from '$app/state';
 
   import { loadOwnedObjectProducts, type ObjectIDProduct } from '$lib/objectid-items';
   import { state } from '$lib/stores';
@@ -51,7 +52,7 @@
   };
 
   onMount(() => {
-    void refreshProducts();
+    void refreshProducts(page.url.searchParams.get('refreshObjects') === '1');
   });
 
   $: if ($state.iota_wallet.did) {

@@ -343,6 +343,62 @@ export const prepareObjectGeolocationUpdate = async (args: {
   };
 };
 
+export const prepareObjectOwnerDidUpdate = async (args: {
+  did: string;
+  seed: string;
+  network: string;
+  objectId: string;
+  objectType?: string;
+  newOwnerDid: string;
+}) => {
+  const did = args.did.trim();
+  const seed = args.seed.trim();
+  const network = args.network.trim() || 'testnet';
+  const objectId = args.objectId.trim();
+  const objectType = String(args.objectType ?? '').trim();
+  const newOwnerDid = args.newOwnerDid.trim();
+
+  if (!did) throw new Error('Distributed Identity is missing.');
+  if (!seed) throw new Error('Wallet seed is missing.');
+  if (!objectId) throw new Error('Object ID is missing.');
+  if (!newOwnerDid) throw new Error('New owner DID is missing.');
+
+  await oid.connect({ did, seed, network });
+
+  const controllerCap = oid.session.oidControllerCap;
+
+  if (!controllerCap) throw new Error('ObjectID controller cap is not available for this identity.');
+
+  const env = await oid.env();
+  const tx = new Transaction();
+  const packageId = packageIdFromType(objectType) || env.objectPackageID;
+
+  tx.moveCall({
+    arguments: [
+      tx.object(controllerCap),
+      tx.object(objectId),
+      tx.pure.string(newOwnerDid),
+      tx.object('0x6'),
+    ],
+    target: `${packageId}::oid_object::update_owner_did`,
+  });
+  tx.setGasBudget(10_000_000);
+  tx.setSender(env.sender);
+
+  const [txKindBytes, gasPrice] = await Promise.all([
+    tx.build({ client: env.client, onlyTransactionKind: true }),
+    env.client.getReferenceGasPrice(),
+  ]);
+
+  return {
+    tx_kind_bcs_base64: toBase64(txKindBytes),
+    gas_budget: 10_000_000,
+    gas_price: Number(gasPrice),
+    network,
+    submit: true,
+  };
+};
+
 export const formatProductFieldLabel = (key: string) =>
   key
     .replace(/_/g, ' ')

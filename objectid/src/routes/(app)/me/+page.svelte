@@ -2,6 +2,7 @@
   import { beforeNavigate, goto, replaceState } from '$app/navigation';
   import { page } from '$app/state';
   import { fly } from 'svelte/transition';
+  import QRCode from 'qrcode';
 
   import { ActionSheet } from '$lib/components';
 
@@ -14,6 +15,7 @@
 
   import { Button, CredentialList, Favorites, IconMessage, PaddedIcon, Tabs } from '$lib/components';
   import { dispatch } from '$lib/dispatcher';
+  import { createObjectIDDIDSharePayload } from '$lib/objectid-did-share';
   import { GhostFillIcon, MagnifyingGlassIcon, PlusCircleIcon, RocketLaunchFillIcon } from '$lib/icons';
   import { onboarding_state, state } from '$lib/stores';
 
@@ -24,6 +26,9 @@
 
   let triggers = [$LL.ME.CREDENTIAL_TABS.ALL(), $LL.ME.CREDENTIAL_TABS.DATA(), $LL.ME.CREDENTIAL_TABS.BADGES()];
   let activeTab: Writable<string> = writable(page.state.tab || triggers[0]);
+  const identityQrOpen = writable(false);
+  let identityQrDataUrl = '';
+  let identityShareStatus = '';
 
   beforeNavigate(async ({ type, cancel }) => {
     replaceState('', { tab: $activeTab });
@@ -43,6 +48,56 @@
   const shortDid = (did: string) => {
     const [prefix, address] = did.match(/^(did:iota:[^:]+:)(.+)$/)?.slice(1) ?? ['', did];
     return address.length > 8 ? `${prefix}${address.slice(0, 8)}...` : did;
+  };
+
+  const openIdentityQr = async () => {
+    const did = $state.iota_wallet.did ?? '';
+    if (!did) return;
+
+    identityShareStatus = '';
+    identityQrOpen.set(true);
+    identityQrDataUrl = await QRCode.toDataURL(createObjectIDDIDSharePayload(did), {
+      errorCorrectionLevel: 'M',
+      margin: 2,
+      width: 260,
+      color: {
+        dark: '#000000',
+        light: '#ffffff',
+      },
+    });
+  };
+
+  const shareIdentityDid = async () => {
+    const did = $state.iota_wallet.did ?? '';
+    if (!did) return;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: 'ObjectID Distributed Identity',
+          text: did,
+        });
+        identityShareStatus = 'Shared.';
+        return;
+      }
+
+      await navigator.clipboard.writeText(did);
+      identityShareStatus = 'DID copied.';
+    } catch (err) {
+      identityShareStatus = err instanceof Error ? err.message : String(err);
+    }
+  };
+
+  const copyIdentityDid = async () => {
+    const did = $state.iota_wallet.did ?? '';
+    if (!did) return;
+
+    try {
+      await navigator.clipboard.writeText(did);
+      identityShareStatus = 'DID copied.';
+    } catch (err) {
+      identityShareStatus = err instanceof Error ? err.message : String(err);
+    }
   };
 
   // security: clear onboarding state after successful creation
@@ -70,7 +125,7 @@
     {#if $state.iota_wallet.did}
       <button
         class="mt-4 w-full rounded-xl border border-slate-200 bg-silver p-4 text-left dark:border-slate-600 dark:bg-navy"
-        onclick={() => goto('/me/iota-identity')}
+        onclick={openIdentityQr}
       >
         <div class="flex items-center justify-between gap-3">
           <p class="text-[13px]/[18px] font-semibold text-slate-800 dark:text-grey">Distributed Identity</p>
@@ -194,3 +249,39 @@
     <div class="text-[13px]/[24px] font-medium">{$LL.ADD_CREDENTIALS.BUTTON()}</div>
   </button>
 </div>
+
+<ActionSheet titleText="Share Distributed Identity" descriptionText="Share this DID with another ObjectID wallet." open={identityQrOpen}>
+  <div slot="content" class="flex w-full flex-col gap-4 pt-5">
+    {#if identityQrDataUrl}
+      <div class="flex justify-center">
+        <img class="h-[260px] w-[260px] rounded-xl bg-white p-3" src={identityQrDataUrl} alt="Distributed Identity QR code" />
+      </div>
+    {/if}
+    <p class="rounded-xl bg-silver p-3 font-mono text-[11px]/[16px] break-all text-slate-800 dark:bg-navy dark:text-grey">
+      {$state.iota_wallet.did}
+    </p>
+    {#if identityShareStatus}
+      <p class="text-center text-[12px]/[18px] font-semibold text-primary">{identityShareStatus}</p>
+    {/if}
+    <div class="grid grid-cols-2 gap-3">
+      <button
+        class="h-12 rounded-xl bg-primary px-4 py-2 text-[13px]/[24px] font-semibold text-white dark:text-dark"
+        onclick={shareIdentityDid}
+      >
+        Share
+      </button>
+      <button
+        class="h-12 rounded-xl border border-slate-200 bg-white px-4 py-2 text-[13px]/[24px] font-semibold text-slate-800 dark:border-slate-600 dark:bg-dark dark:text-grey"
+        onclick={copyIdentityDid}
+      >
+        Copy DID
+      </button>
+    </div>
+    <button
+      class="h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-[13px]/[24px] font-semibold text-slate-800 dark:border-slate-600 dark:bg-dark dark:text-grey"
+      onclick={() => goto('/me/iota-identity')}
+    >
+      Manage identity
+    </button>
+  </div>
+</ActionSheet>

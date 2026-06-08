@@ -52,7 +52,10 @@ importers:
         version: 1.11.0(typescript@5.9.3)
       '@objectid/oid-provider':
         specifier: ^1.10.16
-        version: 1.10.16(@iota/identity-wasm@1.8.0-beta.3(@iota/iota-sdk@1.14.0(typescript@5.9.3)))(typescript@5.9.3)
+        version: 1.10.16(@iota/identity-wasm@1.8.0-beta.3(@iota/iota-sdk@1.11.0(typescript@5.9.3)))(typescript@5.9.3)
+      jsqr:
+        specifier: ^1.4.0
+        version: 1.4.0
     devDependencies:
       '@aws-crypto/sha256-js':
         specifier: ^5.2.0
@@ -2026,6 +2029,9 @@ packages:
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
 
+  jsqr@1.4.0:
+    resolution: {integrity: sha512-dxLob7q65Xg2DvstYkRpkYtmKm2sPJ9oFhrhmudT1dZvNFFTlroai3AWSpLey/w5vMcLBXRgOJsbXpdN9HzU/A==}
+
   just-extend@6.2.0:
     resolution: {integrity: sha512-cYofQu2Xpom82S6qD778jBDpwvvy39s1l/hrYij2u9AMdQcGRpaBu6kY4mVhuno5kJVi1DAz4aiphA2WI1/OAw==}
 
@@ -3405,11 +3411,11 @@ snapshots:
     dependencies:
       '@scure/base': 1.2.6
 
-  '@iota/identity-wasm@1.8.0-beta.3(@iota/iota-sdk@1.14.0(typescript@5.9.3))':
+  '@iota/identity-wasm@1.8.0-beta.3(@iota/iota-sdk@1.11.0(typescript@5.9.3))':
     dependencies:
-      '@iota/iota-interaction-ts': 0.11.0(@iota/iota-sdk@1.14.0(typescript@5.9.3))
-      '@iota/iota-sdk': 1.14.0(typescript@5.9.3)
-      '@iota/notarization': 0.1.13(@iota/iota-sdk@1.14.0(typescript@5.9.3))
+      '@iota/iota-interaction-ts': 0.11.0(@iota/iota-sdk@1.11.0(typescript@5.9.3))
+      '@iota/iota-sdk': 1.11.0(typescript@5.9.3)
+      '@iota/notarization': 0.1.13(@iota/iota-sdk@1.11.0(typescript@5.9.3))
       '@noble/ed25519': 1.7.5
       '@noble/hashes': 1.8.0
       '@noble/post-quantum': 0.2.1
@@ -3420,13 +3426,13 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@iota/iota-interaction-ts@0.11.0(@iota/iota-sdk@1.14.0(typescript@5.9.3))':
+  '@iota/iota-interaction-ts@0.11.0(@iota/iota-sdk@1.11.0(typescript@5.9.3))':
     dependencies:
-      '@iota/iota-sdk': 1.14.0(typescript@5.9.3)
+      '@iota/iota-sdk': 1.11.0(typescript@5.9.3)
 
-  '@iota/iota-interaction-ts@0.14.0(@iota/iota-sdk@1.14.0(typescript@5.9.3))':
+  '@iota/iota-interaction-ts@0.14.0(@iota/iota-sdk@1.11.0(typescript@5.9.3))':
     dependencies:
-      '@iota/iota-sdk': 1.14.0(typescript@5.9.3)
+      '@iota/iota-sdk': 1.11.0(typescript@5.9.3)
 
   '@iota/iota-sdk@1.11.0(typescript@5.9.3)':
     dependencies:
@@ -3464,10 +3470,10 @@ snapshots:
       - '@gql.tada/vue-support'
       - typescript
 
-  '@iota/notarization@0.1.13(@iota/iota-sdk@1.14.0(typescript@5.9.3))':
+  '@iota/notarization@0.1.13(@iota/iota-sdk@1.11.0(typescript@5.9.3))':
     dependencies:
-      '@iota/iota-interaction-ts': 0.14.0(@iota/iota-sdk@1.14.0(typescript@5.9.3))
-      '@iota/iota-sdk': 1.14.0(typescript@5.9.3)
+      '@iota/iota-interaction-ts': 0.14.0(@iota/iota-sdk@1.11.0(typescript@5.9.3))
+      '@iota/iota-sdk': 1.11.0(typescript@5.9.3)
 
   '@jest/schemas@29.6.3':
     dependencies:
@@ -3537,9 +3543,9 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.6.0
 
-  '@objectid/oid-provider@1.10.16(@iota/identity-wasm@1.8.0-beta.3(@iota/iota-sdk@1.14.0(typescript@5.9.3)))(typescript@5.9.3)':
+  '@objectid/oid-provider@1.10.16(@iota/identity-wasm@1.8.0-beta.3(@iota/iota-sdk@1.11.0(typescript@5.9.3)))(typescript@5.9.3)':
     dependencies:
-      '@iota/identity-wasm': 1.8.0-beta.3(@iota/iota-sdk@1.14.0(typescript@5.9.3))
+      '@iota/identity-wasm': 1.8.0-beta.3(@iota/iota-sdk@1.11.0(typescript@5.9.3))
       '@iota/iota-sdk': 1.11.0(typescript@5.9.3)
       axios: 1.17.0
       open-location-code-typescript: 1.5.0
@@ -4778,6 +4784,8 @@ snapshots:
   json-schema-traverse@0.4.1: {}
 
   json-stable-stringify-without-jsonify@1.0.1: {}
+
+  jsqr@1.4.0: {}
 
   just-extend@6.2.0: {}
 
