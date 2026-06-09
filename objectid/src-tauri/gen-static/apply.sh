@@ -15,6 +15,7 @@ copy_file() {
 }
 
 copy_file ./android/app/proguard-rules.pro ../gen/android/app/proguard-rules.pro
+copy_file ./android/app/tauri.properties ../gen/android/app/tauri.properties
 cp -R ./android/app/src/main/res/. ../gen/android/app/src/main/res/
 find ../gen/android/buildSrc/src/main/java/com -mindepth 1 -maxdepth 1 -type d ! -name objectid -exec rm -rf {} +
 find ../gen/android/app/src/main/jniLibs -type l -name '*.so' ! -name libobjectid.so -delete 2>/dev/null || true
