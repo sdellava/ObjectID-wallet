@@ -48,7 +48,8 @@
       "developmentTeam": "ObjectID"
     },
     "android": {
-      "minSdkVersion": 28
+      "minSdkVersion": 28,
+      "versionCode": 13003
     },
     "linux": {
       "deb": {
