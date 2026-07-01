@@ -60,7 +60,7 @@
     "globals": "^16.5.0",
     "jsdom": "^29.1.1",
     "just-extend": "^6.2.0",
-    "markdown-it": "^14.1.1",
+    "markdown-it": "^14.2.0",
     "melt": "^0.41.0",
     "postcss": "^8.5.15",
     "qrcode": "^1.5.4",
