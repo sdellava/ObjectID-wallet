@@ -32,6 +32,7 @@ lerna-debug.log*
 .env
 .env.*
 !.env.example
+keystore.properties
 
 # Debug
 debug/

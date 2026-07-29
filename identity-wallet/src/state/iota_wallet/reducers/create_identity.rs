@@ -1,3 +1,5 @@
+#[cfg(target_os = "android")]
+use crate::state::core_utils::tls_config;
 use crate::{
     error::AppError,
     state::{
@@ -32,7 +34,7 @@ use identity_iota::{
     },
 };
 use iota_keys::keystore::{AccountKeystore, InMemKeystore};
-use iota_sdk::{types::crypto::SignatureScheme, IotaClientBuilder};
+use iota_sdk::{types::crypto::SignatureScheme, IotaClient, IotaClientBuilder};
 use iota_sdk_types::crypto::Intent;
 use product_common::{
     gas_station::GasStationOptions,
@@ -235,16 +237,7 @@ pub(crate) async fn identity_client_for_wallet(
     }
 
     let signer = WalletSigner { keystore, address };
-    let iota_client = match wallet.network {
-        IotaNetwork::Testnet => IotaClientBuilder::default()
-            .build_testnet()
-            .await
-            .map_err(|e| AppError::Error(format!("Failed to connect to IOTA testnet: {e}")))?,
-        IotaNetwork::Mainnet => IotaClientBuilder::default()
-            .build_mainnet()
-            .await
-            .map_err(|e| AppError::Error(format!("Failed to connect to IOTA mainnet: {e}")))?,
-    };
+    let iota_client = iota_client_for_network(wallet.network).await?;
 
     IdentityClient::from_iota_client(iota_client, None)
         .await
@@ -252,6 +245,28 @@ pub(crate) async fn identity_client_for_wallet(
         .with_signer(signer)
         .await
         .map_err(|e| AppError::Error(format!("Failed to attach IOTA Identity signer: {e}")))
+}
+
+async fn iota_client_for_network(network: IotaNetwork) -> Result<IotaClient, AppError> {
+    let builder = IotaClientBuilder::default();
+
+    #[cfg(target_os = "android")]
+    let builder = builder.tls_config(
+        tls_config()
+            .await
+            .map_err(|e| AppError::Error(format!("Failed to create Android TLS config: {e}")))?,
+    );
+
+    match network {
+        IotaNetwork::Testnet => builder
+            .build_testnet()
+            .await
+            .map_err(|e| AppError::Error(format!("Failed to connect to IOTA testnet: {e}"))),
+        IotaNetwork::Mainnet => builder
+            .build_mainnet()
+            .await
+            .map_err(|e| AppError::Error(format!("Failed to connect to IOTA mainnet: {e}"))),
+    }
 }
 
 pub(crate) fn imported_seed_bytes(value: &str) -> Option<Vec<u8>> {
